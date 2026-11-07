@@ -44,7 +44,7 @@ export const stats: Stat[] = [
     how: "Stride’s 9 and MediVault’s 6, each limited to auth.uid() = user_id. MediVault’s were tested with a second account and the anon key.",
     link: { href: "/projects/stride#security", text: "Security approach" },
     color: "#c6f432",
-    source: "stride and medivault CLAUDE.md table lists, medivault PROGRESS security checks",
+    source: "stride and medivault schema.sql table lists, medivault PROGRESS security checks",
   },
   {
     value: 0,

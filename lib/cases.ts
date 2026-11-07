@@ -1,4 +1,4 @@
-// Case-study content. Facts come from each project's README / CLAUDE.md and the private progress and audit notes.
+// Case-study content. Facts come from each project's README and its progress and audit notes.
 
 export type ArchNode = { title: string; lines: string[] };
 export type Case = {
