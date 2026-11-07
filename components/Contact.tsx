@@ -16,7 +16,7 @@ export function Contact() {
       />
       <Reveal className="relative mx-auto max-w-6xl px-5 text-center sm:px-8">
         <SplitHeading
-          text="Let’s build something that ships."
+          text="Let’s talk."
           className="display mx-auto max-w-[16ch] text-[clamp(2.5rem,7vw,5.5rem)] leading-[0.98] font-semibold tracking-[-0.045em] text-ink"
         />
         <RevealItem>
