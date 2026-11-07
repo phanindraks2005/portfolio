@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useState, useSyncExternalStore } from "react";
 import { bugs, type Bug } from "@/lib/bugs";
 import { Reveal, RevealItem } from "./motion";
 import { scrollToHash } from "./SmoothScroll";
@@ -38,32 +38,33 @@ export function Bugs() {
   );
 }
 
+const onHashChange = (cb: () => void) => {
+  window.addEventListener("hashchange", cb);
+  return () => window.removeEventListener("hashchange", cb);
+};
+
 function BugCard({ bug: b }: { bug: Bug }) {
-  const [open, setOpen] = useState(false);
+  const hash = `#${b.id}`;
+  // A link to this card ("Read the full bug story", /#bug-…) opens it, until the reader toggles it themselves.
+  const targeted = useSyncExternalStore(onHashChange, () => location.hash === hash, () => false);
+  const [toggled, setToggled] = useState<boolean | null>(null);
+  const open = toggled ?? targeted;
   const id = useId();
 
-  // A link to this card ("Read the full bug story", /#bug-…) opens it, on arrival or from the same page.
   useEffect(() => {
-    const hash = `#${b.id}`;
-    let settle = 0;
-    if (location.hash === hash) {
-      setOpen(true);
-      // The browser scrolled here while the card was still sliding up into place; line it up again once it has.
-      settle = window.setTimeout(() => scrollToHash(hash), 900);
-    }
+    // The browser scrolled here while the card was still sliding up into place; line it up again once it has.
+    const settle = location.hash === hash ? window.setTimeout(() => scrollToHash(hash), 900) : 0;
+    // Same-page links can scroll without changing the hash.
     const onClick = (e: MouseEvent) => {
       const a = (e.target as Element | null)?.closest?.("a[href]");
-      if (a && new URL((a as HTMLAnchorElement).href).hash === hash) setOpen(true);
+      if (a && new URL((a as HTMLAnchorElement).href).hash === hash) setToggled(true);
     };
-    const onHash = () => location.hash === hash && setOpen(true);
     document.addEventListener("click", onClick);
-    window.addEventListener("hashchange", onHash);
     return () => {
       document.removeEventListener("click", onClick);
-      window.removeEventListener("hashchange", onHash);
       clearTimeout(settle);
     };
-  }, [b.id]);
+  }, [hash]);
   return (
     <article
       id={b.id}
@@ -76,7 +77,7 @@ function BugCard({ bug: b }: { bug: Bug }) {
           type="button"
           aria-expanded={open}
           aria-controls={id}
-          onClick={() => setOpen((o) => !o)}
+          onClick={() => setToggled(!open)}
           className="flex w-full items-start gap-4 rounded-[22px] p-6 text-left sm:p-7"
         >
           <span className="min-w-0 flex-1">

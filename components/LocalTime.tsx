@@ -13,5 +13,7 @@ export function LocalTime() {
 
 async function Now() {
   await connection();
+  // Rendered once per request (after connection()), so reading the clock here is intended.
+  // eslint-disable-next-line react-hooks/purity
   return <Clock start={Date.now()} />;
 }
