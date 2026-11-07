@@ -86,7 +86,7 @@ export function Hero() {
             <li>Bengaluru, India</li>
           </ul>
         </div>
-        <div className="hidden lg:block">
+        <div className="mx-auto w-full max-w-[340px] lg:max-w-none">
           <HeroPhones />
         </div>
       </div>

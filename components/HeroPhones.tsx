@@ -1,28 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useSyncExternalStore } from "react";
+import { useEffect, useRef } from "react";
 import { RoadSenseMap } from "./RoadSenseArt";
 
-/** The three products as phones, each lit in its own colour; they tilt toward the pointer. Desktop only. */
-const WIDE = "(min-width: 1024px)";
-const subscribe = (cb: () => void) => {
-  const mq = matchMedia(WIDE);
-  mq.addEventListener("change", cb);
-  return () => mq.removeEventListener("change", cb);
-};
-
+/**
+ * The three products as phones, each lit in its own colour. Rendered on the server and visible at once on every
+ * screen; only the motion (pointer tilt, gentle bob) is added in the browser, and only on fine pointers.
+ */
 export function HeroPhones() {
-  // Rendered only on wide screens, so phones never download these pictures.
-  const wide = useSyncExternalStore(
-    subscribe,
-    () => matchMedia(WIDE).matches,
-    () => false,
-  );
-  return wide ? <Phones /> : <div className="aspect-[1/1.02] w-full max-w-[440px]" />;
-}
-
-function Phones() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -70,10 +56,10 @@ function Phones() {
         <RoadSenseMap />
       </Frame>
       <Frame className="top-[15%] right-[3%] w-[38%] rotate-[9deg]" color="#2dd4bf" delay={3} depth={10}>
-        <Image src="/shots/medivault-public-card.webp" alt="" fill sizes="180px" className="object-cover object-top" />
+        <Image src="/shots/medivault-public-card.webp" alt="" fill sizes="(min-width: 1024px) 170px, 120px" className="object-cover object-top" priority />
       </Frame>
       <Frame className="top-[2%] left-[27%] z-10 w-[46%]" color="#c6f432" delay={1} depth={22}>
-        <Image src="/shots/stride-today-phone.webp" alt="" fill sizes="210px" className="object-cover object-top" />
+        <Image src="/shots/stride-today-phone.webp" alt="" fill sizes="(min-width: 1024px) 210px, 150px" className="object-cover object-top" priority />
       </Frame>
     </div>
   );
@@ -95,7 +81,7 @@ function Frame({
   return (
     <div className={`absolute ${className}`}>
       <div className="phone-parallax" style={{ ["--depth" as string]: depth }}>
-        <div className="phone-float" style={{ ["--d" as string]: delay }}>
+        <div style={{ ["--d" as string]: delay }}>
           <div
             className="phone-bob rounded-[26px] border border-white/12 bg-[#16181d] p-[5px]"
             style={{ boxShadow: `0 40px 80px -30px rgb(0 0 0 / 0.9), 0 0 80px -20px ${color}66` }}
