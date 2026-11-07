@@ -1,0 +1,116 @@
+export const site = {
+  name: "K S Phanindra",
+  role: "Full-stack developer · AI-integrated web apps",
+  url: "https://ksphanindra.vercel.app",
+  email: "phanindra.k.s.2005@gmail.com",
+  github: "https://github.com/phanindraks2005",
+  linkedin: "https://www.linkedin.com/in/ksphanindra",
+  resume: "/resume.pdf",
+};
+
+export type Project = {
+  slug: string;
+  name: string;
+  kind: string;
+  pitch: string;
+  highlights: string[];
+  stack: string[];
+  color: string;
+  live?: string;
+  github: string;
+  laptop?: { src: string; alt: string };
+  phone?: { src: string; alt: string };
+};
+
+export const projects: Project[] = [
+  {
+    slug: "stride",
+    name: "Stride",
+    kind: "Habit and fitness tracker",
+    pitch: "A habit and fitness tracker with an AI copilot that acts on your data, not just talks about it.",
+    highlights: [
+      "Libra, a Gemini copilot with function calling: it logs entries, creates trackers and writes meal and workout plans, streaming its replies.",
+      "Fixed multi-step requests: “log 300 ml water and 20 g protein” now runs every tool call and reports any that failed instead of claiming them.",
+      "Paged past Supabase’s 1,000-row limit, which had been silently dropping older history from heavy users’ streaks and charts.",
+      "A read-only /demo runs every page on a sample year of data held in memory, so nothing is sent anywhere.",
+    ],
+    stack: ["Next.js 16", "React 19", "Supabase", "Gemini API", "Framer Motion", "Recharts"],
+    color: "#c6f432",
+    live: "https://stride-ks.vercel.app/demo",
+    github: "https://github.com/phanindraks2005/stride",
+    laptop: {
+      src: "/shots/stride-today.webp",
+      alt: "Stride's Today page: a 23-day streak with a heatmap, goals hit this week and tracker cards",
+    },
+    phone: { src: "/shots/stride-today-phone.webp", alt: "Stride's Today page on a phone with the bottom tab bar" },
+  },
+  {
+    slug: "medivault",
+    name: "MediVault",
+    kind: "Family health records",
+    pitch:
+      "Upload a prescription and Gemini pulls out the doctor, date and medicines, so a whole family’s history is searchable in one place.",
+    highlights: [
+      "Row-level security on every table, a private per-user storage bucket and token-checked API routes.",
+      "Found and fixed a cross-account file read in my own QA audit: the extraction route now refuses any path outside the caller’s folder.",
+      "QR emergency card a paramedic can open without logging in: a 256-bit token stored only as a SHA-256 hash, revocable, expiring and rate limited.",
+      "Doc, a chat assistant that answers from the family’s own records, plus an interaction checker and visit summaries.",
+    ],
+    stack: ["Next.js 16", "TypeScript", "Supabase", "Gemini API", "Tailwind CSS"],
+    color: "#2dd4bf",
+    live: "https://medivault-ks.vercel.app/demo",
+    github: "https://github.com/phanindraks2005/medivault",
+    laptop: {
+      src: "/shots/medivault-dashboard.webp",
+      alt: "MediVault's dashboard: a month calendar of vaccinations and prescriptions, and what's coming up for the sample family",
+    },
+    phone: {
+      src: "/shots/medivault-public-card.webp",
+      alt: "MediVault's public emergency card on a phone: allergies in red, blood group, conditions and Call 112 / Call 108",
+    },
+  },
+  {
+    slug: "roadsense",
+    name: "RoadSense",
+    kind: "Speed-bump detection, Android",
+    pitch: "An Android app that detects speed bumps from GPS speed data and warns drivers before they reach one.",
+    highlights: [
+      "Finds candidate events in the speed trace: a drop of 20% or more that recovers within 5 seconds.",
+      "A scikit-learn Random Forest scores each event on drop, deceleration, recovery time and jerk; only those above 0.70 confidence are kept.",
+      "Crowd validation: a bump is confirmed once it has been detected twice within 20 m.",
+      "A “Speed Bump Ahead” banner and voice alert at 400 m and again at 60 m, on an OpenStreetMap map.",
+    ],
+    stack: ["Flutter", "Dart", "FastAPI", "scikit-learn", "SQLite", "Render"],
+    color: "#f5a524",
+    github: "https://github.com/phanindraks2005/roadsense-app",
+  },
+];
+
+export const skills: { group: string; items: string[] }[] = [
+  { group: "Frontend", items: ["Next.js", "React", "TypeScript", "JavaScript", "Tailwind CSS", "Framer Motion", "Flutter"] },
+  { group: "Backend", items: ["Node.js", "FastAPI", "Python", "REST APIs"] },
+  { group: "Database", items: ["PostgreSQL", "Supabase", "SQLite"] },
+  { group: "AI", items: ["Gemini API", "scikit-learn", "pandas"] },
+  { group: "Tools", items: ["Git", "GitHub Actions", "Vercel", "Render"] },
+];
+
+export const experience = [
+  {
+    title: "Junior Coordinator, Volunteering Committee",
+    org: "Utsav, BMSCE’s cultural fest",
+    year: "2025",
+    text: "Led a team of 12 volunteers across every event area: task allocation, schedules and on-ground logistics.",
+  },
+  {
+    title: "Volunteer",
+    org: "PhaseShift, BMSCE’s technical fest",
+    year: "2025",
+    text: "Supported fest operations and event management.",
+  },
+  {
+    title: "Technical Team Member",
+    org: "Deathscapes, BMSCE",
+    year: "2025",
+    text: "Handled technical setup and coordination in the execution team.",
+  },
+];

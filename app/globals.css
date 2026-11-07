@@ -1,0 +1,305 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #07080a;
+  --surface: #0d0f13;
+  --surface-2: #13161c;
+  --line: rgb(255 255 255 / 0.08);
+  --line-strong: rgb(255 255 255 / 0.14);
+  --ink: #f5f6f8;
+  --ink-2: #b4bac5;
+  --muted: #8a919e;
+  --accent: #4f7cff;
+  --accent-soft: rgb(79 124 255 / 0.16);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.display {
+  font-family: var(--font-geist), var(--font-inter), system-ui, sans-serif;
+  letter-spacing: -0.035em;
+}
+
+/* Hero aurora: three soft colour fields drifting slowly. Only transform animates. */
+.aurora {
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  height: 120%;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 85%);
+  mask-image: linear-gradient(to bottom, #000 30%, transparent 85%);
+}
+.aurora span {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+.aurora .a1 {
+  width: 62vw;
+  height: 42vw;
+  left: 8%;
+  top: -6%;
+  background: radial-gradient(closest-side, rgb(79 124 255 / 0.42), transparent);
+  animation: drift1 22s var(--ease) infinite alternate;
+}
+.aurora .a2 {
+  width: 48vw;
+  height: 36vw;
+  right: 4%;
+  top: 4%;
+  background: radial-gradient(closest-side, rgb(56 189 248 / 0.22), transparent);
+  animation: drift2 28s var(--ease) infinite alternate;
+}
+.aurora .a3 {
+  width: 40vw;
+  height: 30vw;
+  left: 34%;
+  top: 22%;
+  background: radial-gradient(closest-side, rgb(99 102 241 / 0.2), transparent);
+  animation: drift3 34s var(--ease) infinite alternate;
+}
+@keyframes drift1 {
+  to { transform: translate3d(12vw, 6vw, 0) scale(1.15); }
+}
+@keyframes drift2 {
+  to { transform: translate3d(-14vw, 8vw, 0) scale(0.9); }
+}
+@keyframes drift3 {
+  to { transform: translate3d(-8vw, -6vw, 0) scale(1.2); }
+}
+
+/* Faint dot field under the aurora. */
+.dots {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000, transparent 75%);
+}
+
+/* Pulsing status dot. */
+.pulse {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #34d399;
+}
+.pulse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #34d399;
+  animation: ping 2s var(--ease) infinite;
+}
+@keyframes ping {
+  from { transform: scale(1); opacity: 0.7; }
+  to { transform: scale(3); opacity: 0; }
+}
+
+/* Hero entrance (CSS so the headline paints without waiting for JS). */
+.rise {
+  animation: rise 0.9s var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+}
+.rise-h1 {
+  animation: rise-h1 1s var(--ease) both;
+}
+@keyframes rise-h1 {
+  from { transform: translateY(24px); }
+}
+
+/* Cards with a cursor-follow glow. --mx/--my are set from pointer moves. */
+.glow-card {
+  --mx: 50%;
+  --my: 0%;
+  --glow: var(--accent);
+  position: relative;
+  isolation: isolate;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  transition: border-color 0.4s var(--ease), transform 0.5s var(--ease);
+}
+.glow-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(420px circle at var(--mx) var(--my), color-mix(in srgb, var(--glow) 70%, transparent), transparent 60%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  pointer-events: none;
+}
+.glow-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(600px circle at var(--mx) var(--my), color-mix(in srgb, var(--glow) 9%, transparent), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  pointer-events: none;
+  z-index: -1;
+}
+@media (hover: hover) and (pointer: fine) {
+  .glow-card:hover::before,
+  .glow-card:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Project card: brand glow, lift and a slight tilt of the devices. */
+.project {
+  --c: var(--accent);
+  --glow: var(--c);
+  transition: transform 0.6s var(--ease), border-color 0.4s var(--ease), box-shadow 0.6s var(--ease);
+}
+.project .stage {
+  isolation: isolate;
+  background: color-mix(in srgb, var(--c) 4%, #0a0c10);
+  border-bottom: 1px solid var(--line);
+}
+.project .halo {
+  position: absolute;
+  pointer-events: none;
+  inset: 12% 8% -35% 8%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--c) 26%, transparent), transparent);
+  opacity: 0.75;
+  transition: opacity 0.6s var(--ease), transform 0.8s var(--ease);
+  z-index: -1;
+}
+.project .devices {
+  transform: perspective(1400px) rotateX(0) rotateY(0);
+  transition: transform 0.8s var(--ease);
+  transform-style: preserve-3d;
+}
+@media (hover: hover) and (pointer: fine) {
+  .project:hover {
+    transform: translateY(-6px);
+    border-color: color-mix(in srgb, var(--c) 35%, transparent);
+    box-shadow: 0 40px 120px -40px color-mix(in srgb, var(--c) 45%, transparent);
+  }
+  .project:hover .halo {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  .project:hover .devices {
+    transform: perspective(1400px) rotateX(5deg) rotateY(-4deg) translateY(-6px);
+  }
+  .project.flip:hover .devices {
+    transform: perspective(1400px) rotateX(5deg) rotateY(4deg) translateY(-6px);
+  }
+}
+
+/* Infinite logo marquee. */
+.marquee {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 48s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .marquee-track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; }
+  .marquee-track [data-dupe] { display: none; }
+  .pulse::after { display: none; }
+}
+
+/* Command palette and toast entrances. */
+.palette[open] {
+  animation: palette-in 0.22s var(--ease);
+}
+.palette[open]::backdrop {
+  animation: fade-in 0.22s var(--ease);
+}
+@keyframes palette-in {
+  from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+.toast {
+  animation: toast-in 0.35s var(--ease);
+}
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+}
+
+/* Hero phones: rise in, then float gently. */
+.phone-float {
+  animation: phone-in 1.1s var(--ease) both, float 7s ease-in-out infinite alternate;
+  animation-delay: calc(var(--d, 0) * 120ms + 150ms), calc(var(--d, 0) * -2s);
+}
+@keyframes phone-in {
+  from { opacity: 0; transform: translateY(40px); }
+}
+@keyframes float {
+  from { translate: 0 0; }
+  to { translate: 0 -12px; }
+}
