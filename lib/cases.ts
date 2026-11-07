@@ -96,7 +96,7 @@ export const cases: Record<string, Case> = {
       { value: "2 / 2", label: "entries logged and confirmed in the database for “log 300 ml water and 20 g protein” after the Libra fix" },
     ],
     next: [
-      "Rate and size limits on Libra’s chat route, and security headers (both still open in my audit).",
+      "A rate limit on Libra’s chat route, and security headers (both still open in my audit; the 2,000-character message limit is done).",
       "Password reset: there is no “Forgot password?” yet.",
       "Signed-in dashboard on mobile measures about 81 in Lighthouse; next is rendering it on the server with its data.",
     ],
