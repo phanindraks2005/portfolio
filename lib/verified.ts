@@ -48,7 +48,7 @@ export const stats: Stat[] = [
   },
   {
     value: 0,
-    label: "real secrets in the full git history of my 6 repos",
+    label: "real secrets in the full git history of the 6 repos I audited",
     how: "gitleaks over every branch plus a regex scan of every diff. Its one hit was the public hash of a demo token.",
     link: { href: "/projects/medivault#security", text: "How keys are kept" },
     color: "#4f7cff",
