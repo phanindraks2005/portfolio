@@ -53,7 +53,7 @@ export default async function CaseStudy({ params }: PageProps<"/projects/[slug]"
         />
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
           <div>
-            <Link href="/#projects" className="inline-flex items-center gap-2 text-[14px] text-ink-2 transition-colors hover:text-ink">
+            <Link href="/#projects" className="inline-flex min-h-11 items-center gap-2 text-[14px] text-ink-2 transition-colors hover:text-ink">
               <ArrowLeft size={16} aria-hidden="true" />
               All projects
             </Link>
@@ -190,7 +190,7 @@ export default async function CaseStudy({ params }: PageProps<"/projects/[slug]"
                 {h.href && (
                   <Link
                     href={h.href}
-                    className="mt-auto inline-flex items-center gap-1 self-start pt-4 text-[14px] font-medium text-accent-text hover:text-ink"
+                    className="mt-auto inline-flex min-h-11 items-center gap-1 self-start pt-2 text-[14px] font-medium text-accent-text hover:text-ink"
                   >
                     Read the full bug story
                     <ArrowUpRight size={14} aria-hidden="true" />

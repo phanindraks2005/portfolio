@@ -71,7 +71,7 @@ export function MobileMenu() {
         aria-label="Open menu"
         aria-haspopup="dialog"
         aria-expanded={open}
-        className="grid size-9 place-items-center rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:border-line-strong hover:text-ink md:hidden"
+        className="grid size-11 place-items-center md:size-9 rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:border-line-strong hover:text-ink md:hidden"
       >
         <Menu size={17} aria-hidden="true" />
       </button>
@@ -85,14 +85,14 @@ export function MobileMenu() {
       >
         <div className="flex h-full flex-col px-5">
           <div className="flex h-16 shrink-0 items-center justify-between">
-            <Link href="/" onClick={close} className="display text-[17px] font-semibold text-ink">
+            <Link href="/" onClick={close} className="display inline-flex h-11 items-center text-[17px] font-semibold text-ink">
               K S Phanindra
             </Link>
             <button
               type="button"
               onClick={close}
               aria-label="Close menu"
-              className="grid size-9 place-items-center rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:text-ink"
+              className="grid size-11 place-items-center md:size-9 rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:text-ink"
             >
               <X size={17} aria-hidden="true" />
             </button>

@@ -53,7 +53,7 @@ function StatCard({ stat: s }: { stat: Stat }) {
       <p className="mt-2 text-[14px] leading-relaxed text-ink-2">{s.how}</p>
       <Link
         href={s.link.href}
-        className="mt-auto inline-flex items-center gap-1 self-start pt-5 text-[14px] font-medium text-accent-text transition-colors hover:text-ink"
+        className="mt-auto inline-flex min-h-11 items-center gap-1 self-start pt-3 text-[14px] font-medium text-accent-text transition-colors hover:text-ink"
       >
         {s.link.text}
         <ArrowUpRight size={14} aria-hidden="true" />

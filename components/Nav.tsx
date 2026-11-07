@@ -37,7 +37,7 @@ export function Nav() {
       }`}
     >
       <nav aria-label="Main" className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
-        <Link href="/" className="display text-[17px] font-semibold text-ink">
+        <Link href="/" className="display inline-flex h-11 items-center text-[17px] font-semibold text-ink">
           K S Phanindra
         </Link>
         <div className="flex items-center gap-2 md:gap-1">
@@ -61,7 +61,7 @@ export function Nav() {
             aria-label="Search the site"
             title="Search the site"
             aria-keyshortcuts={mac ? "Meta+K" : "Control+K"}
-            className="ml-2 flex h-9 min-w-9 items-center justify-center gap-2 rounded-lg border border-line bg-surface px-2.5 text-ink-2 transition-colors hover:border-line-strong hover:text-ink"
+            className="ml-2 flex h-11 min-w-11 md:h-9 md:min-w-9 items-center justify-center gap-2 rounded-lg border border-line bg-surface px-2.5 text-ink-2 transition-colors hover:border-line-strong hover:text-ink"
           >
             <Search size={16} aria-hidden="true" />
             <kbd className="hidden font-mono text-[12px] text-muted md:inline" aria-hidden="true">

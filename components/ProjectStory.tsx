@@ -78,7 +78,7 @@ export function ProjectStory({ project: p, steps, flip }: { project: Project; st
                 href={p.live}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-10 items-center gap-1.5 rounded-full px-4 text-[14px] font-medium text-black transition-transform duration-300 hover:-translate-y-0.5 active:scale-[0.97]"
+                className="inline-flex h-11 items-center gap-1.5 rounded-full px-4 text-[14px] font-medium text-black transition-transform duration-300 hover:-translate-y-0.5 active:scale-[0.97]"
                 style={{ background: p.color }}
               >
                 Live demo
@@ -89,14 +89,14 @@ export function ProjectStory({ project: p, steps, flip }: { project: Project; st
               href={p.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-10 items-center gap-2 rounded-full border border-line-strong px-4 text-[14px] font-medium text-ink transition-colors duration-300 hover:border-white/30 hover:bg-white/[0.04] active:scale-[0.97]"
+              className="inline-flex h-11 items-center gap-2 rounded-full border border-line-strong px-4 text-[14px] font-medium text-ink transition-colors duration-300 hover:border-white/30 hover:bg-white/[0.04] active:scale-[0.97]"
             >
               <GitHubIcon size={15} />
               GitHub
             </a>
             <Link
               href={`/projects/${p.slug}`}
-              className="inline-flex h-10 items-center gap-1 rounded-full px-3 text-[14px] font-medium text-ink-2 transition-colors duration-300 hover:text-ink"
+              className="inline-flex h-11 items-center gap-1 rounded-full px-3 text-[14px] font-medium text-ink-2 transition-colors duration-300 hover:text-ink"
             >
               Case study
               <ArrowUpRight size={15} aria-hidden="true" />

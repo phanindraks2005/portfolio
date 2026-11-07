@@ -20,7 +20,7 @@ export default function ResumePage() {
     <main className="resume-page px-5 pt-28 pb-24 sm:px-8 sm:pt-32">
       <div className="mx-auto max-w-[860px]">
         <div className="no-print mb-8 flex flex-wrap items-center justify-between gap-3">
-          <Link href="/" className="inline-flex items-center gap-2 text-[14px] text-ink-2 transition-colors hover:text-ink">
+          <Link href="/" className="inline-flex min-h-11 items-center gap-2 text-[14px] text-ink-2 transition-colors hover:text-ink">
             <ArrowLeft size={16} aria-hidden="true" />
             Back to portfolio
           </Link>
@@ -28,7 +28,7 @@ export default function ResumePage() {
             <a
               href={site.resume}
               download="KS_Phanindra_Resume.pdf"
-              className="inline-flex h-10 items-center gap-2 rounded-full bg-accent-strong px-4 text-[14px] font-medium text-white transition-[transform,background-color] duration-300 hover:bg-accent-hover active:scale-[0.97]"
+              className="inline-flex h-11 items-center gap-2 rounded-full bg-accent-strong px-4 text-[14px] font-medium text-white transition-[transform,background-color] duration-300 hover:bg-accent-hover active:scale-[0.97]"
             >
               <Download size={15} aria-hidden="true" />
               Download PDF
@@ -43,16 +43,16 @@ export default function ResumePage() {
             <p className="mt-4 flex flex-wrap justify-center gap-x-3 gap-y-1 text-[14px] text-ink-2">
               <span>{resume.location}</span>
               <span aria-hidden="true">·</span>
-              <a href={`mailto:${site.email}`} className="underline-offset-4 hover:text-ink hover:underline">
+              <a href={`mailto:${site.email}`} className="inline-flex min-h-11 items-center underline-offset-4 hover:text-ink hover:underline sm:min-h-0">
                 {site.email}
               </a>
               <span aria-hidden="true">·</span>
-              <a href={site.linkedin} className="inline-flex items-center gap-1.5 underline-offset-4 hover:text-ink hover:underline">
+              <a href={site.linkedin} className="inline-flex min-h-11 items-center gap-1.5 underline-offset-4 hover:text-ink hover:underline sm:min-h-0">
                 <LinkedInIcon size={13} />
                 {host(site.linkedin)}
               </a>
               <span aria-hidden="true">·</span>
-              <a href={site.github} className="inline-flex items-center gap-1.5 underline-offset-4 hover:text-ink hover:underline">
+              <a href={site.github} className="inline-flex min-h-11 items-center gap-1.5 underline-offset-4 hover:text-ink hover:underline sm:min-h-0">
                 <GitHubIcon size={13} />
                 {host(site.github)}
               </a>
@@ -104,11 +104,11 @@ export default function ResumePage() {
                       {p.name} <span className="font-normal text-ink-2">— {p.tagline}</span>
                     </h3>
                     <p className="flex gap-3 text-[14px]">
-                      <a href={p.github} className="text-accent-text underline-offset-4 hover:underline">
+                      <a href={p.github} className="inline-flex min-h-11 min-w-11 items-center text-accent-text underline-offset-4 hover:underline sm:min-h-0 sm:min-w-0">
                         GitHub
                       </a>
                       {p.live && (
-                        <a href={p.live} className="text-accent-text underline-offset-4 hover:underline">
+                        <a href={p.live} className="inline-flex min-h-11 min-w-11 items-center text-accent-text underline-offset-4 hover:underline sm:min-h-0 sm:min-w-0">
                           Live
                         </a>
                       )}
