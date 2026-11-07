@@ -1,6 +1,5 @@
 import { GraduationCap, MapPin, Target } from "lucide-react";
 import { skills } from "@/lib/data";
-import { Contributions } from "./Contributions";
 import { LocalTime } from "./LocalTime";
 import { BrandIcon } from "./icons";
 import { Reveal, RevealItem } from "./motion";
@@ -86,10 +85,6 @@ export function About() {
                 </div>
               ))}
             </dl>
-          </RevealItem>
-
-          <RevealItem className="md:col-span-6">
-            <Contributions />
           </RevealItem>
         </Reveal>
       </div>
