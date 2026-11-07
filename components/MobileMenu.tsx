@@ -48,6 +48,21 @@ export function MobileMenu() {
     setOpen(false);
   };
 
+  // A modal dialog lets Tab leave for the browser's own toolbar; keep it cycling through the menu instead.
+  const wrapTab = (e: React.KeyboardEvent<HTMLDialogElement>) => {
+    if (e.key !== "Tab") return;
+    const items = [...e.currentTarget.querySelectorAll<HTMLElement>("a[href], button")];
+    const first = items[0];
+    const last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
+
   return (
     <>
       <button
@@ -64,6 +79,7 @@ export function MobileMenu() {
       <dialog
         ref={dialog}
         onClose={close}
+        onKeyDown={wrapTab}
         aria-label="Menu"
         className="mobile-menu m-0 h-dvh max-h-none w-full max-w-none bg-bg p-0 text-ink backdrop:bg-transparent"
       >
