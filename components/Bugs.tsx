@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { bugs, type Bug } from "@/lib/bugs";
 import { Reveal, RevealItem } from "./motion";
 import { SplitHeading } from "./SplitHeading";
@@ -40,6 +40,23 @@ export function Bugs() {
 function BugCard({ bug: b }: { bug: Bug }) {
   const [open, setOpen] = useState(false);
   const id = useId();
+
+  // A link to this card ("Read the full bug story", /#bug-…) opens it, on arrival or from the same page.
+  useEffect(() => {
+    const hash = `#${b.id}`;
+    if (location.hash === hash) setOpen(true);
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as Element | null)?.closest?.("a[href]");
+      if (a && new URL((a as HTMLAnchorElement).href).hash === hash) setOpen(true);
+    };
+    const onHash = () => location.hash === hash && setOpen(true);
+    document.addEventListener("click", onClick);
+    window.addEventListener("hashchange", onHash);
+    return () => {
+      document.removeEventListener("click", onClick);
+      window.removeEventListener("hashchange", onHash);
+    };
+  }, [b.id]);
   return (
     <article
       id={b.id}
