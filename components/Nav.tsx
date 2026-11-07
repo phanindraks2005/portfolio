@@ -1,13 +1,13 @@
 "use client";
 
-import { Menu } from "lucide-react";
+import { Search } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { openPalette } from "./CommandPalette";
 
 const links = [
   { href: "/#projects", label: "Projects" },
-  { href: "/#bugs", label: "Bugs" },
+  { href: "/#bugs", label: "Engineering" },
   { href: "/#about", label: "About" },
   { href: "/#contact", label: "Contact" },
 ];
@@ -57,12 +57,15 @@ export function Nav() {
           <button
             type="button"
             onClick={openPalette}
-            className="ml-2 flex items-center gap-2 rounded-lg border border-line bg-surface px-2.5 py-1.5 text-[13px] text-ink-2 transition-colors hover:border-line-strong hover:text-ink"
+            aria-label="Search the site"
+            title="Search the site"
+            aria-keyshortcuts={mac ? "Meta+K" : "Control+K"}
+            className="ml-2 flex h-9 min-w-9 items-center justify-center gap-2 rounded-lg border border-line bg-surface px-2.5 text-ink-2 transition-colors hover:border-line-strong hover:text-ink"
           >
-            <Menu size={16} className="md:hidden" aria-hidden="true" />
-            <span className="md:hidden">Menu</span>
-            <span className="hidden md:inline">Jump to</span>
-            <kbd className="hidden font-mono text-[12px] text-muted md:inline">{mac ? "⌘" : "Ctrl"} K</kbd>
+            <Search size={16} aria-hidden="true" />
+            <kbd className="hidden font-mono text-[12px] text-muted md:inline" aria-hidden="true">
+              {mac ? "⌘" : "Ctrl"} K
+            </kbd>
           </button>
         </div>
       </nav>

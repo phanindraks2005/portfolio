@@ -44,7 +44,7 @@ export function CommandPalette() {
         id: "bugs",
         label: "Bugs I’ve killed",
         group: "Sections",
-        keywords: "debugging stories",
+        keywords: "engineering debugging stories",
         icon: <Hash size={16} />,
         run: () => go("#bugs"),
       },
