@@ -63,6 +63,7 @@ export default async function CaseStudy({ params }: PageProps<"/projects/[slug]"
             </p>
             <h1 className="display mt-4 text-[clamp(3rem,7vw,5rem)] leading-[0.95] font-semibold tracking-[-0.045em] text-ink">{p.name}</h1>
             <p className="mt-5 max-w-[48ch] text-[clamp(1.05rem,1.6vw,1.25rem)] leading-relaxed text-ink">{p.pitch}</p>
+            {p.team && <p className="mt-3 max-w-[48ch] text-[15px] leading-relaxed text-ink-2">{p.team}</p>}
             <div className="mt-8 flex flex-wrap gap-3">
               {p.live && (
                 <a

@@ -18,6 +18,8 @@ export type Project = {
   color: string;
   live?: string;
   github: string;
+  /** Who built it with me, for team projects. */
+  team?: string;
   laptop?: { src: string; alt: string };
   phone?: { src: string; alt: string };
 };
@@ -83,6 +85,7 @@ export const projects: Project[] = [
     stack: ["Flutter", "Dart", "FastAPI", "scikit-learn", "SQLite", "Render"],
     color: "#f5a524",
     github: "https://github.com/phanindraks2005/roadsense-app",
+    team: "Final-year team project with P Ashrita and Sandesh, guided by Dr. Naresh E.",
   },
 ];
 

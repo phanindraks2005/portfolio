@@ -59,6 +59,7 @@ export function ProjectStory({ project: p, steps, flip }: { project: Project; st
           </div>
           <h3 className="display mt-4 text-[clamp(2.5rem,5vw,3.75rem)] leading-[0.98] font-semibold text-ink">{p.name}</h3>
           <p className="mt-4 max-w-[46ch] text-[18px] leading-relaxed text-ink">{p.pitch}</p>
+          {p.team && <p className="mt-3 max-w-[46ch] text-[15px] leading-relaxed text-ink-2">{p.team}</p>}
         </RevealItem>
         <RevealItem>
           <ul className="flex flex-wrap gap-2" aria-label={`${p.name} tech stack`}>
