@@ -1,13 +1,14 @@
 import { experience } from "@/lib/data";
 import { Reveal, RevealItem } from "./motion";
+import { SplitHeading } from "./SplitHeading";
 
 export function Experience() {
   return (
-    <section id="experience" className="py-24 sm:py-32">
+    <section id="experience" data-glow="#4f7cff" className="cv py-24 sm:py-32">
       <div className="mx-auto grid max-w-6xl gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
         <Reveal>
           <RevealItem>
-            <h2 className="display text-[clamp(2.25rem,5vw,3.5rem)] leading-[1] font-semibold text-ink">Experience</h2>
+            <SplitHeading text="Experience" className="display text-[clamp(2.25rem,5vw,3.5rem)] leading-[1] font-semibold text-ink" />
           </RevealItem>
           <RevealItem>
             <p className="mt-5 max-w-[40ch] text-[17px] leading-relaxed text-ink-2">
