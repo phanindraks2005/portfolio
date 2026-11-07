@@ -4,6 +4,7 @@ import { ChevronDown } from "lucide-react";
 import { useEffect, useId, useState } from "react";
 import { bugs, type Bug } from "@/lib/bugs";
 import { Reveal, RevealItem } from "./motion";
+import { scrollToHash } from "./SmoothScroll";
 import { SplitHeading } from "./SplitHeading";
 
 export function Bugs() {
@@ -44,7 +45,12 @@ function BugCard({ bug: b }: { bug: Bug }) {
   // A link to this card ("Read the full bug story", /#bug-…) opens it, on arrival or from the same page.
   useEffect(() => {
     const hash = `#${b.id}`;
-    if (location.hash === hash) setOpen(true);
+    let settle = 0;
+    if (location.hash === hash) {
+      setOpen(true);
+      // The browser scrolled here while the card was still sliding up into place; line it up again once it has.
+      settle = window.setTimeout(() => scrollToHash(hash), 900);
+    }
     const onClick = (e: MouseEvent) => {
       const a = (e.target as Element | null)?.closest?.("a[href]");
       if (a && new URL((a as HTMLAnchorElement).href).hash === hash) setOpen(true);
@@ -55,6 +61,7 @@ function BugCard({ bug: b }: { bug: Bug }) {
     return () => {
       document.removeEventListener("click", onClick);
       window.removeEventListener("hashchange", onHash);
+      clearTimeout(settle);
     };
   }, [b.id]);
   return (

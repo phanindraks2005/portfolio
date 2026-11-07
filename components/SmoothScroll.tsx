@@ -11,13 +11,22 @@ declare global {
 
 // html has scroll-padding-top: 80px, which Lenis already honours.
 const OFFSET = 0;
+const NAV_GAP = 80;
+
+/** Page offset of an element from its layout box, so a reveal still sliding it into place doesn't skew the result. */
+function layoutTop(el: HTMLElement) {
+  let top = 0;
+  for (let e: HTMLElement | null = el; e; e = e.offsetParent as HTMLElement | null) top += e.offsetTop;
+  return top;
+}
 
 /** Scrolls to a hash target, through Lenis when it's running. */
 export function scrollToHash(hash: string) {
   const el = document.querySelector<HTMLElement>(hash);
   if (!el) return false;
-  if (window.__lenis) window.__lenis.scrollTo(el, { offset: OFFSET });
-  else el.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  const top = layoutTop(el) - NAV_GAP;
+  if (window.__lenis) window.__lenis.scrollTo(top, { offset: OFFSET });
+  else window.scrollTo({ top, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   history.replaceState(null, "", hash);
   return true;
 }
