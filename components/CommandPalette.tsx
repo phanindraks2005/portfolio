@@ -11,6 +11,8 @@ import { copyEmail } from "./toast";
 const OPEN_EVENT = "palette:open";
 export const openPalette = () => window.dispatchEvent(new Event(OPEN_EVENT));
 
+const GROUPS = ["Sections", "Projects", "Links"];
+
 type Item = { id: string; label: string; group: string; icon: ReactNode; run: () => void; keywords?: string };
 
 const open = (url: string) => window.open(url, "_blank", "noopener,noreferrer");
@@ -30,7 +32,7 @@ export function CommandPalette() {
       if (location.pathname !== "/") router.push("/" + hash);
       else scrollToHash(hash);
     };
-    return [
+    const list: Item[] = [
       { id: "projects", label: "Projects", group: "Sections", icon: <Hash size={16} />, run: () => go("#projects") },
       ...projects.map((p) => ({
         id: p.slug,
@@ -62,7 +64,7 @@ export function CommandPalette() {
       {
         id: "email",
         label: "Copy email address",
-        group: "Actions",
+        group: "Links",
         keywords: site.email,
         icon: <Copy size={16} />,
         run: () => copyEmail(),
@@ -70,7 +72,7 @@ export function CommandPalette() {
       {
         id: "resume-page",
         label: "View resume",
-        group: "Actions",
+        group: "Links",
         keywords: "cv",
         icon: <FileText size={16} />,
         run: () => router.push("/resume"),
@@ -78,7 +80,7 @@ export function CommandPalette() {
       {
         id: "resume",
         label: "Download resume PDF",
-        group: "Actions",
+        group: "Links",
         keywords: "cv pdf",
         icon: <Download size={16} />,
         run: () => {
@@ -100,6 +102,8 @@ export function CommandPalette() {
           run: () => open(p.live!),
         })),
     ];
+    // One heading per group: sort is stable, so items keep their order within a group.
+    return list.sort((a, b) => GROUPS.indexOf(a.group) - GROUPS.indexOf(b.group));
   }, [router]);
 
   const filtered = useMemo(() => {
@@ -171,8 +175,6 @@ export function CommandPalette() {
     }
   };
 
-  let lastGroup = "";
-
   return (
     <dialog
       ref={dialog}
@@ -212,8 +214,7 @@ export function CommandPalette() {
       >
         {filtered.length === 0 && <li className="px-3 py-8 text-center text-[14px] text-muted">Nothing matches “{query}”.</li>}
         {filtered.map((item, index) => {
-          const heading = item.group !== lastGroup ? item.group : null;
-          lastGroup = item.group;
+          const heading = index === 0 || filtered[index - 1].group !== item.group ? item.group : null;
           return (
             <li key={item.id} role="presentation">
               {heading && (
