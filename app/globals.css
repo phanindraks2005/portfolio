@@ -10,6 +10,9 @@
   --ink-2: #b4bac5;
   --muted: #8a919e;
   --accent: #4f7cff;
+  --accent-strong: #3563e9;
+  --accent-hover: #3d6bf5;
+  --accent-text: #7b9cff;
   --accent-soft: rgb(79 124 255 / 0.16);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: dark;
@@ -25,6 +28,9 @@
   --color-ink-2: var(--ink-2);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-text: var(--accent-text);
   --font-sans: var(--font-inter);
   --font-display: var(--font-geist);
   --font-mono: var(--font-geist-mono);
@@ -67,12 +73,29 @@ body {
   inset: -20% -10% auto -10%;
   height: 120%;
   pointer-events: none;
-  -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 85%);
-  mask-image: linear-gradient(to bottom, #000 30%, transparent 85%);
+}
+/* Static fade at the bottom of the hero, instead of a mask over the moving layers (a mask forces a full repaint every frame). */
+.aurora::after {
+  content: "";
+  position: absolute;
+  inset: 45% 0 0 0;
+  background: linear-gradient(to bottom, transparent, var(--bg) 80%);
 }
 .aurora span {
   position: absolute;
+  z-index: -1;
   border-radius: 50%;
+  opacity: 0;
+  transition: opacity 1.6s var(--ease);
+}
+/* Until the first interaction the hero shows one cheap static wash; the drifting fields fade in after. */
+.aurora {
+  background:
+    radial-gradient(45% 55% at 30% 12%, rgb(79 124 255 / 0.26), transparent 70%),
+    radial-gradient(35% 45% at 80% 20%, rgb(56 189 248 / 0.12), transparent 70%);
+}
+html.ready .aurora span {
+  opacity: 1;
   will-change: transform;
 }
 .aurora .a1 {
@@ -100,13 +123,19 @@ body {
   animation: drift3 34s var(--ease) infinite alternate;
 }
 @keyframes drift1 {
-  to { transform: translate3d(12vw, 6vw, 0) scale(1.15); }
+  to {
+    transform: translate3d(12vw, 6vw, 0) scale(1.15);
+  }
 }
 @keyframes drift2 {
-  to { transform: translate3d(-14vw, 8vw, 0) scale(0.9); }
+  to {
+    transform: translate3d(-14vw, 8vw, 0) scale(0.9);
+  }
 }
 @keyframes drift3 {
-  to { transform: translate3d(-8vw, -6vw, 0) scale(1.2); }
+  to {
+    transform: translate3d(-8vw, -6vw, 0) scale(1.2);
+  }
 }
 
 /* Faint dot field under the aurora. */
@@ -128,32 +157,23 @@ body {
   border-radius: 50%;
   background: #34d399;
 }
-.pulse::after {
-  content: "";
+.pulse > span {
   position: absolute;
   inset: 0;
   border-radius: 50%;
   background: #34d399;
   animation: ping 2s var(--ease) infinite;
+  will-change: transform, opacity;
 }
 @keyframes ping {
-  from { transform: scale(1); opacity: 0.7; }
-  to { transform: scale(3); opacity: 0; }
-}
-
-/* Hero entrance (CSS so the headline paints without waiting for JS). */
-.rise {
-  animation: rise 0.9s var(--ease) both;
-  animation-delay: calc(var(--i, 0) * 80ms);
-}
-@keyframes rise {
-  from { opacity: 0; transform: translateY(18px); }
-}
-.rise-h1 {
-  animation: rise-h1 1s var(--ease) both;
-}
-@keyframes rise-h1 {
-  from { transform: translateY(24px); }
+  from {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(3);
+    opacity: 0;
+  }
 }
 
 /* Cards with a cursor-follow glow. --mx/--my are set from pointer moves. */
@@ -165,7 +185,9 @@ body {
   isolation: isolate;
   background: var(--surface);
   border: 1px solid var(--line);
-  transition: border-color 0.4s var(--ease), transform 0.5s var(--ease);
+  transition:
+    border-color 0.4s var(--ease),
+    transform 0.5s var(--ease);
 }
 .glow-card::before {
   content: "";
@@ -174,9 +196,13 @@ body {
   border-radius: inherit;
   padding: 1px;
   background: radial-gradient(420px circle at var(--mx) var(--my), color-mix(in srgb, var(--glow) 70%, transparent), transparent 60%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
   opacity: 0;
   transition: opacity 0.4s var(--ease);
   pointer-events: none;
@@ -203,7 +229,10 @@ body {
 .project {
   --c: var(--accent);
   --glow: var(--c);
-  transition: transform 0.6s var(--ease), border-color 0.4s var(--ease), box-shadow 0.6s var(--ease);
+  transition:
+    transform 0.6s var(--ease),
+    border-color 0.4s var(--ease),
+    box-shadow 0.6s var(--ease);
 }
 .project .stage {
   isolation: isolate;
@@ -216,7 +245,9 @@ body {
   inset: 12% 8% -35% 8%;
   background: radial-gradient(closest-side, color-mix(in srgb, var(--c) 26%, transparent), transparent);
   opacity: 0.75;
-  transition: opacity 0.6s var(--ease), transform 0.8s var(--ease);
+  transition:
+    opacity 0.6s var(--ease),
+    transform 0.8s var(--ease);
   z-index: -1;
 }
 .project .devices {
@@ -244,8 +275,25 @@ body {
 
 /* Infinite logo marquee. */
 .marquee {
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  position: relative;
+}
+.marquee::before,
+.marquee::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 14%;
+  z-index: 1;
+  pointer-events: none;
+}
+.marquee::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg), transparent);
+}
+.marquee::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg), transparent);
 }
 .marquee-track {
   display: flex;
@@ -256,19 +304,34 @@ body {
   animation-play-state: paused;
 }
 @keyframes marquee {
-  to { transform: translateX(-50%); }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .marquee-track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; }
-  .marquee-track [data-dupe] { display: none; }
-  .pulse::after { display: none; }
+  .marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: auto;
+    justify-content: center;
+  }
+  .marquee-track [data-dupe] {
+    display: none;
+  }
+  .pulse > span {
+    display: none;
+  }
 }
 
 /* Command palette and toast entrances. */
@@ -279,27 +342,327 @@ body {
   animation: fade-in 0.22s var(--ease);
 }
 @keyframes palette-in {
-  from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
 }
 @keyframes fade-in {
-  from { opacity: 0; }
+  from {
+    opacity: 0;
+  }
 }
 .toast {
   animation: toast-in 0.35s var(--ease);
 }
 @keyframes toast-in {
-  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
 }
 
 /* Hero phones: rise in, then float gently. */
 .phone-float {
-  animation: phone-in 1.1s var(--ease) both, float 7s ease-in-out infinite alternate;
-  animation-delay: calc(var(--d, 0) * 120ms + 150ms), calc(var(--d, 0) * -2s);
+  animation: phone-in 1.1s var(--ease) both;
+  animation-delay: calc(var(--d, 0) * 120ms + 150ms);
+}
+.phone-bob {
+  animation: float 7s ease-in-out infinite alternate;
+  animation-delay: calc(var(--d, 0) * -2s);
 }
 @keyframes phone-in {
-  from { opacity: 0; transform: translateY(40px); }
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
 }
 @keyframes float {
-  from { translate: 0 0; }
-  to { translate: 0 -12px; }
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 -12px;
+  }
+}
+
+/* Resume print sheet: plain black on white, A4, nothing but the resume. */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 14mm 16mm;
+  }
+  :root {
+    --bg: #fff;
+    --surface: #fff;
+    --ink: #111;
+    --ink-2: #222;
+    --muted: #444;
+    --line: #bbb;
+    --line-strong: #888;
+    --accent-text: #1d4ed8;
+  }
+  html,
+  body {
+    background: #fff !important;
+    color: #111;
+  }
+  .site-header,
+  footer,
+  .no-print,
+  dialog,
+  [role="status"] {
+    display: none !important;
+  }
+  .resume-page {
+    padding: 0 !important;
+  }
+  .resume-page .sheet {
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    background: #fff;
+    zoom: 0.8;
+  }
+  .page-glow {
+    display: none !important;
+  }
+  .resume-page section {
+    break-inside: auto;
+  }
+  .resume-page li,
+  .resume-page h3 {
+    break-inside: avoid;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+/* ---------- Scene glow: a fixed wash that takes the colour of the section in view ---------- */
+@property --scene {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #4f7cff;
+}
+.page-glow {
+  --scene: #4f7cff;
+  opacity: 0;
+  transition:
+    --scene 1.2s var(--ease),
+    opacity 1.2s var(--ease);
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 45% at 85% 20%, color-mix(in srgb, var(--scene) 10%, transparent), transparent 70%),
+    radial-gradient(50% 40% at 10% 90%, color-mix(in srgb, var(--scene) 7%, transparent), transparent 70%);
+}
+body {
+  background: transparent;
+}
+html {
+  background: var(--bg);
+}
+
+/* ---------- Project stories ---------- */
+.story .stage-panel {
+  isolation: isolate;
+  background: color-mix(in srgb, var(--c) 5%, #0a0c10);
+  --glow: var(--c);
+}
+.story .stage-panel .halo {
+  position: absolute;
+  inset: 15% 5% -30% 5%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--c) 24%, transparent), transparent);
+}
+.story .story-head {
+  --glow: var(--c);
+}
+.stage-layer {
+  opacity: 0;
+  transform: scale(1.015);
+  transition:
+    opacity 0.6s var(--ease),
+    transform 0.8s var(--ease);
+}
+.stage-layer[data-on] {
+  opacity: 1;
+  transform: none;
+}
+.stage-layer video,
+.stage-layer img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+@media (min-width: 1024px) {
+  .story .step h4,
+  .story .step p {
+    transition: color 0.5s var(--ease);
+  }
+  .story .step:not([data-active]) h4,
+  .story .step:not([data-active]) p:last-child {
+    color: var(--muted);
+  }
+}
+
+/* RoadSense stage, driven by data-step (0–3). */
+.rs-trace {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.4s var(--ease);
+}
+.rs-window,
+.rs-hit,
+.rs-chip,
+.rs-phone .rs-banner,
+.rs-phone .rs-bump {
+  transition:
+    opacity 0.6s var(--ease),
+    transform 0.6s var(--ease);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.rs-stage[data-step="0"] .rs-window,
+.rs-stage[data-step="0"] .rs-hit,
+.rs-stage[data-step="0"] .rs-chip,
+.rs-stage[data-step="1"] .rs-chip-2,
+.rs-stage[data-step="1"] .rs-chip-3 {
+  opacity: 0.12;
+}
+.rs-stage:not([data-step="3"]) .rs-phone .rs-banner {
+  opacity: 0;
+  transform: translateY(-16px);
+}
+.rs-stage[data-step="0"] .rs-phone .rs-bump,
+.rs-stage[data-step="1"] .rs-phone .rs-bump {
+  opacity: 0;
+  transform: scale(0.4);
+}
+.rs-stage:not([data-step="0"]) .rs-dots {
+  opacity: 0;
+}
+.rs-dots {
+  transition: opacity 0.4s;
+}
+
+/* ---------- Hero ---------- */
+.role-phrase {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateY(0.6em);
+  transition:
+    opacity 0.25s ease-in,
+    transform 0.25s ease-in;
+}
+/* The outgoing phrase is gone before the next one starts to rise. */
+.role-phrase.is-on {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.55s var(--ease) 0.25s,
+    transform 0.55s var(--ease) 0.25s;
+}
+.role-phrase.is-out {
+  transform: translateY(-0.6em);
+}
+.hero-phones {
+  perspective: 1200px;
+}
+.hero-phones .phone-parallax {
+  transform: translate3d(calc(var(--px, 0) * var(--depth) * 1px), calc(var(--py, 0) * var(--depth) * 1px), 0)
+    rotateY(calc(var(--px, 0) * 7deg)) rotateX(calc(var(--py, 0) * -7deg));
+}
+.magnetic {
+  transition: transform 0.45s var(--ease);
+  will-change: transform;
+}
+
+/* ---------- Bugs ---------- */
+.bug button:hover .bug-chevron {
+  color: var(--ink);
+}
+.bug[data-open] .bug-chevron {
+  transform: rotate(180deg);
+}
+.bug[data-open] {
+  border-color: color-mix(in srgb, var(--glow) 30%, transparent);
+}
+.bug-body:not([hidden]) {
+  animation: bug-open 0.45s var(--ease);
+}
+@keyframes bug-open {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+/* ---------- Contributions ---------- */
+.heat {
+  background: rgb(255 255 255 / 0.06);
+}
+.heat[data-level="1"] {
+  background: color-mix(in srgb, var(--accent) 35%, #0d0f13);
+}
+.heat[data-level="2"] {
+  background: color-mix(in srgb, var(--accent) 55%, #0d0f13);
+}
+.heat[data-level="3"] {
+  background: color-mix(in srgb, var(--accent) 78%, #0d0f13);
+}
+.heat[data-level="4"] {
+  background: #7b9cff;
+}
+
+/* ---------- Lenis ---------- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-glow {
+    transition: none;
+  }
+  .stage-layer {
+    transform: none;
+  }
+  .role-phrase {
+    transform: none;
+  }
+  .phone-parallax {
+    transform: none !important;
+  }
+}
+
+/* Decorative loops start on the first interaction (html.ready) and, when marked [data-loop], only run on screen. */
+html:not(.ready) .aurora span,
+html:not(.ready) .marquee-track,
+html:not(.ready) .pulse > span,
+html:not(.ready) .phone-bob,
+html[data-off~="hero"] .aurora span,
+html[data-off~="marquee"] .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Below-the-fold sections skip layout and paint until they come near the screen. */
+.cv {
+  content-visibility: auto;
+  contain-intrinsic-block-size: auto 1200px;
+}
+
+html.ready .page-glow {
+  opacity: 1;
 }
