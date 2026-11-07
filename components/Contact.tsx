@@ -21,7 +21,7 @@ export function Contact() {
         />
         <RevealItem>
           <p className="mx-auto mt-6 max-w-[46ch] text-[17px] leading-relaxed text-ink-2">
-            I&rsquo;m looking for SWE internships. Email is the fastest way to reach me.
+            I&rsquo;m looking for SWE and full-stack roles. Email is the fastest way to reach me.
           </p>
         </RevealItem>
         <RevealItem className="mt-10 flex flex-wrap items-center justify-center gap-3">
