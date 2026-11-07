@@ -90,7 +90,7 @@ export const cases: Record<string, Case> = {
       "/demo swaps the Supabase client for an in-memory copy: read-only, no network, no Gemini calls.",
     ],
     results: [
-      { value: "1,100+", label: "clicks in the click-through audit (3 states × 2 sizes); 7 issues found, all fixed and re-tested live" },
+      { value: "1,100+", label: "clicks in the click-through audit (3 states × 4 screen sizes); 7 issues found, all fixed and re-tested live" },
       { value: "96", label: "mobile Lighthouse performance on the landing page after the performance pass (was 67–70)" },
       { value: "1,424", label: "logs over 400 days on the account used to verify the 1,000-row fix" },
       { value: "2 / 2", label: "entries logged and confirmed in the database for “log 300 ml water and 20 g protein” after the Libra fix" },
