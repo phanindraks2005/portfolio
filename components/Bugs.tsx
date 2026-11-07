@@ -100,7 +100,7 @@ function BugCard({ bug: b }: { bug: Bug }) {
             <Part label="Fix" text={b.fix} />
             <figure className="min-w-0">
               <figcaption className="mb-2 font-mono text-[12px] text-muted">{b.file}</figcaption>
-              <pre className="overflow-x-auto rounded-[14px] border border-line bg-[#0a0b0e] p-4 font-mono text-[12.5px] leading-[1.65] text-ink-2">
+              <pre data-lenis-prevent-horizontal className="overflow-x-auto rounded-[14px] border border-line bg-[#0a0b0e] p-4 font-mono text-[12.5px] leading-[1.65] text-ink-2">
                 <code>{b.code}</code>
               </pre>
             </figure>

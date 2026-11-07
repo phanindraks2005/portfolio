@@ -26,11 +26,15 @@ export function MobileMenu() {
     if (!d) return;
     if (open && !d.open) {
       d.showModal();
+      window.__lenis?.stop();
       document.documentElement.style.overflow = "hidden";
     } else if (!open && d.open) {
       d.close();
     }
-    if (!open) document.documentElement.style.overflow = "";
+    if (!open) {
+      document.documentElement.style.overflow = "";
+      window.__lenis?.start();
+    }
   }, [open]);
 
   // Close if the screen grows past the phone layout while open.
@@ -44,6 +48,7 @@ export function MobileMenu() {
   // Unlock scrolling and close right away (not after the re-render), so a tapped #link can scroll the page.
   const close = () => {
     document.documentElement.style.overflow = "";
+    window.__lenis?.start();
     if (dialog.current?.open) dialog.current.close();
     setOpen(false);
   };
@@ -81,6 +86,7 @@ export function MobileMenu() {
         onClose={close}
         onKeyDown={wrapTab}
         aria-label="Menu"
+        data-lenis-prevent
         className="mobile-menu m-0 h-dvh max-h-none w-full max-w-none bg-bg p-0 text-ink backdrop:bg-transparent"
       >
         <div className="flex h-full flex-col px-5">
