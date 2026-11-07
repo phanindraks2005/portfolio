@@ -23,7 +23,7 @@ export function Footer() {
         </div>
         {lh.mobile && lh.desktop && (
           <div>
-            <p className="text-[13px]">Lighthouse for this site, measured {lh.measuredAt} (mobile / desktop)</p>
+            <p className="text-[13px]">PageSpeed Insights for the home page, {lh.measuredAt} (mobile / desktop)</p>
             <ul className="mt-2 flex flex-wrap gap-2">
               {names.map(([key, label]) => (
                 <li

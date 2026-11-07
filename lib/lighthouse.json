@@ -1,1 +1,6 @@
-{ "measuredAt": null, "url": null, "mobile": null, "desktop": null }
+{
+  "measuredAt": "7 Nov 2026",
+  "url": "https://pagespeed.web.dev/analysis/https-phanindra-ks-vercel-app/3nxhozxxzg",
+  "mobile": { "performance": 100, "accessibility": 100, "best-practices": 100, "seo": 100 },
+  "desktop": { "performance": 100, "accessibility": 100, "best-practices": 100, "seo": 100 }
+}
