@@ -2,7 +2,7 @@
 
 export const resume = {
   name: "K S Phanindra",
-  location: "Bengaluru, Karnataka",
+  location: "Bangalore, KA",
   education: {
     school: "BMS College of Engineering",
     place: "Bengaluru",
