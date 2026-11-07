@@ -11,6 +11,7 @@ import { Reveal, RevealItem } from "@/components/motion";
 import { RoadSenseStage } from "@/components/RoadSenseStage";
 import { cases } from "@/lib/cases";
 import { projects } from "@/lib/data";
+import { pageMetadata } from "@/lib/seo";
 import { stories } from "@/lib/stories";
 
 export function generateStaticParams() {
@@ -21,12 +22,7 @@ export async function generateMetadata({ params }: PageProps<"/projects/[slug]">
   const { slug } = await params;
   const p = projects.find((x) => x.slug === slug);
   if (!p) return {};
-  return {
-    title: `${p.name} case study`,
-    description: p.pitch,
-    alternates: { canonical: `/projects/${p.slug}` },
-    openGraph: { title: `${p.name} case study · K S Phanindra`, description: p.pitch, url: `/projects/${p.slug}` },
-  };
+  return pageMetadata({ title: `${p.name} case study`, description: p.pitch, path: `/projects/${p.slug}` });
 }
 
 const h2 = "display text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.05] font-semibold text-ink";

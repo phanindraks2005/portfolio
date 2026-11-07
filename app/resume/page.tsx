@@ -5,13 +5,14 @@ import { GitHubIcon, LinkedInIcon } from "@/components/icons";
 import { PrintButton } from "@/components/PrintButton";
 import { site } from "@/lib/data";
 import { resume } from "@/lib/resume";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Resume",
   description:
     "Resume of K S Phanindra: B.Tech CSE at BMS College of Engineering (2023–2027), full-stack projects MediVault, Stride and RoadSense.",
-  alternates: { canonical: "/resume" },
-};
+  path: "/resume",
+});
 
 const host = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "");
 
