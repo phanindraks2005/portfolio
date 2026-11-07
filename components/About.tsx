@@ -1,22 +1,24 @@
 import { GraduationCap, MapPin, Target } from "lucide-react";
 import { skills } from "@/lib/data";
+import { Contributions } from "./Contributions";
 import { LocalTime } from "./LocalTime";
 import { BrandIcon } from "./icons";
 import { Reveal, RevealItem } from "./motion";
+import { SplitHeading } from "./SplitHeading";
 
 const card = "glow-card rounded-[24px] p-6 sm:p-8";
 
 export function About() {
   return (
-    <section id="about" className="py-24 sm:py-32">
+    <section id="about" data-glow="#4f7cff" className="cv py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <Reveal>
           <RevealItem>
-            <h2 className="display text-[clamp(2.25rem,5vw,3.5rem)] leading-[1] font-semibold text-ink">About</h2>
+            <SplitHeading text="About" className="display text-[clamp(2.25rem,5vw,3.5rem)] leading-[1] font-semibold text-ink" />
           </RevealItem>
         </Reveal>
 
-        <Reveal className="mt-12 grid gap-4 sm:mt-14 md:grid-cols-6">
+        <Reveal className="mt-12 grid grid-cols-1 gap-4 sm:mt-14 md:grid-cols-6">
           <RevealItem className={`${card} md:col-span-4 md:row-span-2`}>
             <p className="display text-[clamp(1.4rem,2.6vw,1.9rem)] leading-[1.25] font-medium text-ink">
               I like owning a feature from end to end: the table and its row-level security, the API route, the interface, and the AI call
@@ -55,7 +57,9 @@ export function About() {
                 </div>
               </div>
               <p className="inline-flex shrink-0 items-center gap-2.5 self-start rounded-full border border-line bg-white/[0.03] py-1.5 pr-3.5 pl-3 text-[14px] text-ink-2 sm:self-auto">
-                <span className="pulse" aria-hidden="true" />
+                <span className="pulse" aria-hidden="true">
+                  <span />
+                </span>
                 Open to SWE internships
               </p>
             </div>
@@ -83,6 +87,10 @@ export function About() {
               ))}
             </dl>
           </RevealItem>
+
+          <RevealItem className="md:col-span-6">
+            <Contributions />
+          </RevealItem>
         </Reveal>
       </div>
 
@@ -106,7 +114,7 @@ function Marquee() {
       </li>
     ));
   return (
-    <div className="marquee mt-16 overflow-hidden py-2 sm:mt-20">
+    <div className="marquee mt-16 overflow-hidden py-2 sm:mt-20" data-loop="marquee">
       <ul className="marquee-track" aria-label="Technologies I use">
         {row(false)}
         {row(true)}
