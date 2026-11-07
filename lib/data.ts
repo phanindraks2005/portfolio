@@ -85,7 +85,7 @@ export const projects: Project[] = [
     stack: ["Flutter", "Dart", "FastAPI", "scikit-learn", "SQLite", "Render"],
     color: "#f5a524",
     github: "https://github.com/phanindraks2005/roadsense-app",
-    team: "Final-year team project with P Ashrita and Sandesh, guided by Dr. Naresh E.",
+    team: "Final-year team project, guided by Dr. Naresh E. I led it end to end: research, the detection approach, the Flutter app, the FastAPI backend and model, and deployment. Teammates P Ashrita and Sandesh helped with field data collection.",
   },
 ];
 
