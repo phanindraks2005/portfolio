@@ -29,6 +29,8 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },
+      // Opens in the browser, and saves under a readable name.
+      { source: "/resume.pdf", headers: [{ key: "Content-Disposition", value: 'inline; filename="KS_Phanindra_Resume.pdf"' }] },
     ];
   },
   cacheComponents: true,
