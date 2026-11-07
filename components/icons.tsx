@@ -51,13 +51,28 @@ const brands: Record<string, SimpleIcon> = {
 // Logos that are black (or near it) get the page's ink colour so they stay visible on dark.
 const dark = new Set(["000000", "181717", "150458", "003B57", "02569B"]);
 
+const id = (name: string) => "si-" + name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+/** Every brand logo once, as <symbol>s; BrandIcon points at them with <use>. Rendered once in the layout. */
+export function BrandSprite() {
+  return (
+    <svg width="0" height="0" aria-hidden="true" focusable="false" style={{ position: "absolute" }}>
+      {Object.entries(brands).map(([name, icon]) => (
+        <symbol key={name} id={id(name)} viewBox="0 0 24 24">
+          <path d={icon.path} />
+        </symbol>
+      ))}
+    </svg>
+  );
+}
+
 export function BrandIcon({ name, size = 16, mono = false }: { name: string; size?: number; mono?: boolean }) {
   const icon = brands[name];
   if (!icon) return null;
   const fill = mono || dark.has(icon.hex) ? "currentColor" : `#${icon.hex}`;
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path d={icon.path} fill={fill} />
+    <svg width={size} height={size} aria-hidden="true" focusable="false" fill={fill}>
+      <use href={`#${id(name)}`} />
     </svg>
   );
 }

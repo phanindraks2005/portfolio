@@ -1,14 +1,15 @@
 "use client";
 
 import { Menu } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { openPalette } from "./CommandPalette";
 
 const links = [
-  { href: "#projects", label: "Projects" },
-  { href: "#about", label: "About" },
-  { href: "#experience", label: "Experience" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/#bugs", label: "Bugs" },
+  { href: "/#about", label: "About" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 const noop = () => () => {};
@@ -30,14 +31,14 @@ export function Nav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-40 transition-colors duration-300 ${
-        scrolled ? "border-b border-line bg-bg/90" : "border-b border-transparent"
+      className={`site-header fixed inset-x-0 top-0 z-40 transition-colors duration-300 ${
+        scrolled ? "border-b border-line bg-bg" : "border-b border-transparent"
       }`}
     >
       <nav aria-label="Main" className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
-        <a href="#top" className="display text-[17px] font-semibold text-ink">
+        <Link href="/" className="display text-[17px] font-semibold text-ink">
           K S Phanindra
-        </a>
+        </Link>
         <div className="flex items-center gap-1">
           <ul className="hidden items-center gap-1 md:flex">
             {links.map((l) => (
@@ -47,6 +48,11 @@ export function Nav() {
                 </a>
               </li>
             ))}
+            <li>
+              <Link href="/resume" className="rounded-lg px-3 py-2 text-[14px] text-ink-2 transition-colors hover:text-ink">
+                Resume
+              </Link>
+            </li>
           </ul>
           <button
             type="button"

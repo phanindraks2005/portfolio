@@ -1,5 +1,14 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { CommandPalette } from "@/components/CommandPalette";
+import { Footer } from "@/components/Footer";
+import { GlowScene } from "@/components/GlowScene";
+import { GlowTracker } from "@/components/GlowTracker";
+import { BrandSprite } from "@/components/icons";
+import { MotionProvider } from "@/components/motion";
+import { Nav } from "@/components/Nav";
+import { SmoothScroll } from "@/components/SmoothScroll";
+import { Toaster } from "@/components/toast";
 import { site } from "@/lib/data";
 import "./globals.css";
 
@@ -40,7 +49,25 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${geist.variable} ${geistMono.variable} ${inter.variable}`}>
-      <body>{children}</body>
+      <body>
+        <MotionProvider>
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-lg focus:bg-accent-strong focus:px-4 focus:py-2 focus:text-white"
+          >
+            Skip to content
+          </a>
+          <BrandSprite />
+          <GlowScene />
+          <Nav />
+          <div id="main">{children}</div>
+          <Footer />
+          <CommandPalette />
+          <Toaster />
+          <GlowTracker />
+          <SmoothScroll />
+        </MotionProvider>
+      </body>
     </html>
   );
 }

@@ -1,9 +1,11 @@
 "use client";
 
 import { ArrowRight, Copy, Download, FileText, Hash, Search } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { projects, site } from "@/lib/data";
 import { GitHubIcon, LinkedInIcon } from "./icons";
+import { scrollToHash } from "./SmoothScroll";
 import { copyEmail } from "./toast";
 
 const OPEN_EVENT = "palette:open";
@@ -11,10 +13,6 @@ export const openPalette = () => window.dispatchEvent(new Event(OPEN_EVENT));
 
 type Item = { id: string; label: string; group: string; icon: ReactNode; run: () => void; keywords?: string };
 
-const go = (hash: string) => {
-  document.querySelector(hash)?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
-  history.replaceState(null, "", hash);
-};
 const open = (url: string) => window.open(url, "_blank", "noopener,noreferrer");
 
 export function CommandPalette() {
@@ -25,8 +23,14 @@ export function CommandPalette() {
   const input = useRef<HTMLInputElement>(null);
   const list = useRef<HTMLUListElement>(null);
 
-  const items: Item[] = useMemo(
-    () => [
+  const router = useRouter();
+
+  const items: Item[] = useMemo(() => {
+    const go = (hash: string) => {
+      if (location.pathname !== "/") router.push("/" + hash);
+      else scrollToHash(hash);
+    };
+    return [
       { id: "projects", label: "Projects", group: "Sections", icon: <Hash size={16} />, run: () => go("#projects") },
       ...projects.map((p) => ({
         id: p.slug,
@@ -36,6 +40,14 @@ export function CommandPalette() {
         icon: <span className="size-2.5 rounded-full" style={{ background: p.color }} />,
         run: () => go(`#${p.slug}`),
       })),
+      {
+        id: "bugs",
+        label: "Bugs I’ve killed",
+        group: "Sections",
+        keywords: "debugging stories",
+        icon: <Hash size={16} />,
+        run: () => go("#bugs"),
+      },
       { id: "about", label: "About and skills", group: "Sections", icon: <Hash size={16} />, run: () => go("#about") },
       { id: "experience", label: "Experience", group: "Sections", icon: <Hash size={16} />, run: () => go("#experience") },
       { id: "contact", label: "Contact", group: "Sections", icon: <Hash size={16} />, run: () => go("#contact") },
@@ -48,8 +60,16 @@ export function CommandPalette() {
         run: () => copyEmail(),
       },
       {
+        id: "resume-page",
+        label: "View resume",
+        group: "Actions",
+        keywords: "cv",
+        icon: <FileText size={16} />,
+        run: () => router.push("/resume"),
+      },
+      {
         id: "resume",
-        label: "Download resume",
+        label: "Download resume PDF",
         group: "Actions",
         keywords: "cv pdf",
         icon: <Download size={16} />,
@@ -71,9 +91,8 @@ export function CommandPalette() {
           icon: <FileText size={16} />,
           run: () => open(p.live!),
         })),
-    ],
-    [],
-  );
+    ];
+  }, [router]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -113,9 +132,11 @@ export function CommandPalette() {
     const d = dialog.current;
     if (!d) return;
     if (isOpen && !d.open) {
+      window.__lenis?.stop();
       d.showModal();
       input.current?.focus();
     } else if (!isOpen && d.open) d.close();
+    if (!isOpen) window.__lenis?.start();
   }, [isOpen]);
 
   useEffect(() => {
