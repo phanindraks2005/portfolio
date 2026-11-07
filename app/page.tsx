@@ -4,6 +4,7 @@ import { Contact } from "@/components/Contact";
 import { Experience } from "@/components/Experience";
 import { Hero } from "@/components/Hero";
 import { Projects } from "@/components/Projects";
+import { Verified } from "@/components/Verified";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <Projects />
       <Bugs />
       <About />
+      <Verified />
       <Experience />
       <Contact />
     </main>

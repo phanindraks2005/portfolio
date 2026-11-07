@@ -1,4 +1,5 @@
 export type Bug = {
+  id: string;
   project: "MediVault" | "Stride";
   color: string;
   title: string;
@@ -14,6 +15,7 @@ export const bugs: Bug[] = [
   {
     project: "MediVault",
     color: "#2dd4bf",
+    id: "bug-file-access",
     title: "Another family’s file, read by the AI",
     symptom:
       "In my own QA audit I confirmed one account could get the extraction route to download a file from another account’s folder: a cross-account read of medical records.",
@@ -32,6 +34,7 @@ if (!path.startsWith(\`\${user.id}/\`) || path.includes('..')) {
   {
     project: "Stride",
     color: "#c6f432",
+    id: "bug-libra-tools",
     title: "Libra said it logged protein. It hadn’t.",
     symptom: "“Log 300 ml water and 20 g protein” got a reply saying both were logged. Only the water was in the database.",
     cause:
@@ -56,6 +59,7 @@ parts: results.map(({ call, result }) => ({
   {
     project: "Stride",
     color: "#c6f432",
+    id: "bug-1000-rows",
     title: "History quietly stopped at 1,000 rows",
     symptom:
       "For heavy users, older history fell out of the current and best streak, the heatmaps and Progress. No error, just missing days.",
@@ -81,6 +85,7 @@ for (let from = 0; ; from += PAGE) {
   {
     project: "Stride",
     color: "#c6f432",
+    id: "bug-grain-fog",
     title: "A fog that only showed at 125%",
     symptom: "On a Windows laptop at 125% scaling every page of Stride looked hazy. Headless screenshots at 1× looked perfectly sharp.",
     cause:
