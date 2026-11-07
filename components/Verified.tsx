@@ -11,7 +11,7 @@ const fmt = new Intl.NumberFormat("en-IN");
 
 export function Verified() {
   return (
-    <section id="verified" data-glow="#4f7cff" aria-labelledby="verified-title" className="cv py-20 sm:py-28">
+    <section id="verified" data-glow="#4f7cff" aria-labelledby="verified-title" className="py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <div className="max-w-2xl">
           <SplitHeading

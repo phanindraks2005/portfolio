@@ -9,7 +9,7 @@ const card = "glow-card rounded-[24px] p-6 sm:p-8";
 
 export function About() {
   return (
-    <section id="about" data-glow="#4f7cff" className="cv py-24 sm:py-32">
+    <section id="about" data-glow="#4f7cff" className="py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <Reveal>
           <RevealItem>

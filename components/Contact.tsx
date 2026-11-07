@@ -9,7 +9,7 @@ import { copyEmail } from "./toast";
 
 export function Contact() {
   return (
-    <section id="contact" data-glow="#4f7cff" className="cv relative overflow-hidden py-28 sm:py-40">
+    <section id="contact" data-glow="#4f7cff" className="relative overflow-hidden py-28 sm:py-40">
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 h-[70%] bg-[radial-gradient(60%_60%_at_50%_100%,rgb(79_124_255/0.22),transparent)]"
         aria-hidden="true"

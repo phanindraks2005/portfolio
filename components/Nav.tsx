@@ -4,6 +4,7 @@ import { Search } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { openPalette } from "./CommandPalette";
+import { MobileMenu } from "./MobileMenu";
 
 const links = [
   { href: "/#projects", label: "Projects" },
@@ -39,7 +40,7 @@ export function Nav() {
         <Link href="/" className="display text-[17px] font-semibold text-ink">
           K S Phanindra
         </Link>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2 md:gap-1">
           <ul className="hidden items-center gap-1 md:flex">
             {links.map((l) => (
               <li key={l.href}>
@@ -67,6 +68,7 @@ export function Nav() {
               {mac ? "⌘" : "Ctrl"} K
             </kbd>
           </button>
+          <MobileMenu />
         </div>
       </nav>
     </header>

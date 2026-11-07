@@ -9,7 +9,8 @@ declare global {
   }
 }
 
-const OFFSET = -80;
+// html has scroll-padding-top: 80px, which Lenis already honours.
+const OFFSET = 0;
 
 /** Scrolls to a hash target, through Lenis when it's running. */
 export function scrollToHash(hash: string) {

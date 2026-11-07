@@ -8,7 +8,7 @@ import { SplitHeading } from "./SplitHeading";
 
 export function Bugs() {
   return (
-    <section id="bugs" data-glow="#4f7cff" aria-labelledby="bugs-title" className="cv pt-12 pb-20 sm:pt-16 sm:pb-28">
+    <section id="bugs" data-glow="#4f7cff" aria-labelledby="bugs-title" className="pt-12 pb-20 sm:pt-16 sm:pb-28">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <div className="max-w-2xl">
           <SplitHeading

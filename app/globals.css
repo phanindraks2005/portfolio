@@ -630,12 +630,22 @@ html[data-off~="marquee"] .marquee-track {
   animation-play-state: paused;
 }
 
-/* Below-the-fold sections skip layout and paint until they come near the screen. */
-.cv {
-  content-visibility: auto;
-  contain-intrinsic-block-size: auto 1200px;
-}
 
 html.ready .page-glow {
   opacity: 1;
+}
+
+/* Phone menu: slides down, items follow. */
+.mobile-menu[open] {
+  animation: menu-in 0.32s var(--ease);
+}
+.mobile-menu[open] .menu-item {
+  animation: menu-item-in 0.45s var(--ease) both;
+  animation-delay: calc(60ms + var(--i, 0) * 45ms);
+}
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-12px); }
+}
+@keyframes menu-item-in {
+  from { opacity: 0; transform: translateY(10px); }
 }
