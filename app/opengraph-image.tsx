@@ -28,7 +28,7 @@ export default function OpengraphImage() {
       >
         <div style={{ display: "flex", alignItems: "center", gap: 14, fontSize: 26, color: "#b4bac5" }}>
           <div style={{ width: 14, height: 14, borderRadius: 7, background: "#34d399" }} />
-          Open to SWE and full-stack roles · Bengaluru
+          Open to SWE internships & full-time roles · 2027 · Bengaluru
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 112, fontWeight: 700, letterSpacing: -5, lineHeight: 1 }}>K S Phanindra</div>

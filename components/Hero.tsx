@@ -25,7 +25,7 @@ export function Hero() {
             <span className="pulse" aria-hidden="true">
               <span />
             </span>
-            Open to SWE and full-stack roles
+            Open to SWE internships &amp; full-time roles · 2027
           </p>
 
           <h1 className="display mt-7 text-[clamp(3rem,8.4vw,6rem)] leading-[0.92] font-semibold tracking-[-0.05em] text-ink">

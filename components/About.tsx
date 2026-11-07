@@ -59,7 +59,7 @@ export function About() {
                 <span className="pulse" aria-hidden="true">
                   <span />
                 </span>
-                Open to SWE and full-stack roles
+                Open to SWE internships &amp; full-time roles · 2027
               </p>
             </div>
           </RevealItem>
