@@ -166,6 +166,7 @@ function Stage({
               <LoopVideo
                 media={s.laptop}
                 load={load && Math.abs(i - active) <= 1}
+                showPoster={load}
                 play={play && i === active}
                 className="size-full object-cover object-top-left"
               />
