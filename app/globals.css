@@ -336,7 +336,12 @@ html.ready .aurora span {
 
 /* Command palette and toast entrances. */
 .palette[open] {
+  border-color: rgb(79 124 255 / 0.4);
   animation: palette-in 0.22s var(--ease);
+}
+/* The open panel's border shows focus and the active result has its own ring, so the input needs no outline. */
+.palette input:focus-visible {
+  outline: none;
 }
 .palette[open]::backdrop {
   animation: fade-in 0.22s var(--ease);

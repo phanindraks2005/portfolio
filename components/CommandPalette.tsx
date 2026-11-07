@@ -230,7 +230,7 @@ export function CommandPalette() {
                 onMouseMove={() => setActive(index)}
                 onClick={() => choose(item)}
                 className={`flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-[15px] ${
-                  index === active ? "bg-surface-2 text-ink" : "text-ink-2"
+                  index === active ? "bg-surface-2 text-ink shadow-[inset_0_0_0_1px_rgb(79_124_255/0.45)]" : "text-ink-2"
                 }`}
               >
                 <span className="grid size-5 place-items-center text-muted" aria-hidden="true">
