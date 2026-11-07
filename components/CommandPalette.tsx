@@ -143,12 +143,18 @@ export function CommandPalette() {
   useEffect(() => {
     const d = dialog.current;
     if (!d) return;
+    // While open, Lenis is stopped and the page is locked; the list scrolls natively (it has data-lenis-prevent,
+    // because a stopped Lenis cancels every wheel event that isn't marked).
     if (isOpen && !d.open) {
       window.__lenis?.stop();
+      document.documentElement.style.overflow = "hidden";
       d.showModal();
       input.current?.focus();
     } else if (!isOpen && d.open) d.close();
-    if (!isOpen) window.__lenis?.start();
+    if (!isOpen) {
+      document.documentElement.style.overflow = "";
+      window.__lenis?.start();
+    }
   }, [isOpen]);
 
   useEffect(() => {
@@ -210,6 +216,7 @@ export function CommandPalette() {
         ref={list}
         role="listbox"
         aria-label="Commands"
+        data-lenis-prevent
         className="max-h-[min(380px,60vh)] overflow-y-auto overscroll-contain p-2"
       >
         {filtered.length === 0 && <li className="px-3 py-8 text-center text-[14px] text-muted">Nothing matches “{query}”.</li>}
