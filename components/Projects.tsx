@@ -17,7 +17,7 @@ export function Projects() {
           <Reveal>
             <RevealItem>
               <p className="mt-5 text-[17px] leading-relaxed text-ink-2">
-                Three products I designed, built and shipped on my own. The recordings come from the two web apps&rsquo; live demos, which
+                Three products I designed, built and shipped. The recordings come from the two web apps&rsquo; live demos, which
                 need no account, so you can click through everything yourself.
               </p>
             </RevealItem>
