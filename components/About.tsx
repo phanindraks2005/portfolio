@@ -42,7 +42,7 @@ export function About() {
             <h3 className="mt-5 text-[13px] font-medium text-muted">Based in</h3>
             <p className="mt-1.5 text-[17px] font-medium text-ink">Bengaluru, India</p>
             <p className="mt-1 text-[15px] text-ink-2">
-              <LocalTime /> IST
+              <LocalTime />
             </p>
           </RevealItem>
 
