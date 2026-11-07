@@ -17,7 +17,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-6xl gap-6 px-5 py-10 text-[14px] text-muted sm:px-8 md:grid-cols-[1fr_auto] md:items-center">
         <div className="grid gap-2">
           <p>© 2026 K S Phanindra. Built with Next.js and Framer Motion.</p>
-          <p>
+          <p className="hidden md:block">
             Press <kbd className="rounded border border-line px-1.5 py-0.5 font-mono text-[12px] text-ink-2">Ctrl K</kbd> to jump anywhere.
           </p>
         </div>
