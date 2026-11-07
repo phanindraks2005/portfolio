@@ -251,7 +251,7 @@ export default async function CaseStudy({ params }: PageProps<"/projects/[slug]"
 
 function Block({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-24 border-t border-line py-16 sm:py-20">
+    <section id={id} aria-labelledby={`${id}-title`} className="border-t border-line py-16 sm:py-20">
       <Reveal>
         <RevealItem>
           <h2 id={`${id}-title`} className={h2}>
