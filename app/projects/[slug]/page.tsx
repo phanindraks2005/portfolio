@@ -100,7 +100,8 @@ export default async function CaseStudy({ params }: PageProps<"/projects/[slug]"
                     src={first.laptop!.poster}
                     alt={first.laptop!.alt}
                     fill
-                    priority
+                    preload
+                    fetchPriority="high"
                     sizes="(min-width: 1024px) 600px, 92vw"
                     className="object-cover object-top-left"
                   />
