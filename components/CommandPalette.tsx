@@ -68,6 +68,14 @@ export function CommandPalette() {
         run: () => go("#skills"),
       },
       { id: "experience", label: "Experience", group: "Sections", icon: <Hash size={16} />, run: () => go("#experience") },
+      {
+        id: "education",
+        label: "Education",
+        group: "Sections",
+        keywords: "college bmsce school coursework",
+        icon: <Hash size={16} />,
+        run: () => go("#education"),
+      },
       { id: "contact", label: "Contact", group: "Sections", icon: <Hash size={16} />, run: () => go("#contact") },
       {
         id: "email",

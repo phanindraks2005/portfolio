@@ -1,4 +1,4 @@
-import { GraduationCap, MapPin, Target } from "lucide-react";
+import { MapPin, Target } from "lucide-react";
 import { LocalTime } from "./LocalTime";
 import { Reveal, RevealItem } from "./motion";
 import { SplitHeading } from "./SplitHeading";
@@ -26,13 +26,6 @@ export function About() {
               cross-account file read, a copilot that claimed actions it hadn&rsquo;t done, history silently cut off at 1,000 rows. Each web
               app also ships a demo with no sign-up, because the people looking at my work should be able to click everything.
             </p>
-          </RevealItem>
-
-          <RevealItem className={`${card} md:col-span-2`}>
-            <GraduationCap size={20} className="text-accent" aria-hidden="true" />
-            <h3 className="mt-5 text-[13px] font-medium text-muted">Education</h3>
-            <p className="mt-1.5 text-[17px] font-medium leading-snug text-ink">BMS College of Engineering</p>
-            <p className="mt-1 text-[15px] text-ink-2">B.Tech, Computer Science · 2023–2027</p>
           </RevealItem>
 
           <RevealItem className={`${card} md:col-span-2`}>

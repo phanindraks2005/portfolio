@@ -174,3 +174,21 @@ export const experience = [
     text: "Handled technical setup and coordination in the execution team.",
   },
 ];
+
+export const education = [
+  {
+    school: "BMS College of Engineering",
+    detail: "B.Tech, Computer Science and Engineering",
+    years: "2023–2027",
+    coursework: ["Data Structures & Algorithms", "DBMS", "Operating Systems", "Computer Networks", "Soft Computing"],
+  },
+  {
+    school: "Deeksha Center for Learning",
+    detail: "Pre-University (11th & 12th)",
+    years: "2021–2023",
+  },
+  {
+    school: "GEM International Residential School",
+    detail: "School football team and athletics",
+  },
+];
