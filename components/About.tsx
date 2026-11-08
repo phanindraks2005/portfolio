@@ -1,6 +1,5 @@
-import { ArrowRight, MapPin } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { LocalTime } from "./LocalTime";
 import { Reveal, RevealItem } from "./motion";
 import { SplitHeading } from "./SplitHeading";
 
@@ -58,17 +57,8 @@ export function About() {
           </RevealItem>
         </Reveal>
 
-        <Reveal className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-6">
-          <RevealItem className={`${card} md:col-span-2`}>
-            <MapPin size={20} className="text-accent" aria-hidden="true" />
-            <h3 className="mt-5 text-[13px] font-medium text-muted">Based in</h3>
-            <p className="mt-1.5 text-[17px] font-medium text-ink">Bengaluru, India</p>
-            <p className="mt-1 text-[15px] text-ink-2">
-              <LocalTime />
-            </p>
-          </RevealItem>
-
-          <RevealItem className={`${card} md:col-span-4`}>
+        <Reveal className="mt-12">
+          <RevealItem className={card}>
             <div id="now" className="flex h-full flex-col">
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                 <h3 className="display text-[20px] font-semibold text-ink">What I&rsquo;m doing now</h3>
