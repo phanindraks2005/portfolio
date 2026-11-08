@@ -23,7 +23,7 @@ export function About() {
           <RevealItem className="relative mx-auto w-full max-w-[340px] md:mx-0">
             <div
               aria-hidden="true"
-              className="absolute -inset-6 rounded-[40px] bg-[radial-gradient(closest-side,rgb(79_124_255/0.35),transparent)]"
+              className="absolute -inset-x-2 -inset-y-6 rounded-[40px] sm:-inset-6 bg-[radial-gradient(closest-side,rgb(79_124_255/0.35),transparent)]"
             />
             <Image
               src="/me.jpg"
@@ -57,9 +57,10 @@ export function About() {
           </RevealItem>
         </Reveal>
 
-        <Reveal className="mt-12">
-          <RevealItem className={card}>
-            <div id="now" className="flex h-full flex-col">
+        {/* The id sits outside the reveal, so a jump to #now measures where the card ends up, not where it starts sliding from. */}
+        <div id="now" className="mt-12">
+          <Reveal>
+            <RevealItem className={card}>
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                 <h3 className="display text-[20px] font-semibold text-ink">What I&rsquo;m doing now</h3>
                 <p className="text-[13px] text-muted">
@@ -80,9 +81,9 @@ export function About() {
                 </span>
                 Open to SWE internships &amp; full-time roles · 2027
               </p>
-            </div>
-          </RevealItem>
-        </Reveal>
+            </RevealItem>
+          </Reveal>
+        </div>
       </div>
     </section>
   );

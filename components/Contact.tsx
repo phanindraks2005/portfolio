@@ -32,7 +32,7 @@ export function Contact() {
           </RevealItem>
         </Reveal>
 
-        <Reveal className="mt-12 grid gap-4 sm:mt-14 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
+        <Reveal className="mt-12 grid grid-cols-1 gap-4 sm:mt-14 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
           <RevealItem>
             <ContactForm enabled={formReady} />
           </RevealItem>

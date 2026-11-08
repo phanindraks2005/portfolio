@@ -62,9 +62,9 @@ export function ContactForm({ enabled }: { enabled: boolean }) {
     <form
       onSubmit={onSubmit}
       onFocus={() => (started.current ||= Date.now())}
-      className="relative grid gap-5 rounded-[24px] border border-line bg-surface p-6 sm:p-8"
+      className="relative grid grid-cols-1 gap-5 rounded-[24px] border border-line bg-surface p-6 sm:p-8"
     >
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <label className="block text-[14px] font-medium text-ink-2">
           Name
           <input name="name" required maxLength={100} autoComplete="name" className={`${field} h-12`} />
