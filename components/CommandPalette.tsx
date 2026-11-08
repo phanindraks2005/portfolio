@@ -84,6 +84,14 @@ export function CommandPalette() {
         icon: <Hash size={16} />,
         run: () => go("#education"),
       },
+      {
+        id: "achievements",
+        label: "Achievements",
+        group: "Sections",
+        keywords: "chess football athletics utsav awards",
+        icon: <Hash size={16} />,
+        run: () => go("#achievements"),
+      },
       { id: "contact", label: "Contact", group: "Sections", icon: <Hash size={16} />, run: () => go("#contact") },
       {
         id: "email",

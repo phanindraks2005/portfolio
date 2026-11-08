@@ -192,3 +192,9 @@ export const education = [
     detail: "School football team and athletics",
   },
 ];
+
+export const achievements = [
+  { icon: "trophy", title: "3rd place, state-level chess competition" },
+  { icon: "medal", title: "School football team and athletics" },
+  { icon: "users", title: "Junior Coordinator, Utsav (BMSCE cultural fest)", detail: "Led a team of 12 volunteers" },
+] as const;
