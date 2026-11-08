@@ -89,12 +89,69 @@ export const projects: Project[] = [
   },
 ];
 
-export const skills: { group: string; items: string[] }[] = [
-  { group: "Frontend", items: ["Next.js", "React", "TypeScript", "JavaScript", "Tailwind CSS", "Framer Motion", "Flutter"] },
-  { group: "Backend", items: ["Node.js", "FastAPI", "Python", "REST APIs"] },
-  { group: "Database", items: ["PostgreSQL", "Supabase", "SQLite"] },
-  { group: "AI", items: ["Gemini API", "scikit-learn", "pandas"] },
-  { group: "Tools", items: ["Git", "GitHub Actions", "Vercel", "Render"] },
+export type Skill = { name: string; used: string[] };
+
+// `used` lists the project slugs whose stack has the skill, from each repo's README and CLAUDE.md:
+// Stride is plain JavaScript (Tailwind installed but unused), MediVault is TypeScript + Tailwind,
+// RoadSense is Flutter with a Python/FastAPI backend. Both web apps run a GitHub Actions keep-alive.
+const S = "stride";
+const M = "medivault";
+const R = "roadsense";
+
+export const skills: { group: string; items: Skill[] }[] = [
+  {
+    group: "Frontend",
+    items: [
+      { name: "Next.js", used: [S, M] },
+      { name: "React", used: [S, M] },
+      { name: "TypeScript", used: [M] },
+      { name: "JavaScript", used: [S] },
+      { name: "Tailwind CSS", used: [M] },
+      { name: "Framer Motion", used: [S] },
+      { name: "Recharts", used: [S] },
+    ],
+  },
+  {
+    group: "Backend",
+    items: [
+      { name: "Node.js", used: [S, M] },
+      { name: "REST APIs", used: [S, M, R] },
+      { name: "FastAPI", used: [R] },
+      { name: "Python", used: [R] },
+    ],
+  },
+  {
+    group: "Database",
+    items: [
+      { name: "PostgreSQL", used: [S, M] },
+      { name: "Supabase", used: [S, M] },
+      { name: "SQLite", used: [R] },
+    ],
+  },
+  {
+    group: "AI",
+    items: [
+      { name: "Gemini API", used: [S, M] },
+      { name: "scikit-learn", used: [R] },
+      { name: "pandas", used: [R] },
+    ],
+  },
+  {
+    group: "Mobile",
+    items: [
+      { name: "Flutter", used: [R] },
+      { name: "Dart", used: [R] },
+    ],
+  },
+  {
+    group: "Tools",
+    items: [
+      { name: "Git", used: [S, M, R] },
+      { name: "GitHub Actions", used: [S, M] },
+      { name: "Vercel", used: [S, M] },
+      { name: "Render", used: [R] },
+    ],
+  },
 ];
 
 export const experience = [

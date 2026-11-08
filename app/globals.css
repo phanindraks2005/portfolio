@@ -225,6 +225,34 @@ html.ready .aurora span {
   }
 }
 
+/* Skills map: the projects that use the active skill light up in their own colour, the rest dim. */
+.skill-project {
+  transition:
+    opacity 0.3s var(--ease),
+    border-color 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+.skill-project[data-lit] {
+  border-color: color-mix(in srgb, var(--c) 55%, transparent);
+  box-shadow: 0 0 32px -10px color-mix(in srgb, var(--c) 60%, transparent);
+}
+.skill-project[data-dim] {
+  opacity: 0.4;
+}
+.skill-chip {
+  transition:
+    border-color 0.2s var(--ease),
+    background-color 0.2s var(--ease);
+}
+.skill-chip:hover,
+.skill-chip[data-active] {
+  border-color: rgb(79 124 255 / 0.55);
+  background: var(--accent-soft);
+}
+.skill-chip[aria-pressed="true"] {
+  border-color: var(--accent);
+}
+
 /* Project card: brand glow, lift and a slight tilt of the devices. */
 .project {
   --c: var(--accent);

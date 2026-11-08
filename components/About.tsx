@@ -1,7 +1,5 @@
 import { GraduationCap, MapPin, Target } from "lucide-react";
-import { skills } from "@/lib/data";
 import { LocalTime } from "./LocalTime";
-import { BrandIcon } from "./icons";
 import { Reveal, RevealItem } from "./motion";
 import { SplitHeading } from "./SplitHeading";
 
@@ -63,57 +61,8 @@ export function About() {
               </p>
             </div>
           </RevealItem>
-
-          <RevealItem className={`${card} md:col-span-6`}>
-            <h3 className="display text-[22px] font-semibold text-ink">Skills</h3>
-            <p className="mt-2 text-[15px] text-ink-2">Only what my projects actually use.</p>
-            <dl className="mt-7 grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-5">
-              {skills.map((g) => (
-                <div key={g.group}>
-                  <dt className="text-[13px] font-medium text-muted">{g.group}</dt>
-                  <dd className="mt-3 flex flex-wrap gap-2">
-                    {g.items.map((s) => (
-                      <span
-                        key={s}
-                        className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-white/[0.03] px-2.5 py-1.5 text-[13px] text-ink"
-                      >
-                        <BrandIcon name={s} size={14} />
-                        {s}
-                      </span>
-                    ))}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </RevealItem>
         </Reveal>
       </div>
-
-      <Marquee />
     </section>
-  );
-}
-
-function Marquee() {
-  const names = skills.flatMap((g) => g.items).filter((n) => n !== "REST APIs");
-  const row = (dupe: boolean) =>
-    names.map((n) => (
-      <li
-        key={`${n}-${dupe}`}
-        data-dupe={dupe || undefined}
-        aria-hidden={dupe || undefined}
-        className="flex shrink-0 items-center gap-2.5 px-6 text-[15px] text-ink-2"
-      >
-        <BrandIcon name={n} size={20} mono />
-        {n}
-      </li>
-    ));
-  return (
-    <div className="marquee mt-16 overflow-hidden py-2 sm:mt-20" data-loop="marquee">
-      <ul className="marquee-track" aria-label="Technologies I use">
-        {row(false)}
-        {row(true)}
-      </ul>
-    </div>
   );
 }

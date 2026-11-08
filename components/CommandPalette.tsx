@@ -58,7 +58,15 @@ export function CommandPalette() {
         icon: <Hash size={16} />,
         run: () => go("#verified"),
       },
-      { id: "about", label: "About and skills", group: "Sections", icon: <Hash size={16} />, run: () => go("#about") },
+      { id: "about", label: "About", group: "Sections", icon: <Hash size={16} />, run: () => go("#about") },
+      {
+        id: "skills",
+        label: "Skills",
+        group: "Sections",
+        keywords: "stack technologies tools",
+        icon: <Hash size={16} />,
+        run: () => go("#skills"),
+      },
       { id: "experience", label: "Experience", group: "Sections", icon: <Hash size={16} />, run: () => go("#experience") },
       { id: "contact", label: "Contact", group: "Sections", icon: <Hash size={16} />, run: () => go("#contact") },
       {
