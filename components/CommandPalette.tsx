@@ -60,6 +60,14 @@ export function CommandPalette() {
       },
       { id: "about", label: "About", group: "Sections", icon: <Hash size={16} />, run: () => go("#about") },
       {
+        id: "now",
+        label: "Now",
+        group: "Sections",
+        keywords: "what i'm doing currently placements dsa",
+        icon: <Hash size={16} />,
+        run: () => go("#now"),
+      },
+      {
         id: "skills",
         label: "Skills",
         group: "Sections",
