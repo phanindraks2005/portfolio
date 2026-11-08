@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { ChromeGate } from "@/components/ChromeGate";
 import { CommandPalette } from "@/components/CommandPalette";
 import { Footer } from "@/components/Footer";
 import { GlowScene } from "@/components/GlowScene";
@@ -58,14 +59,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             Skip to content
           </a>
           <BrandSprite />
-          <GlowScene />
-          <Nav />
+          <ChromeGate>
+            <GlowScene />
+            <Nav />
+          </ChromeGate>
           <div id="main">{children}</div>
-          <Footer />
-          <CommandPalette />
-          <Toaster />
-          <GlowTracker />
-          <SmoothScroll />
+          <ChromeGate>
+            <Footer />
+            <CommandPalette />
+            <Toaster />
+            <GlowTracker />
+            <SmoothScroll />
+          </ChromeGate>
         </MotionProvider>
       </body>
     </html>

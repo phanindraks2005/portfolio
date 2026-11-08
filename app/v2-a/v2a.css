@@ -1,0 +1,640 @@
+/* Direction A, "Scoresheet": paper and ink, a board's light and dark squares, project colours as whole fields. */
+
+.va {
+  --bg: #ffffff;
+  --surface: #f1f1ef;
+  --ink: #0d0d0d;
+  --muted: #5c5c5a;
+  --light-sq: #d6d6d2;
+  --stride: #c6f432;
+  --medivault: #2dd4bf;
+  --roadsense: #f5a524;
+  --m: clamp(16px, 2.2vw, 32px);
+  --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --step-head: clamp(2.25rem, 1.3rem + 3.2vw, 4rem);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-brico), system-ui, sans-serif;
+  font-size: var(--step-body);
+  line-height: 1.5;
+}
+.va ::selection {
+  background: var(--stride);
+  color: var(--ink);
+}
+.va a {
+  color: inherit;
+}
+
+.va-frame {
+  padding-inline: var(--m);
+}
+
+/* Header: no bar. A mark at the left, three words at the right. */
+.va-head {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 18px;
+}
+.va-mark {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+}
+.va-head nav {
+  display: flex;
+  gap: clamp(4px, 2vw, 28px);
+}
+.va-head nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: underline 2px transparent;
+  text-underline-offset: 6px;
+  transition: text-decoration-color 0.2s;
+}
+.va-head nav a:hover {
+  text-decoration-color: currentColor;
+}
+
+/* Hero: two lines of name stepping across the full width. */
+.va-hero {
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding-top: 15svh;
+  padding-bottom: 28px;
+}
+.va-display {
+  margin: 0;
+  font-weight: 600;
+  font-size: clamp(88px, 15vw, 250px);
+  line-height: 0.86;
+  letter-spacing: -0.05em;
+}
+.va-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+.va-line > span {
+  display: inline-block;
+  animation: va-rise 0.9s var(--ease) both;
+}
+.va-line-right {
+  text-align: right;
+}
+.va-line-right > span {
+  animation-delay: 0.11s;
+}
+@keyframes va-rise {
+  from {
+    transform: translateY(105%);
+  }
+}
+.va-hero-foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px 48px;
+  animation: va-fade 0.7s var(--ease) 0.45s both;
+}
+@keyframes va-fade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+.va-lead {
+  margin: 0;
+  max-width: 44ch;
+  font-size: var(--step-lead);
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+
+.va-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 24px;
+  background: var(--ink);
+  color: var(--bg) !important;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.2s var(--ease), background-color 0.2s;
+}
+.va-btn:hover {
+  background: #2a2a2a;
+}
+.va-btn:active {
+  transform: scale(0.97);
+}
+.va-btn-light {
+  background: var(--bg);
+  color: var(--ink) !important;
+}
+.va-btn-light:hover {
+  background: var(--stride);
+}
+
+/* A board square used as the section number: e3, e4, e5. */
+.va-sq {
+  display: inline-grid;
+  place-items: center;
+  width: 1.15em;
+  height: 1.15em;
+  margin-right: 0.3em;
+  font-size: 0.42em;
+  font-weight: 600;
+  letter-spacing: 0;
+  vertical-align: 0.5em;
+}
+.va-sq.dark {
+  background: var(--ink);
+  color: var(--bg);
+}
+.va-sq.light {
+  background: var(--light-sq);
+  color: var(--ink);
+}
+.va-h2 {
+  margin: 0;
+  font-size: var(--step-head);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+/* Work: Stride owns the whole field in its own lime. */
+.va-work {
+  background: var(--stride);
+  padding-block: clamp(88px, 12vw, 180px) clamp(64px, 8vw, 120px);
+  overflow: hidden;
+}
+.va-block {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 0 var(--m);
+  padding-right: var(--m);
+  margin-top: clamp(40px, 5vw, 72px);
+  align-items: end;
+}
+.va-visual {
+  grid-column: 1 / 8;
+  height: min(80svh, 52vw);
+  overflow: hidden;
+  margin-left: calc(var(--m) * -1);
+}
+.va-visual img {
+  width: 120%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+  object-position: left top;
+}
+.va-cluster {
+  grid-column: 9 / 13;
+}
+.va-cluster img {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 6px;
+  width: 100%;
+}
+.va-cluster-row {
+  margin-top: 28px;
+  display: grid;
+  gap: 16px;
+}
+.va-h3 {
+  margin: 0;
+  font-size: clamp(2.25rem, 1.4rem + 2.4vw, 3.5rem);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+.va-h3 span {
+  display: block;
+  margin-top: 8px;
+  font-size: var(--step-body);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.va-cluster-text p {
+  margin: 0 0 12px;
+  text-wrap: pretty;
+}
+
+.va-moves {
+  list-style: none;
+  margin: clamp(64px, 8vw, 120px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 40px var(--m);
+  counter-reset: move;
+}
+.va-moves li {
+  counter-increment: move;
+}
+.va-moves h4 {
+  margin: 0 0 10px;
+  font-size: var(--step-lead);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.va-moves h4::before {
+  content: counter(move) ". ";
+}
+.va-moves p {
+  margin: 0;
+  text-wrap: pretty;
+}
+.va-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 28px;
+  margin: 56px 0 0;
+}
+.va-links a:not(.va-btn) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 500;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 2px;
+}
+.va-links a:not(.va-btn):hover {
+  text-decoration-thickness: 4px;
+}
+
+.va-next {
+  list-style: none;
+  margin: clamp(64px, 8vw, 120px) 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--m);
+}
+.va-next a {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  min-height: 220px;
+  padding: 24px;
+  text-decoration: none;
+  transition: transform 0.35s var(--ease);
+}
+.va-next a:hover {
+  transform: translateY(-6px);
+}
+.va-next strong {
+  font-size: var(--step-head);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+/* The one rest: the city, as it was surveyed. */
+.va-map {
+  margin: 0;
+}
+.va-map img {
+  width: 100%;
+  height: 62svh;
+  object-fit: cover;
+  object-position: 50% 45%;
+  filter: grayscale(1) contrast(1.05);
+}
+.va-map figcaption {
+  padding-top: 12px;
+  font-size: var(--step-small);
+  color: var(--muted);
+}
+
+/* About: side facts at the left, the paragraph from the 34% line. */
+.va-about {
+  padding-block: clamp(120px, 14vw, 200px) clamp(96px, 10vw, 160px);
+}
+.va-about-row {
+  display: grid;
+  grid-template-columns: minmax(0, 30fr) minmax(0, 66fr);
+  gap: 48px 4%;
+}
+.va-side img {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+.va-side dl {
+  margin: 28px 0 0;
+  display: grid;
+  gap: 20px;
+}
+.va-side dt {
+  font-size: var(--step-small);
+  color: var(--muted);
+}
+.va-side dd {
+  margin: 2px 0 0;
+  font-size: var(--step-body);
+  font-weight: 500;
+}
+.va-about-main .va-h2 {
+  margin-bottom: 40px;
+}
+.va-statement {
+  margin: 0 0 24px;
+  max-width: 36ch;
+  font-size: clamp(1.375rem, 0.9rem + 1.3vw, 2.25rem);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+}
+.va-record {
+  margin-top: 72px;
+}
+.va-record-word {
+  margin: 0;
+  font-weight: 600;
+}
+.va-record-lists {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 340px));
+  gap: 40px 64px;
+}
+.va-record h3 {
+  margin: 0 0 14px;
+  font-size: var(--step-body);
+  font-weight: 600;
+}
+.va-record ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.va-record li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.va-record li span:last-child {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Footer: the inverse field, the name cut by the bottom edge. */
+.va-foot {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--bg);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  padding-top: clamp(80px, 8vw, 120px);
+}
+.va-foot .v2-yours {
+  background: rgb(255 255 255 / 0.16);
+}
+.va-foot-top {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+  gap: 48px var(--m);
+}
+.va-invite {
+  margin: 0;
+  font-size: clamp(3rem, 1rem + 6vw, 6.5rem);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+}
+.va-foot .va-sq.dark {
+  background: var(--bg);
+  color: var(--ink);
+}
+.va-foot-next {
+  margin: 24px 0 32px;
+  max-width: 40ch;
+  font-size: var(--step-lead);
+  line-height: 1.35;
+}
+.va-foot ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.va-foot ul a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-underline-offset: 5px;
+}
+.va-credits {
+  margin-top: clamp(120px, 14vw, 200px) !important;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin: 0;
+  padding-bottom: 12px;
+  font-size: var(--step-small);
+  color: #b9b9b5;
+}
+.va-wordmark {
+  margin: 0 0 0 calc(var(--m) - 0.04em);
+  font-size: 28vw;
+  font-weight: 600;
+  line-height: 0.8;
+  letter-spacing: -0.055em;
+  white-space: nowrap;
+  transform: translateY(22%);
+  margin-top: -0.06em;
+}
+
+/* The e-file at the right edge: one square per section, the pawn on the one in view. */
+.va-rail {
+  display: none;
+}
+@media (min-width: 1100px) {
+  .va-rail {
+    display: block;
+    position: fixed;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+  .va-rail ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .va-rail a {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .va-rail a.dark {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .va-rail a.light {
+    background: var(--light-sq);
+    color: var(--ink);
+  }
+  .va-rail a[aria-current] .va-rail-sq {
+    opacity: 0;
+  }
+  .va-rail-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .va-pawn {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+    animation: va-step 0.45s var(--ease);
+  }
+  @keyframes va-step {
+    from {
+      transform: translateY(32px);
+      opacity: 0.2;
+    }
+  }
+}
+
+/* Entrances, only where the browser can tie them to scroll; otherwise everything is simply there. */
+@media (min-width: 1100px) {
+  .va {
+    --m: 56px;
+  }
+}
+
+@media (max-width: 899px) {
+  .va-hero {
+    padding-top: 14svh;
+  }
+  .va-display {
+    font-size: 19vw;
+    line-height: 0.9;
+  }
+  .va-line-right {
+    text-align: left;
+  }
+  .va-hero-foot {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .va-lead {
+    font-size: 18px;
+  }
+  .va-btn {
+    width: 100%;
+  }
+  .va-links .va-btn {
+    width: auto;
+  }
+  .va-block {
+    display: block;
+    padding-right: 0;
+  }
+  .va-visual {
+    width: 110%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+  }
+  .va-visual img {
+    width: auto;
+    height: 100%;
+  }
+  .va-cluster {
+    padding-inline: var(--m);
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+  }
+  .va-cluster img {
+    order: 2;
+    width: 70%;
+    align-self: flex-end;
+    margin-top: 28px;
+  }
+  .va-cluster-row {
+    margin-top: 0;
+  }
+  .va-moves {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .va-next {
+    grid-template-columns: 1fr;
+  }
+  .va-next a {
+    min-height: 160px;
+  }
+  .va-map img {
+    height: 48svh;
+  }
+  .va-about-row {
+    grid-template-columns: 1fr;
+  }
+  .va-about-main {
+    order: -1;
+  }
+  .va-side img {
+    max-width: 72%;
+  }
+  .va-record {
+    margin-top: 72px;
+  }
+  .va-record-lists {
+    grid-template-columns: 1fr;
+  }
+  .va-foot-top {
+    grid-template-columns: 1fr;
+  }
+  .va-invite {
+    font-size: 15vw;
+  }
+  .va-wordmark {
+    font-size: 34vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .va *,
+  .va *::before {
+    animation: none !important;
+    transition: none !important;
+  }
+}

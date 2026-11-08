@@ -1,0 +1,47 @@
+/* Shared by the v2 preview pages only. Every rule is scoped under .va or .vb. */
+
+.va,
+.vb {
+  color-scheme: light;
+  min-height: 100svh;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.va :focus-visible,
+.vb :focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 0;
+}
+
+.va img,
+.vb img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* An empty slot for an interview answer: a flat marker band, readable on every ground. */
+.v2-yours {
+  background: rgb(0 0 0 / 0.09);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0.05em 0.3em;
+  color: inherit;
+  font-style: normal;
+}
+.v2-yours-q {
+  font-weight: 600;
+}
+
+/* One-shot entrances armed by <Reveal>: only below-the-fold elements, never under reduced motion. */
+.rv-armed {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.rv-armed.rv-in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--rv-d, 0ms), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--rv-d, 0ms);
+}
