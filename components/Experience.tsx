@@ -12,7 +12,7 @@ export function Experience() {
           </RevealItem>
           <RevealItem>
             <p className="mt-5 max-w-[40ch] text-[17px] leading-relaxed text-ink-2">
-              Outside the code: running events at BMSCE, from leading a volunteer team to the technical setup.
+              I&rsquo;ve also helped run events at BMSCE, from leading a volunteer team to handling the technical setup.
             </p>
           </RevealItem>
         </Reveal>

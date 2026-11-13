@@ -56,8 +56,8 @@ export const stats: Stat[] = [
   },
   {
     value: 5,
-    label: "tool calls Libra can run in one message, every one of them",
-    how: "“Log 300 ml water and 20 g protein” now logs both, confirmed in the database; a call that fails is named, never claimed.",
+    label: "tool calls Libra can run in one message, and all of them run",
+    how: "“Log 300 ml water and 20 g protein” now logs both, confirmed in the database. If a call fails, Libra says so instead of claiming it worked.",
     link: { href: "/#bug-libra-tools", text: "The Libra bug" },
     color: "#c6f432",
     source: "stride/notes/PROGRESS.md 6ba60b2",

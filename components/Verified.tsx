@@ -14,14 +14,14 @@ export function Verified() {
         <div className="max-w-2xl">
           <SplitHeading
             id="verified-title"
-            text="Built, then verified"
+            text="How I tested it"
             className="display text-[clamp(2.25rem,5vw,3.5rem)] leading-[1] font-semibold text-ink"
           />
           <Reveal>
             <RevealItem>
               <p className="mt-5 text-[17px] leading-relaxed text-ink-2">
-                Shipping is half the job. These numbers come from the audits I ran on my own apps: Lighthouse, a click-through of every
-                control, security checks and a scan of every repo&rsquo;s history.
+                These numbers come from the checks I ran on my own apps: Lighthouse, clicking every control, security tests and a scan of
+                every repo&rsquo;s history.
               </p>
             </RevealItem>
           </Reveal>

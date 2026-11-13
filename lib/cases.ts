@@ -16,8 +16,8 @@ export const cases: Record<string, Case> = {
   stride: {
     slug: "stride",
     problem: [
-      "Habit apps make you do the logging. I wanted a tracker you can talk to: tell it what you drank, ate or lifted and it records it, then shows the streak, the week and the year back to you.",
-      "That means an AI that changes real data, so it has to be exact: every action it claims must have happened, for the right user, in the right tracker.",
+      "In most habit apps you log everything by hand. I wanted a tracker I could talk to. I tell it what I drank, ate or lifted, it records it, and it shows me my streak, my week and my year.",
+      "Because the AI changes real data, it has to be exact. Every action it reports must have really happened, for the right user and in the right tracker.",
     ],
     arch: {
       columns: [
@@ -79,7 +79,7 @@ export const cases: Record<string, Case> = {
         href: "/#bug-grain-fog",
       },
       {
-        title: "Gemini that hangs or runs out of quota",
+        title: "When Gemini hangs or runs out of quota",
         text: "One wrapper tries gemini-3.5-flash, falls back to flash-lite on 503, 429 or timeout, then retries once; 20 s per attempt, 50 s per message, plain messages instead of raw errors.",
       },
     ],
@@ -105,7 +105,7 @@ export const cases: Record<string, Case> = {
   medivault: {
     slug: "medivault",
     problem: [
-      "A family’s medical history lives on paper: prescriptions in a drawer, vaccination dates in someone’s memory, allergies nobody can find in an emergency.",
+      "Most of a family’s medical history is on paper. Prescriptions get lost, vaccination dates are forgotten, and in an emergency nobody can find the list of allergies.",
       "MediVault reads those papers with Gemini, keeps every member’s records in one place, and puts the details a paramedic needs on a card that opens without a login.",
     ],
     arch: {
@@ -166,7 +166,7 @@ export const cases: Record<string, Case> = {
         text: "Mobile Lighthouse 52 with layout shift 0.306. Stopping the grid from jumping when data arrives took shift to 0 and the score to 95–99.",
       },
       {
-        title: "AI that fails quietly",
+        title: "Handling bad AI replies",
         text: "Every AI reply is validated before use; a bad reply becomes “the answer came back incomplete” and a failed extraction can be retried from the record page.",
       },
     ],
@@ -193,7 +193,7 @@ export const cases: Record<string, Case> = {
     slug: "roadsense",
     problem: [
       "Unmarked speed bumps are a hazard, especially at night. The app should warn a driver before the bump, using only the phone already in the car.",
-      "A sharp drop in speed followed by a quick recovery is the signature of a bump; slowing for traffic or a turn looks different. The challenge is telling them apart from GPS speed alone.",
+      "A sharp drop in speed followed by a quick recovery usually means a bump. Slowing for traffic or a turn looks different. The hard part is telling them apart using only GPS speed.",
     ],
     arch: {
       columns: [
@@ -233,20 +233,20 @@ export const cases: Record<string, Case> = {
     ],
     hardest: [
       {
-        title: "Bump or traffic?",
+        title: "Telling a bump from traffic",
         text: "A candidate needs a drop of at least 20% that recovers within 5 seconds; the classifier then scores its shape and only events above 0.70 confidence are kept.",
       },
       {
-        title: "One driver isn’t proof",
+        title: "Confirming a bump",
         text: "Crowd validation: a bump is confirmed only once it has been detected at least twice within 20 m.",
       },
       {
-        title: "Warn early, then again",
+        title: "Two warnings",
         text: "A “Speed Bump Ahead” banner and voice alert first at 400 m, again at 60 m.",
       },
     ],
     security: [
-      "Honest status: the backend has no authentication yet and its CORS is open, so anyone could post readings. It’s the first item below.",
+      "Not done yet: the backend has no authentication and its CORS is open, so anyone could post readings. Fixing this is on the list below.",
       "The full final-year project and the backend repo are private; only the app is public.",
     ],
     results: [

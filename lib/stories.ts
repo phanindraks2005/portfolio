@@ -24,7 +24,7 @@ export const stories: Record<string, Step[]> = {
       laptop: clip("stride-trackers", "Scrolling to Stride's tracker cards and opening a tracker's entries"),
     },
     {
-      title: "Libra acts on your data",
+      title: "Libra, the AI copilot",
       text: "A Gemini copilot with function calling. It reads your trackers, logs, notes and workouts, and can log entries, create trackers and write meal or workout plans. Replies stream in, and what it did shows as chips.",
       laptop: clip("stride-libra", "Libra's chat: logged entries shown as chips and a workout plan as a checklist"),
     },
@@ -64,15 +64,15 @@ export const stories: Record<string, Step[]> = {
       text: "While tracking is on, the phone streams GPS readings (time, position, speed) to a FastAPI backend once a second.",
     },
     {
-      title: "Find the dip",
+      title: "Finding the speed drop",
       text: "When a trip ends the backend scans the trace for candidate events: a speed drop of at least 20% that recovers within 5 seconds. Slowing for traffic or a turn looks different.",
     },
     {
-      title: "Let the model decide",
+      title: "Scoring each event",
       text: "A scikit-learn Random Forest scores each event on speed before, minimum speed, drop, deceleration, recovery time and jerk, keeping those above 0.70. A bump is confirmed once it's detected twice within 20 m. The current model is trained on synthetic data.",
     },
     {
-      title: "Warn before the bump",
+      title: "Warning the driver",
       text: "Every user sees confirmed bumps on an OpenStreetMap map, with a “Speed Bump Ahead” banner and a voice alert at 400 m and again at 60 m.",
     },
   ],

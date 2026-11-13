@@ -9,7 +9,7 @@ Personal site of K S Phanindra, full-stack developer (CSE, BMS College of Engine
 - **Projects as scroll stories:** Stride, MediVault and RoadSense. The device stays pinned while the steps scroll, and its screen follows the step. Recordings come from the live demos at [stride-ks.vercel.app/demo](https://stride-ks.vercel.app/demo) and [medivault-ks.vercel.app/demo](https://medivault-ks.vercel.app/demo). RoadSense has no live site, so it's shown with drawings of its detection rules.
 - **Case studies** at `/projects/stride`, `/projects/medivault` and `/projects/roadsense`: the problem, what was built, an architecture diagram, the stack and why, the hardest parts, the security approach, results and what's next.
 - **Bugs I've killed:** four real bugs with symptom, root cause, fix and the code.
-- **Built, then verified:** numbers from the projects' own audits.
+- **How I tested it:** numbers from the projects' own audits.
 - **Resume** at `/resume` (HTML, printable) and `/resume.pdf`.
 - Ctrl+K command menu, smooth scrolling on desktop, `prefers-reduced-motion` respected throughout.
 

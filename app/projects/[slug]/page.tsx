@@ -159,7 +159,7 @@ export default async function CaseStudy({ params }: PageProps<"/projects/[slug]"
         </Block>
 
         {/* Stack */}
-        <Block id="stack" title="Tech stack, and why">
+        <Block id="stack" title="Tech stack and why I chose it">
           <dl className="grid grid-cols-1 gap-x-10 gap-y-6 md:grid-cols-2">
             {c.stack.map((t) => (
               <div key={t.name} className="min-w-0">
@@ -207,7 +207,7 @@ export default async function CaseStudy({ params }: PageProps<"/projects/[slug]"
         </Block>
 
         {/* Results */}
-        <Block id="results" title={slug === "roadsense" ? "The rules it runs on" : "Results and verification"}>
+        <Block id="results" title={slug === "roadsense" ? "The rules it runs on" : "Results"}>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {c.results.map((r) => (
               <div key={r.label} className="glow-card rounded-[20px] p-6" style={{ ["--glow" as string]: p.color }}>

@@ -52,9 +52,9 @@ export function CommandPalette() {
       },
       {
         id: "verified",
-        label: "Built, then verified",
+        label: "How I tested it",
         group: "Sections",
-        keywords: "lighthouse audit numbers",
+        keywords: "verified testing lighthouse audit numbers",
         icon: <Hash size={16} />,
         run: () => go("#verified"),
       },
