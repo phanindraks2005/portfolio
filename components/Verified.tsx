@@ -1,8 +1,6 @@
-"use client";
 
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
 import { stats, type Stat } from "@/lib/verified";
 import { Reveal, RevealItem } from "./motion";
 import { SplitHeading } from "./SplitHeading";
@@ -46,7 +44,7 @@ function StatCard({ stat: s }: { stat: Stat }) {
     <article className="glow-card flex h-full flex-col rounded-[22px] p-6 sm:p-7" style={{ ["--glow" as string]: s.color }}>
       <p className="display text-[clamp(2.5rem,5vw,3.25rem)] leading-none font-semibold tracking-[-0.04em] text-ink tabular-nums">
         {s.prefix && <span className="text-muted">{s.prefix}</span>}
-        <CountUp value={s.value} />
+        {fmt.format(s.value)}
         {s.suffix && <span style={{ color: s.color }}>{s.suffix}</span>}
       </p>
       <h3 className="mt-4 text-[16px] leading-snug font-semibold text-ink">{s.label}</h3>
@@ -60,46 +58,4 @@ function StatCard({ stat: s }: { stat: Stat }) {
       </Link>
     </article>
   );
-}
-
-/**
- * Renders the final number on the server (and with reduced motion), so it's always readable.
- * When it hydrates off screen it counts up from 0 the first time it scrolls into view.
- */
-function CountUp({ value }: { value: number }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const [shown, setShown] = useState(value);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || value === 0 || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const r = el.getBoundingClientRect();
-    if (r.top < innerHeight && r.bottom > 0) return; // already on screen: leave the real number
-    let frame = 0;
-    // Off screen at hydration: start from 0 and count up on first sight.
-    el.textContent = "0";
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (!e.isIntersecting) return;
-        io.disconnect();
-        const start = performance.now();
-        const tick = (t: number) => {
-          const k = Math.min(1, (t - start) / 1400);
-          const eased = 1 - Math.pow(1 - k, 3);
-          el.textContent = fmt.format(Math.round(value * eased));
-          if (k < 1) frame = requestAnimationFrame(tick);
-          else setShown(value);
-        };
-        frame = requestAnimationFrame(tick);
-      },
-      { threshold: 0.6 },
-    );
-    io.observe(el);
-    return () => {
-      io.disconnect();
-      cancelAnimationFrame(frame);
-    };
-  }, [value]);
-
-  return <span ref={ref}>{fmt.format(shown)}</span>;
 }
