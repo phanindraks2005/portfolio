@@ -50,7 +50,7 @@ export function ProjectStory({ project: p, steps, flip }: { project: Project; st
   const activePhone = phoneFor(active);
 
   return (
-    <article ref={root} id={p.slug} data-glow={p.color} className="story" style={{ ["--c" as string]: p.color }}>
+    <article ref={root} id={p.slug} className="story" style={{ ["--c" as string]: p.color }}>
       <Reveal className="glow-card story-head grid gap-8 rounded-[28px] p-6 sm:p-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-14">
         <RevealItem>
           <div className="flex items-center gap-3">

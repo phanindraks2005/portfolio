@@ -11,14 +11,7 @@ const iconButton =
 
 export function Hero() {
   return (
-    <section id="top" data-glow="#4f7cff" data-loop="hero" className="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-20">
-      <div className="aurora" aria-hidden="true">
-        <span className="a1" />
-        <span className="a2" />
-        <span className="a3" />
-      </div>
-      <div className="dots" aria-hidden="true" />
-
+    <section id="top" className="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-20">
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
         <div>
           <p className="inline-flex items-center gap-2.5 rounded-full border border-line bg-surface/70 py-1.5 pr-3.5 pl-3 text-[13px] text-ink-2">

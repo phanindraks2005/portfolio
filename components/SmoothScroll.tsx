@@ -34,7 +34,7 @@ export function scrollToHash(hash: string) {
 /** Lenis smooth scrolling, off for reduced motion and touch screens (native scrolling is better there). */
 export function SmoothScroll() {
   useEffect(() => {
-    // Decorative loops (aurora drift, pulse, floating phones, marquee) start on the first interaction,
+    // Decorative loops (pulse, floating phones, marquee) start on the first interaction,
     // so they never compete with loading; loops marked [data-loop] also pause while off screen.
     const root = document.documentElement;
     const events = ["pointermove", "pointerdown", "wheel", "scroll", "keydown", "touchstart"] as const;

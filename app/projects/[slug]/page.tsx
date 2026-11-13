@@ -41,12 +41,7 @@ export default async function CaseStudy({ params }: PageProps<"/projects/[slug]"
   return (
     <main className="case" style={{ ["--c" as string]: p.color }}>
       {/* Hero */}
-      <section data-glow={p.color} className="relative overflow-hidden pt-28 pb-16 sm:pt-32 sm:pb-24">
-        <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-[80%]"
-          style={{ background: `radial-gradient(50% 60% at 70% 20%, ${p.color}24, transparent 70%)` }}
-          aria-hidden="true"
-        />
+      <section className="relative overflow-hidden pt-28 pb-16 sm:pt-32 sm:pb-24">
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
           <div>
             <Link href="/#projects" className="inline-flex min-h-11 items-center gap-2 text-[14px] text-ink-2 transition-colors hover:text-ink">

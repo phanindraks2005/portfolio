@@ -67,88 +67,6 @@ body {
   letter-spacing: -0.035em;
 }
 
-/* Hero aurora: three soft colour fields drifting slowly. Only transform animates. */
-.aurora {
-  position: absolute;
-  inset: -20% -10% auto -10%;
-  height: 120%;
-  pointer-events: none;
-}
-/* Static fade at the bottom of the hero, instead of a mask over the moving layers (a mask forces a full repaint every frame). */
-.aurora::after {
-  content: "";
-  position: absolute;
-  inset: 45% 0 0 0;
-  background: linear-gradient(to bottom, transparent, var(--bg) 80%);
-}
-.aurora span {
-  position: absolute;
-  z-index: -1;
-  border-radius: 50%;
-  opacity: 0;
-  transition: opacity 1.6s var(--ease);
-}
-/* Until the first interaction the hero shows one cheap static wash; the drifting fields fade in after. */
-.aurora {
-  background:
-    radial-gradient(45% 55% at 30% 12%, rgb(79 124 255 / 0.26), transparent 70%),
-    radial-gradient(35% 45% at 80% 20%, rgb(56 189 248 / 0.12), transparent 70%);
-}
-html.ready .aurora span {
-  opacity: 1;
-  will-change: transform;
-}
-.aurora .a1 {
-  width: 62vw;
-  height: 42vw;
-  left: 8%;
-  top: -6%;
-  background: radial-gradient(closest-side, rgb(79 124 255 / 0.42), transparent);
-  animation: drift1 22s var(--ease) infinite alternate;
-}
-.aurora .a2 {
-  width: 48vw;
-  height: 36vw;
-  right: 4%;
-  top: 4%;
-  background: radial-gradient(closest-side, rgb(56 189 248 / 0.22), transparent);
-  animation: drift2 28s var(--ease) infinite alternate;
-}
-.aurora .a3 {
-  width: 40vw;
-  height: 30vw;
-  left: 34%;
-  top: 22%;
-  background: radial-gradient(closest-side, rgb(99 102 241 / 0.2), transparent);
-  animation: drift3 34s var(--ease) infinite alternate;
-}
-@keyframes drift1 {
-  to {
-    transform: translate3d(12vw, 6vw, 0) scale(1.15);
-  }
-}
-@keyframes drift2 {
-  to {
-    transform: translate3d(-14vw, 8vw, 0) scale(0.9);
-  }
-}
-@keyframes drift3 {
-  to {
-    transform: translate3d(-8vw, -6vw, 0) scale(1.2);
-  }
-}
-
-/* Faint dot field under the aurora. */
-.dots {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px);
-  background-size: 28px 28px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000, transparent 75%);
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000, transparent 75%);
-}
-
 /* Pulsing status dot. */
 .pulse {
   position: relative;
@@ -454,9 +372,6 @@ html.ready .aurora span {
     background: #fff;
     zoom: 0.8;
   }
-  .page-glow {
-    display: none !important;
-  }
   .resume-page section {
     break-inside: auto;
   }
@@ -470,28 +385,8 @@ html.ready .aurora span {
   }
 }
 
-/* ---------- Scene glow: a fixed wash that takes the colour of the section in view ---------- */
-@property --scene {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: #4f7cff;
-}
-.page-glow {
-  --scene: #4f7cff;
-  opacity: 0;
-  transition:
-    --scene 1.2s var(--ease),
-    opacity 1.2s var(--ease);
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(60% 45% at 85% 20%, color-mix(in srgb, var(--scene) 10%, transparent), transparent 70%),
-    radial-gradient(50% 40% at 10% 90%, color-mix(in srgb, var(--scene) 7%, transparent), transparent 70%);
-}
 body {
-  background: transparent;
+  background: var(--bg);
 }
 html {
   background: var(--bg);
@@ -646,9 +541,6 @@ html.lenis body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .page-glow {
-    transition: none;
-  }
   .stage-layer {
     transform: none;
   }
@@ -661,19 +553,13 @@ html.lenis body {
 }
 
 /* Decorative loops start on the first interaction (html.ready) and, when marked [data-loop], only run on screen. */
-html:not(.ready) .aurora span,
 html:not(.ready) .marquee-track,
 html:not(.ready) .pulse > span,
 html:not(.ready) .phone-bob,
-html[data-off~="hero"] .aurora span,
 html[data-off~="marquee"] .marquee-track {
   animation-play-state: paused;
 }
 
-
-html.ready .page-glow {
-  opacity: 1;
-}
 
 /* Phone menu: slides down, items follow. */
 .mobile-menu[open] {

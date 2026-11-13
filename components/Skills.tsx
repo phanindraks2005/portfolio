@@ -6,7 +6,7 @@ import { SplitHeading } from "./SplitHeading";
 
 export function Skills() {
   return (
-    <section id="skills" data-glow="#4f7cff" className="py-24 sm:py-32">
+    <section id="skills" className="py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <Reveal>
           <RevealItem>

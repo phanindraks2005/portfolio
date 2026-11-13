@@ -7,7 +7,7 @@ const icons = { trophy: Trophy, medal: Medal, users: Users };
 
 export function Achievements() {
   return (
-    <section id="achievements" data-glow="#4f7cff" className="pb-24 sm:pb-32">
+    <section id="achievements" className="pb-24 sm:pb-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SplitHeading text="Achievements" className="display text-[clamp(1.75rem,3.5vw,2.5rem)] leading-[1] font-semibold text-ink" />
         <Reveal as="ul" className="mt-8 grid gap-3 sm:grid-cols-3">

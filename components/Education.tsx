@@ -7,7 +7,7 @@ import { SplitHeading } from "./SplitHeading";
 
 export function Education() {
   return (
-    <section id="education" data-glow="#4f7cff" className="py-24 sm:py-32">
+    <section id="education" className="py-24 sm:py-32">
       <div className="mx-auto grid max-w-6xl gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
         <SplitHeading text="Education" className="display text-[clamp(2.25rem,5vw,3.5rem)] leading-[1] font-semibold text-ink" />
 
