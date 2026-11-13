@@ -289,13 +289,6 @@ body {
 .palette input:focus-visible {
   outline: none;
 }
-/* The terminal opens like the palette; its prompt shows focus with the caret, not an outline. */
-.terminal[open] {
-  animation: palette-in 0.22s var(--ease);
-}
-.terminal input:focus-visible {
-  outline: none;
-}
 .palette[open]::backdrop {
   animation: fade-in 0.22s var(--ease);
 }

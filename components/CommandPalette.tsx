@@ -1,12 +1,11 @@
 "use client";
 
-import { ArrowRight, Copy, Download, FileText, Hash, Search, SquareTerminal } from "lucide-react";
+import { ArrowRight, Copy, Download, FileText, Hash, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { projects, site } from "@/lib/data";
 import { GitHubIcon, LinkedInIcon } from "./icons";
 import { scrollToHash } from "./SmoothScroll";
-import { openTerminal } from "./TerminalLauncher";
 import { copyEmail } from "./toast";
 
 const OPEN_EVENT = "palette:open";
@@ -122,14 +121,6 @@ export function CommandPalette() {
           a.download = "KS_Phanindra_Resume.pdf";
           a.click();
         },
-      },
-      {
-        id: "terminal",
-        label: "Open terminal",
-        group: "Links",
-        keywords: "console shell command line easter egg",
-        icon: <SquareTerminal size={16} />,
-        run: () => openTerminal(),
       },
       { id: "github", label: "GitHub", group: "Links", icon: <GitHubIcon size={16} />, run: () => open(site.github) },
       { id: "linkedin", label: "LinkedIn", group: "Links", icon: <LinkedInIcon size={16} />, run: () => open(site.linkedin) },
