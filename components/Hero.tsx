@@ -3,7 +3,6 @@ import Link from "next/link";
 import { site } from "@/lib/data";
 import { HeroPhones } from "./HeroPhones";
 import { GitHubIcon, LinkedInIcon } from "./icons";
-import { Magnetic } from "./Magnetic";
 import { RoleCycler } from "./RoleCycler";
 
 const iconButton =
@@ -34,24 +33,20 @@ export function Hero() {
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
-            <Magnetic>
-              <a
-                href="#projects"
-                className="group inline-flex h-11 items-center gap-2 rounded-full bg-accent-strong px-5 text-[15px] font-medium text-white transition-[transform,background-color] duration-300 hover:bg-accent-hover active:scale-[0.97]"
-              >
-                View projects
-                <ArrowDown size={16} className="transition-transform duration-300 group-hover:translate-y-0.5" aria-hidden="true" />
-              </a>
-            </Magnetic>
-            <Magnetic>
-              <Link
-                href="/resume"
-                className="inline-flex h-11 items-center gap-2 rounded-full border border-line-strong bg-surface/60 px-5 text-[15px] font-medium text-ink transition-colors duration-300 hover:border-white/30 hover:bg-surface-2 active:scale-[0.97]"
-              >
-                <FileText size={16} aria-hidden="true" />
-                View resume
-              </Link>
-            </Magnetic>
+            <a
+              href="#projects"
+              className="group inline-flex h-11 items-center gap-2 rounded-full bg-accent-strong px-5 text-[15px] font-medium text-white transition-[transform,background-color] duration-300 hover:bg-accent-hover active:scale-[0.97]"
+            >
+              View projects
+              <ArrowDown size={16} className="transition-transform duration-300 group-hover:translate-y-0.5" aria-hidden="true" />
+            </a>
+            <Link
+              href="/resume"
+              className="inline-flex h-11 items-center gap-2 rounded-full border border-line-strong bg-surface/60 px-5 text-[15px] font-medium text-ink transition-colors duration-300 hover:border-white/30 hover:bg-surface-2 active:scale-[0.97]"
+            >
+              <FileText size={16} aria-hidden="true" />
+              View resume
+            </Link>
             <a
               href={site.resume}
               download="KS_Phanindra_Resume.pdf"

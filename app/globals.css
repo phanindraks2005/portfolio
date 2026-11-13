@@ -503,10 +503,6 @@ html {
   transform: translate3d(calc(var(--px, 0) * var(--depth) * 1px), calc(var(--py, 0) * var(--depth) * 1px), 0)
     rotateY(calc(var(--px, 0) * 7deg)) rotateX(calc(var(--py, 0) * -7deg));
 }
-.magnetic {
-  transition: transform 0.45s var(--ease);
-  will-change: transform;
-}
 
 /* ---------- Bugs ---------- */
 .bug button:hover .bug-chevron {
