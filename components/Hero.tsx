@@ -13,9 +13,7 @@ export function Hero() {
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
         <div>
           <p className="inline-flex items-center gap-2.5 rounded-full border border-line bg-surface/70 py-1.5 pr-3.5 pl-3 text-[13px] text-ink-2">
-            <span className="pulse" aria-hidden="true">
-              <span />
-            </span>
+            <span className="status-dot" aria-hidden="true" />
             Open to SWE internships &amp; full-time roles · 2027
           </p>
 

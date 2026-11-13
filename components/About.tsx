@@ -75,9 +75,7 @@ export function About() {
                 ))}
               </ul>
               <p className="mt-6 inline-flex items-center gap-2.5 self-start rounded-full border border-line bg-white/[0.03] py-1.5 pr-3.5 pl-3 text-[14px] text-ink-2">
-                <span className="pulse" aria-hidden="true">
-                  <span />
-                </span>
+                <span className="status-dot" aria-hidden="true" />
                 Open to SWE internships &amp; full-time roles · 2027
               </p>
             </RevealItem>

@@ -67,31 +67,13 @@ body {
   letter-spacing: -0.035em;
 }
 
-/* Pulsing status dot. */
-.pulse {
-  position: relative;
+/* Status dot. */
+.status-dot {
   width: 8px;
   height: 8px;
+  flex-shrink: 0;
   border-radius: 50%;
   background: #34d399;
-}
-.pulse > span {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: #34d399;
-  animation: ping 2s var(--ease) infinite;
-  will-change: transform, opacity;
-}
-@keyframes ping {
-  from {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-  to {
-    transform: scale(3);
-    opacity: 0;
-  }
 }
 
 /* Plain card surface. --glow is the project colour used by a few card details. */
@@ -233,9 +215,6 @@ body {
     justify-content: center;
   }
   .marquee-track [data-dupe] {
-    display: none;
-  }
-  .pulse > span {
     display: none;
   }
 }
@@ -481,7 +460,6 @@ html.lenis body {
 
 /* Decorative loops start on the first interaction (html.ready) and, when marked [data-loop], only run on screen. */
 html:not(.ready) .marquee-track,
-html:not(.ready) .pulse > span,
 html:not(.ready) .phone-bob,
 html[data-off~="marquee"] .marquee-track {
   animation-play-state: paused;
