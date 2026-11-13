@@ -1,6 +1,5 @@
 export const site = {
   name: "K S Phanindra",
-  role: "Full-stack developer · AI-integrated web apps",
   url: "https://phanindra-ks.vercel.app",
   email: "phanindra.k.s.2005@gmail.com",
   github: "https://github.com/phanindraks2005",

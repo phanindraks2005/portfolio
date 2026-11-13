@@ -3,7 +3,6 @@ import Link from "next/link";
 import { site } from "@/lib/data";
 import { HeroPhones } from "./HeroPhones";
 import { GitHubIcon, LinkedInIcon } from "./icons";
-import { RoleCycler } from "./RoleCycler";
 
 const iconButton =
   "grid size-11 place-items-center rounded-full border border-line-strong bg-surface/60 text-ink-2 transition-colors duration-300 hover:border-white/30 hover:text-ink";
@@ -20,16 +19,14 @@ export function Hero() {
             Open to SWE internships &amp; full-time roles · 2027
           </p>
 
-          <h1 className="display mt-7 text-[clamp(3rem,8.4vw,6rem)] leading-[0.92] font-semibold tracking-[-0.05em] text-ink">
-            K S Phanindra
+          <h1 className="display mt-7 text-ink">
+            <span className="block text-[clamp(2.75rem,7.6vw,5.5rem)] leading-[0.95] font-semibold tracking-[-0.05em]">I&rsquo;m K S Phanindra.</span>
+            <span className="mt-5 block max-w-[24ch] text-[clamp(1.35rem,2.8vw,2rem)] leading-[1.2] font-medium tracking-[-0.02em] text-ink-2">
+              I build things that make everyday life easier.
+            </span>
           </h1>
-
-          <p className="mt-6 text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium text-ink">
-            <RoleCycler />
-          </p>
-          <p className="mt-4 max-w-[58ch] text-[17px] leading-relaxed text-ink-2">
-            I build complete products, from the Postgres schema and its security policies to the interface and the Gemini calls inside it.
-            Computer science at BMS College of Engineering, class of 2027.
+          <p className="mt-5 max-w-[58ch] text-[17px] leading-relaxed text-ink-2">
+            Computer Science at BMS College of Engineering, class of 2027.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">

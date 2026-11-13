@@ -470,25 +470,6 @@ html {
 }
 
 /* ---------- Hero ---------- */
-.role-phrase {
-  grid-area: 1 / 1;
-  opacity: 0;
-  transform: translateY(0.6em);
-  transition:
-    opacity 0.25s ease-in,
-    transform 0.25s ease-in;
-}
-/* The outgoing phrase is gone before the next one starts to rise. */
-.role-phrase.is-on {
-  opacity: 1;
-  transform: none;
-  transition:
-    opacity 0.55s var(--ease) 0.25s,
-    transform 0.55s var(--ease) 0.25s;
-}
-.role-phrase.is-out {
-  transform: translateY(-0.6em);
-}
 .hero-phones {
   perspective: 1200px;
 }
@@ -531,9 +512,6 @@ html.lenis body {
 
 @media (prefers-reduced-motion: reduce) {
   .stage-layer {
-    transform: none;
-  }
-  .role-phrase {
     transform: none;
   }
   .phone-parallax {

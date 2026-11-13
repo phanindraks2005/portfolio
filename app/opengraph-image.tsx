@@ -31,8 +31,8 @@ export default function OpengraphImage() {
           Open to SWE internships & full-time roles · 2027 · Bengaluru
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 112, fontWeight: 700, letterSpacing: -5, lineHeight: 1 }}>K S Phanindra</div>
-          <div style={{ fontSize: 40, marginTop: 24, color: "#f5f6f8" }}>Full-stack developer · AI-integrated web apps</div>
+          <div style={{ fontSize: 96, fontWeight: 700, letterSpacing: -4, lineHeight: 1 }}>I’m K S Phanindra.</div>
+          <div style={{ fontSize: 40, marginTop: 24, color: "#f5f6f8" }}>I build things that make everyday life easier.</div>
         </div>
         <div style={{ display: "flex", gap: 18 }}>
           {projects.map((p) => (
