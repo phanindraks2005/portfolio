@@ -34,8 +34,7 @@ export function scrollToHash(hash: string) {
 /** Lenis smooth scrolling, off for reduced motion and touch screens (native scrolling is better there). */
 export function SmoothScroll() {
   useEffect(() => {
-    // Decorative loops (floating phones, marquee) start on the first interaction,
-    // so they never compete with loading; loops marked [data-loop] also pause while off screen.
+    // The floating phones start bobbing on the first interaction, so the animation never competes with loading.
     const root = document.documentElement;
     const events = ["pointermove", "pointerdown", "wheel", "scroll", "keydown", "touchstart"] as const;
     const start = () => {
@@ -43,21 +42,7 @@ export function SmoothScroll() {
       events.forEach((e) => window.removeEventListener(e, start));
     };
     events.forEach((e) => window.addEventListener(e, start, { passive: true, once: true }));
-    // Off-screen loops are listed on <html> (already hydrated), never on the sections themselves.
-    const off = new Set<string>();
-    const io = new IntersectionObserver((entries) => {
-      for (const e of entries) {
-        const name = (e.target as HTMLElement).dataset.loop!;
-        if (e.isIntersecting) off.delete(name);
-        else off.add(name);
-      }
-      root.dataset.off = [...off].join(" ");
-    });
-    document.querySelectorAll("[data-loop]").forEach((el) => io.observe(el));
-    return () => {
-      events.forEach((e) => window.removeEventListener(e, start));
-      io.disconnect();
-    };
+    return () => events.forEach((e) => window.removeEventListener(e, start));
   }, []);
 
   useEffect(() => {

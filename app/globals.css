@@ -161,42 +161,6 @@ body {
   }
 }
 
-/* Infinite logo marquee. */
-.marquee {
-  position: relative;
-}
-.marquee::before,
-.marquee::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 14%;
-  z-index: 1;
-  pointer-events: none;
-}
-.marquee::before {
-  left: 0;
-  background: linear-gradient(to right, var(--bg), transparent);
-}
-.marquee::after {
-  right: 0;
-  background: linear-gradient(to left, var(--bg), transparent);
-}
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 48s linear infinite;
-}
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
-}
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -207,15 +171,6 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-  .marquee-track {
-    animation: none;
-    flex-wrap: wrap;
-    width: auto;
-    justify-content: center;
-  }
-  .marquee-track [data-dupe] {
-    display: none;
   }
 }
 
@@ -458,10 +413,8 @@ html.lenis body {
   }
 }
 
-/* Decorative loops start on the first interaction (html.ready) and, when marked [data-loop], only run on screen. */
-html:not(.ready) .marquee-track,
-html:not(.ready) .phone-bob,
-html[data-off~="marquee"] .marquee-track {
+/* The phone bob starts on the first interaction (html.ready). */
+html:not(.ready) .phone-bob {
   animation-play-state: paused;
 }
 
