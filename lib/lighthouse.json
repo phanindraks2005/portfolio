@@ -1,6 +1,6 @@
 {
-  "measuredAt": "8 Nov 2026",
-  "url": "https://pagespeed.web.dev/analysis/https-phanindra-ks-vercel-app/038g72q6fw",
-  "mobile": { "performance": 99, "accessibility": 100, "best-practices": 100, "seo": 100 },
-  "desktop": { "performance": 99, "accessibility": 100, "best-practices": 100, "seo": 100 }
+  "measuredAt": "13 Nov 2026",
+  "url": "https://pagespeed.web.dev/analysis/https-phanindra-ks-vercel-app/vwbr22bl82",
+  "mobile": { "performance": 98, "accessibility": 100, "best-practices": 100, "seo": 100 },
+  "desktop": { "performance": 100, "accessibility": 100, "best-practices": 100, "seo": 100 }
 }
