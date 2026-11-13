@@ -36,18 +36,17 @@ export function About() {
           </RevealItem>
 
           <RevealItem>
-            <p className="display text-[clamp(1.4rem,2.6vw,1.9rem)] leading-[1.25] font-medium text-ink">
-              I build complete products, from the database schema and its security policies to the interface and the AI inside it.
-            </p>
-            <div className="mt-6 grid max-w-[60ch] gap-4 text-[16px] leading-relaxed text-ink-2">
+            <div className="grid max-w-[60ch] gap-5 text-[17px] leading-relaxed text-ink-2">
               <p>
-                MediVault was my first full-stack project. I built it in my third semester because I kept losing my prescriptions and had no
-                record of my medical history. I wanted one place for all of it, one that could also answer my questions.
+                I&rsquo;m a Computer Science student at BMS College of Engineering, Bengaluru. I started building because keeping track of
+                things in my own life was hard. I kept losing prescriptions and had no record of my medical history, so in my third semester
+                I built MediVault, my first full-stack project. Later I wanted one place to track all my habits, so I built Stride.
               </p>
-              <p>I built Stride because I wanted one place to track all my habits.</p>
-              <p>Outside code, I&rsquo;m at the gym, travelling, playing sports, listening to music or learning a new skill.</p>
+              <p className="text-ink">When I start something, I don&rsquo;t stop until I&rsquo;m happy with how it works.</p>
+              <p>I&rsquo;m looking for a team where I can stay focused on solving real problems and building things people use.</p>
             </div>
-            <ul className="mt-7 flex flex-wrap gap-2" aria-label="Outside code">
+            <p className="mt-8 text-[14px] text-muted">Outside code</p>
+            <ul className="mt-3 flex flex-wrap gap-2" aria-label="Outside code">
               {interests.map((i) => (
                 <li key={i} className="rounded-full border border-line bg-white/[0.03] px-3.5 py-1.5 text-[14px] text-ink-2">
                   {i}
