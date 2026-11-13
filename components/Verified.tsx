@@ -41,7 +41,7 @@ export function Verified() {
 
 function StatCard({ stat: s }: { stat: Stat }) {
   return (
-    <article className="glow-card flex h-full flex-col rounded-[22px] p-6 sm:p-7" style={{ ["--glow" as string]: s.color }}>
+    <article className="surface-card flex h-full flex-col rounded-[22px] p-6 sm:p-7" style={{ ["--glow" as string]: s.color }}>
       <p className="display text-[clamp(2.5rem,5vw,3.25rem)] leading-none font-semibold tracking-[-0.04em] text-ink tabular-nums">
         {s.prefix && <span className="text-muted">{s.prefix}</span>}
         {fmt.format(s.value)}

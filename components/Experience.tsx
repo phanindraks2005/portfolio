@@ -19,7 +19,7 @@ export function Experience() {
 
         <Reveal as="ol" className="relative grid gap-3">
           {experience.map((e) => (
-            <RevealItem as="li" key={e.org} className="glow-card relative rounded-[20px] p-6 sm:p-7">
+            <RevealItem as="li" key={e.org} className="surface-card relative rounded-[20px] p-6 sm:p-7">
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                 <h3 className="text-[17px] font-semibold text-ink">{e.title}</h3>
                 <span className="text-[14px] tabular-nums text-muted">{e.year}</span>

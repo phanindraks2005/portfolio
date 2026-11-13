@@ -14,7 +14,7 @@ export function Achievements() {
           {achievements.map((a) => {
             const Icon = icons[a.icon];
             return (
-              <RevealItem as="li" key={a.title} className="glow-card flex items-start gap-4 rounded-[20px] p-5 sm:p-6">
+              <RevealItem as="li" key={a.title} className="surface-card flex items-start gap-4 rounded-[20px] p-5 sm:p-6">
                 <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent">
                   <Icon size={18} aria-hidden="true" />
                 </span>

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Reveal, RevealItem } from "./motion";
 import { SplitHeading } from "./SplitHeading";
 
-const card = "glow-card rounded-[24px] p-6 sm:p-8";
+const card = "surface-card rounded-[24px] p-6 sm:p-8";
 
 const interests = ["Gym", "Travel", "Sports", "Music", "Chess"];
 

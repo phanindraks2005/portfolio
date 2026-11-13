@@ -51,7 +51,7 @@ export function ProjectStory({ project: p, steps, flip }: { project: Project; st
 
   return (
     <article ref={root} id={p.slug} className="story" style={{ ["--c" as string]: p.color }}>
-      <Reveal className="glow-card story-head grid gap-8 rounded-[28px] p-6 sm:p-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-14">
+      <Reveal className="surface-card story-head grid gap-8 rounded-[28px] p-6 sm:p-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-14">
         <RevealItem>
           <div className="flex items-center gap-3">
             <span className="size-2.5 rounded-full" style={{ background: p.color, boxShadow: `0 0 16px ${p.color}` }} aria-hidden="true" />
@@ -112,7 +112,7 @@ export function ProjectStory({ project: p, steps, flip }: { project: Project; st
         {/* The stage stays pinned while the steps scroll: beside them on wide screens, above them on phones. */}
         <div className="sticky top-16 z-10 -mx-5 bg-bg px-5 pt-3 pb-4 [direction:ltr] sm:-mx-8 sm:px-8 lg:static lg:mx-0 lg:bg-transparent lg:p-0">
           <div className="lg:sticky lg:top-[max(88px,calc(50vh-250px))] lg:py-10">
-            <div className="glow-card stage-panel relative overflow-hidden rounded-[22px] px-4 pt-6 pb-4 lg:rounded-[28px] lg:px-8 lg:pt-10 lg:pb-8">
+            <div className="surface-card stage-panel relative overflow-hidden rounded-[22px] px-4 pt-6 pb-4 lg:rounded-[28px] lg:px-8 lg:pt-10 lg:pb-8">
               <div className="halo" aria-hidden="true" />
               {p.slug === "roadsense" ? (
                 <RoadSenseStage step={active} />

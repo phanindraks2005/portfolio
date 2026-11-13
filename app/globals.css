@@ -94,53 +94,13 @@ body {
   }
 }
 
-/* Cards with a cursor-follow glow. --mx/--my are set from pointer moves. */
-.glow-card {
-  --mx: 50%;
-  --my: 0%;
+/* Plain card surface. --glow is the project colour used by a few card details. */
+.surface-card {
   --glow: var(--accent);
   position: relative;
-  isolation: isolate;
   background: var(--surface);
   border: 1px solid var(--line);
-  transition:
-    border-color 0.4s var(--ease),
-    transform 0.5s var(--ease);
-}
-.glow-card::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
-  background: radial-gradient(420px circle at var(--mx) var(--my), color-mix(in srgb, var(--glow) 70%, transparent), transparent 60%);
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask:
-    linear-gradient(#000 0 0) content-box exclude,
-    linear-gradient(#000 0 0);
-  opacity: 0;
-  transition: opacity 0.4s var(--ease);
-  pointer-events: none;
-}
-.glow-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(600px circle at var(--mx) var(--my), color-mix(in srgb, var(--glow) 9%, transparent), transparent 55%);
-  opacity: 0;
-  transition: opacity 0.4s var(--ease);
-  pointer-events: none;
-  z-index: -1;
-}
-@media (hover: hover) and (pointer: fine) {
-  .glow-card:hover::before,
-  .glow-card:hover::after {
-    opacity: 1;
-  }
+  transition: border-color 0.4s var(--ease);
 }
 
 /* Skills map: the projects that use the active skill light up in their own colour, the rest dim. */

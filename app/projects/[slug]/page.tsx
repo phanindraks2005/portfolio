@@ -86,7 +86,7 @@ export default async function CaseStudy({ params }: PageProps<"/projects/[slug]"
 
           <div className="relative">
             {slug === "roadsense" ? (
-              <div className="glow-card rounded-[24px] p-4 sm:p-6" style={{ ["--glow" as string]: p.color }}>
+              <div className="surface-card rounded-[24px] p-4 sm:p-6" style={{ ["--glow" as string]: p.color }}>
                 <RoadSenseStage step={3} />
               </div>
             ) : (
@@ -130,7 +130,7 @@ export default async function CaseStudy({ params }: PageProps<"/projects/[slug]"
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             {steps.map((s, i) => (
               <RevealItem key={s.title} className="min-w-0">
-                <article className="glow-card h-full overflow-hidden rounded-[22px]" style={{ ["--glow" as string]: p.color }}>
+                <article className="surface-card h-full overflow-hidden rounded-[22px]" style={{ ["--glow" as string]: p.color }}>
                   <div className="case-media border-b border-line p-4 sm:p-5">
                     {slug === "roadsense" ? (
                       <RoadSenseStage step={i} />
@@ -177,7 +177,7 @@ export default async function CaseStudy({ params }: PageProps<"/projects/[slug]"
         <Block id="hardest" title="The hardest parts">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {c.hardest.map((h) => (
-              <article key={h.title} className="glow-card flex flex-col rounded-[20px] p-6" style={{ ["--glow" as string]: p.color }}>
+              <article key={h.title} className="surface-card flex flex-col rounded-[20px] p-6" style={{ ["--glow" as string]: p.color }}>
                 <h3 className="text-[17px] font-semibold text-ink">{h.title}</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-ink-2">{h.text}</p>
                 {h.href && (
@@ -210,7 +210,7 @@ export default async function CaseStudy({ params }: PageProps<"/projects/[slug]"
         <Block id="results" title={slug === "roadsense" ? "The rules it runs on" : "Results"}>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {c.results.map((r) => (
-              <div key={r.label} className="glow-card rounded-[20px] p-6" style={{ ["--glow" as string]: p.color }}>
+              <div key={r.label} className="surface-card rounded-[20px] p-6" style={{ ["--glow" as string]: p.color }}>
                 <p className="display text-[clamp(1.9rem,3.4vw,2.5rem)] leading-none font-semibold tracking-[-0.03em] text-ink tabular-nums">
                   {r.value}
                 </p>
@@ -261,7 +261,7 @@ function ProjectLink({ project: p, dir }: { project: (typeof projects)[number]; 
   return (
     <Link
       href={`/projects/${p.slug}`}
-      className={`glow-card group flex flex-col gap-2 rounded-[22px] p-6 sm:p-8 ${dir === "next" ? "sm:items-end sm:text-right" : ""}`}
+      className={`surface-card group flex flex-col gap-2 rounded-[22px] p-6 sm:p-8 ${dir === "next" ? "sm:items-end sm:text-right" : ""}`}
       style={{ ["--glow" as string]: p.color }}
     >
       <span className="inline-flex items-center gap-2 text-[14px] text-ink-2">

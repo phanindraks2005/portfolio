@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import { CommandPalette } from "@/components/CommandPalette";
 import { Footer } from "@/components/Footer";
-import { GlowTracker } from "@/components/GlowTracker";
 import { BrandSprite } from "@/components/icons";
 import { MotionProvider } from "@/components/motion";
 import { Nav } from "@/components/Nav";
@@ -62,7 +61,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Footer />
           <CommandPalette />
           <Toaster />
-          <GlowTracker />
           <SmoothScroll />
         </MotionProvider>
       </body>

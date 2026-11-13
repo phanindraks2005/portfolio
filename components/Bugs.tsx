@@ -68,7 +68,7 @@ function BugCard({ bug: b }: { bug: Bug }) {
   return (
     <article
       id={b.id}
-      className="glow-card bug min-w-0 rounded-[22px]"
+      className="surface-card bug min-w-0 rounded-[22px]"
       style={{ ["--glow" as string]: b.color }}
       data-open={open || undefined}
     >
