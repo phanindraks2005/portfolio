@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps<"/projects/[slug]">
   const { slug } = await params;
   const p = projects.find((x) => x.slug === slug);
   if (!p) return {};
-  return pageMetadata({ title: `${p.name} case study`, description: p.pitch, path: `/projects/${p.slug}` });
+  return pageMetadata({ title: `${p.name} case study`, description: `${p.name}, ${p.kind.toLowerCase()}. ${p.pitch}`, path: `/projects/${p.slug}` });
 }
 
 const h2 = "display text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.05] font-semibold text-ink";

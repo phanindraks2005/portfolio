@@ -28,7 +28,7 @@ export const projects: Project[] = [
     slug: "stride",
     name: "Stride",
     kind: "Habit and fitness tracker",
-    pitch: "A habit and fitness tracker with an AI copilot that acts on your data, not just talks about it.",
+    pitch: "Tracking my habits was messy, with different things in different places. Now all my activities are tracked in one place.",
     highlights: [
       "Libra, a Gemini copilot with function calling: it logs entries, creates trackers and writes meal and workout plans, streaming its replies.",
       "Fixed multi-step requests: “log 300 ml water and 20 g protein” now runs every tool call and reports any that failed instead of claiming them.",
@@ -50,7 +50,7 @@ export const projects: Project[] = [
     name: "MediVault",
     kind: "Family health records",
     pitch:
-      "Upload a prescription and Gemini pulls out the doctor, date and medicines, so a whole family’s history is searchable in one place.",
+      "Keeping track of prescriptions used to annoy me. Now all my medical records are in one place, and I can ask the AI about anything I don’t understand.",
     highlights: [
       "Row-level security on every table, a private per-user storage bucket and token-checked API routes.",
       "Found and fixed a cross-account file read in my own QA audit: the extraction route now refuses any path outside the caller’s folder.",
