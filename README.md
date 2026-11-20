@@ -15,7 +15,7 @@ Personal site of K S Phanindra, full-stack developer (CSE, BMS College of Engine
 
 ## Stack
 
-Next.js 16 (App Router, Cache Components), React 19, TypeScript, Tailwind CSS 4, Framer Motion, Lenis, Schibsted Grotesk, Instrument Serif, JetBrains Mono and Doto via `next/font`. The name in the hero is a canvas of dots sampled from Doto. Every page is prerendered as static HTML.
+Next.js 16 (App Router, Cache Components), React 19, TypeScript, Tailwind CSS 4, Framer Motion, Lenis, Schibsted Grotesk, Instrument Serif, JetBrains Mono via `next/font`. The name in the hero is a canvas of dots drawn from hand-made 5 × 7 bitmap letters. Every page is prerendered as static HTML.
 
 ## Running locally
 

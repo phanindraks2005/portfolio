@@ -6,7 +6,7 @@ import { Nav } from "@/components/Nav";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Toaster } from "@/components/toast";
 import { site } from "@/lib/data";
-import { doto, instrument, jetbrains, schibsted } from "@/lib/fonts";
+import { instrument, jetbrains, schibsted } from "@/lib/fonts";
 import "./globals.css";
 
 const base = process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : site.url;
@@ -41,7 +41,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${schibsted.variable} ${instrument.variable} ${jetbrains.variable} ${doto.variable}`}>
+    <html lang="en" className={`${schibsted.variable} ${instrument.variable} ${jetbrains.variable}`}>
       <body>
         <MotionProvider>
           <a

@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { Project } from "@/lib/data";
 import type { Step } from "@/lib/stories";
 import { LoopVideo } from "./LoopVideo";
+import { ProjectLinks } from "./ProjectLinks";
 import { Reveal, RevealItem } from "./motion";
 import { LaptopFrame, PhoneFrame } from "./Frames";
 import { RoadSenseStage } from "./RoadSenseStage";
@@ -59,6 +59,7 @@ export function ProjectStory({ project: p, steps, flip, index }: { project: Proj
           <h3 className="display mt-4 text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[0.98] tracking-[-0.03em] text-ink">{p.name}</h3>
           <p className="mt-4 max-w-[46ch] text-[18px] leading-relaxed text-ink">{p.pitch}</p>
           {p.team && <p className="mt-3 max-w-[52ch] text-[15px] leading-relaxed text-ink-2">{p.team}</p>}
+          <ProjectLinks project={p} className="mt-5" />
         </RevealItem>
         <RevealItem>
           <ul className="flex flex-wrap gap-2" aria-label={`${p.name} tech stack`}>
@@ -68,19 +69,6 @@ export function ProjectStory({ project: p, steps, flip, index }: { project: Proj
               </li>
             ))}
           </ul>
-          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-1">
-            {p.live && (
-              <a href={p.live} target="_blank" rel="noopener noreferrer" className="mono link inline-flex min-h-11 items-center">
-                Live demo ↗
-              </a>
-            )}
-            <a href={p.github} target="_blank" rel="noopener noreferrer" className="mono link inline-flex min-h-11 items-center">
-              Code ↗
-            </a>
-            <Link href={`/projects/${p.slug}`} className="mono link inline-flex min-h-11 items-center">
-              Case study →
-            </Link>
-          </div>
         </RevealItem>
       </Reveal>
 

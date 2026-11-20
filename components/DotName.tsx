@@ -9,8 +9,44 @@ const DAMPING = 0.82;
 const DOT = "#1a1a1a";
 
 /**
- * The name as a field of dots. The text is drawn in Doto on an offscreen canvas, sampled on a grid,
- * and each lit cell becomes a dot that the pointer pushes away and a spring pulls back home.
+ * Hand-made 5 × 7 bitmap letters, only the ones in the name. Each is drawn to stay readable as dots:
+ * S is open at the top right and bottom left (never an 8), I has serifs (never a gap), D has cut corners,
+ * R's leg kicks out, N has a full diagonal, A has a pointed top and a flat bar.
+ */
+const GLYPHS: Record<string, string[]> = {
+  K: ["#...#", "#..#.", "#.#..", "##...", "#.#..", "#..#.", "#...#"],
+  S: [".####", "#....", "#....", ".###.", "....#", "....#", "####."],
+  P: ["####.", "#...#", "#...#", "####.", "#....", "#....", "#...."],
+  H: ["#...#", "#...#", "#...#", "#####", "#...#", "#...#", "#...#"],
+  A: ["..#..", ".#.#.", "#...#", "#...#", "#####", "#...#", "#...#"],
+  N: ["#...#", "#...#", "##..#", "#.#.#", "#..##", "#...#", "#...#"],
+  I: ["#####", "..#..", "..#..", "..#..", "..#..", "..#..", "#####"],
+  D: ["####.", "#...#", "#...#", "#...#", "#...#", "#...#", "####."],
+  R: ["####.", "#...#", "#...#", "####.", "#.#..", "#..#.", "#...#"],
+};
+const COLS = 5;
+const ROWS = 7;
+const LETTER_GAP = 1; // empty cells between letters
+const WORD_GAP = 3; // empty cells between K, S and PHANINDRA
+const LINE_GAP = 1; // empty cells between the two lines on phones
+
+/** Cells across a line of words. */
+const lineWidth = (words: string[]) =>
+  words.reduce((sum, word) => sum + word.length * COLS + (word.length - 1) * LETTER_GAP, 0) + (words.length - 1) * WORD_GAP;
+
+/** Small seeded generator, so the hand-made size wobble is the same on every load. */
+function seeded(seed: number) {
+  return () => {
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/**
+ * The name as a field of dots. Every lit cell of the bitmap letters is a 2 × 2 cluster of dots, so strokes are
+ * two dots thick; the pointer pushes dots away and a spring pulls them back home.
  * One line from 640 px up, two below. The loop only runs while dots are moving and the hero is on screen.
  * The real heading is the sr-only <h1> next to it; this is decoration.
  */
@@ -33,7 +69,7 @@ export function DotName() {
     let vx = new Float32Array(0);
     let vy = new Float32Array(0);
     let n = 0;
-    let r = 1.5;
+    let rad = new Float32Array(0);
     let w = 0;
     let h = 0;
     let px = -1e4;
@@ -44,8 +80,6 @@ export function DotName() {
     let disposed = false;
     let resizeTimer = 0;
 
-    const family = getComputedStyle(document.documentElement).getPropertyValue("--font-doto").trim() || "monospace";
-
     const sample = () => {
       w = wrap.clientWidth;
       h = wrap.clientHeight;
@@ -55,47 +89,44 @@ export function DotName() {
       canvas.height = Math.round(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      // Same breakpoint as the box's aspect ratio (Tailwind's sm).
-      const lines = matchMedia("(max-width: 639.98px)").matches ? ["K S", "PHANINDRA"] : ["K S PHANINDRA"];
-      const off = document.createElement("canvas");
-      const o = off.getContext("2d", { willReadFrequently: true })!;
-      o.font = `900 100px ${family}`;
-      const m = lines.map((l) => o.measureText(l));
-      const widest = Math.max(...m.map((t) => t.actualBoundingBoxLeft + t.actualBoundingBoxRight));
-      const cap = Math.max(...m.map((t) => t.actualBoundingBoxAscent + t.actualBoundingBoxDescent));
-      const gapRatio = 0.22;
-      const tall = cap * (lines.length + gapRatio * (lines.length - 1));
-      const size = Math.min(((w * 0.96) / widest) * 100, (h / tall) * 100);
-      const capPx = (cap * size) / 100;
-      const blockH = (tall * size) / 100;
+      // The box's own shape says which layout CSS chose (tall below 640px), so the two can never disagree mid-resize.
+      const phone = h / w > 0.2;
+      const lines = phone ? [["K", "S"], ["PHANINDRA"]] : [["K", "S", "PHANINDRA"]];
+      const cols = Math.max(...lines.map(lineWidth));
+      const rows = lines.length * ROWS + (lines.length - 1) * LINE_GAP;
+      // Fill ~90% of the width; both phone lines share this cell size.
+      const cell = Math.min((w * 0.9) / cols, h / rows);
+      const pitch = cell / 2;
+      // Dots grow with the grid so strokes stay solid: ~2.4px on phones, ~3px and up on wide screens.
+      const base = Math.min(pitch * 0.88, Math.max(phone ? 2.4 : 3, pitch * 0.64));
+      const top0 = (h - rows * cell) / 2;
 
-      off.width = Math.ceil(w);
-      off.height = Math.ceil(h);
-      o.font = `900 ${size}px ${family}`;
-      o.textAlign = "left";
-      o.textBaseline = "alphabetic";
-      o.fillStyle = "#000";
-      lines.forEach((l, i) => {
-        const t = o.measureText(l);
-        const lw = t.actualBoundingBoxLeft + t.actualBoundingBoxRight;
-        const left = (w - lw) / 2 + t.actualBoundingBoxLeft;
-        const top = (h - blockH) / 2 + i * capPx * (1 + gapRatio);
-        o.fillText(l, left, top + t.actualBoundingBoxAscent);
-      });
-
-      // Grid spacing follows the type size, so phones keep the same look with fewer dots.
-      const step = Math.max(3.2, Math.min(5, size / 34));
-      r = Math.min(1.5, step * 0.36);
-      const data = o.getImageData(0, 0, off.width, off.height).data;
+      const rand = seeded(20270);
       const pts: number[] = [];
-      for (let yy = step / 2; yy < off.height; yy += step) {
-        for (let xx = step / 2; xx < off.width; xx += step) {
-          if (data[(Math.floor(yy) * off.width + Math.floor(xx)) * 4 + 3] > 140) pts.push(xx, yy);
-        }
-      }
+      const sizes: number[] = [];
+      lines.forEach((words, li) => {
+        let cx = (w - lineWidth(words) * cell) / 2;
+        const cy = top0 + li * (ROWS + LINE_GAP) * cell;
+        words.forEach((word, wi) => {
+          [...word].forEach((ch, ci) => {
+            GLYPHS[ch].forEach((row, ry) => {
+              for (let rx = 0; rx < COLS; rx++) {
+                if (row[rx] !== "#") continue;
+                for (let k = 0; k < 4; k++) {
+                  pts.push(cx + rx * cell + ((k & 1) + 0.5) * pitch, cy + ry * cell + ((k >> 1) + 0.5) * pitch);
+                  sizes.push((base / 2) * (0.85 + rand() * 0.3));
+                }
+              }
+            });
+            cx += (COLS + (ci < word.length - 1 ? LETTER_GAP : 0)) * cell;
+          });
+          if (wi < words.length - 1) cx += WORD_GAP * cell;
+        });
+      });
       n = pts.length / 2;
       hx = new Float32Array(n);
       hy = new Float32Array(n);
+      rad = Float32Array.from(sizes);
       for (let i = 0; i < n; i++) {
         hx[i] = pts[i * 2];
         hy[i] = pts[i * 2 + 1];
@@ -112,8 +143,8 @@ export function DotName() {
       ctx.fillStyle = DOT;
       ctx.beginPath();
       for (let i = 0; i < n; i++) {
-        ctx.moveTo(x[i] + r, y[i]);
-        ctx.arc(x[i], y[i], r, 0, Math.PI * 2);
+        ctx.moveTo(x[i] + rad[i], y[i]);
+        ctx.arc(x[i], y[i], rad[i], 0, Math.PI * 2);
       }
       ctx.fill();
     };
@@ -195,13 +226,9 @@ export function DotName() {
       resizeTimer = window.setTimeout(() => ready && sample(), 150);
     });
 
-    // Start after first paint and once Doto is in, so the canvas never holds up the page.
+    // Start after first paint, when the browser is idle, so the canvas never holds up the page.
     const idle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 1));
-    idle(async () => {
-      try {
-        await document.fonts.load(`900 100px ${family}`);
-        await document.fonts.ready;
-      } catch {}
+    idle(() => {
       if (disposed) return;
       ready = true;
       sample();
@@ -232,7 +259,7 @@ export function DotName() {
   }, []);
 
   return (
-    <div ref={box} aria-hidden="true" className="dot-name relative aspect-[100/33] w-full sm:aspect-[100/10.5]">
+    <div ref={box} aria-hidden="true" className="dot-name relative aspect-[100/29] w-full sm:aspect-[100/10.5]">
       <canvas ref={cv} className="absolute inset-0 size-full" />
     </div>
   );

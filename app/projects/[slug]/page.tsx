@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { ArchDiagram } from "@/components/ArchDiagram";
 import { FeatureMedia } from "@/components/FeatureMedia";
 import { LaptopFrame, PhoneFrame } from "@/components/Frames";
+import { ProjectLinks } from "@/components/ProjectLinks";
 import { Reveal, RevealItem } from "@/components/motion";
 import { RoadSenseStage } from "@/components/RoadSenseStage";
 import { cases } from "@/lib/cases";
@@ -52,16 +53,7 @@ export default async function CaseStudy({ params }: PageProps<"/projects/[slug]"
             <h1 className="display mt-4 text-[clamp(3rem,7vw,5rem)] leading-[0.95] tracking-[-0.03em] text-ink">{p.name}</h1>
             <p className="mt-5 max-w-[48ch] text-[clamp(1.05rem,1.6vw,1.25rem)] leading-relaxed text-ink">{p.pitch}</p>
             {p.team && <p className="mt-3 max-w-[48ch] text-[15px] leading-relaxed text-ink-2">{p.team}</p>}
-            <div className="mt-8 flex flex-wrap gap-3">
-              {p.live && (
-                <a href={p.live} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-                  Live demo ↗
-                </a>
-              )}
-              <a href={p.github} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
-                Code ↗
-              </a>
-            </div>
+            <ProjectLinks project={p} caseStudy={false} className="mt-8" />
           </div>
 
           <div className="relative">
