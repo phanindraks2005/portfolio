@@ -1,32 +1,23 @@
 import { projects } from "@/lib/data";
 import { stories } from "@/lib/stories";
-import { Reveal, RevealItem } from "./motion";
 import { ProjectStory } from "./ProjectStory";
-import { SplitHeading } from "./SplitHeading";
+import { SectionHeader } from "./SectionHeader";
 
 export function Projects() {
   return (
-    <section id="projects" aria-labelledby="projects-title" className="relative pt-16 pb-12 sm:pt-24">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="max-w-2xl">
-          <SplitHeading
-            id="projects-title"
-            text="Projects"
-            className="display text-[clamp(2.25rem,5vw,3.5rem)] leading-[1] font-semibold text-ink"
-          />
-          <Reveal>
-            <RevealItem>
-              <p className="mt-5 text-[17px] leading-relaxed text-ink-2">
-                Three projects I built. The recordings are from the live demos of the two web apps. The demos need no account, so you
-                can try everything yourself.
-              </p>
-            </RevealItem>
-          </Reveal>
-        </div>
+    <section id="projects" aria-labelledby="projects-title" className="pt-20 pb-12 sm:pt-28">
+      <div className="mx-auto max-w-[1320px] px-4 sm:px-8">
+        <SectionHeader
+          index="01"
+          label="Projects"
+          id="projects-title"
+          title="Projects"
+          intro="Three projects I built. The recordings are from the live demos of the two web apps. The demos need no account, so you can try everything yourself."
+        />
 
-        <div className="mt-14 grid grid-cols-1 gap-24 sm:mt-16 lg:gap-28">
+        <div className="grid grid-cols-1 gap-20 pt-12 sm:pt-16 lg:gap-24">
           {projects.map((p, i) => (
-            <ProjectStory key={p.slug} project={p} steps={stories[p.slug]} flip={i % 2 === 1} />
+            <ProjectStory key={p.slug} project={p} steps={stories[p.slug]} flip={i % 2 === 1} index={i} />
           ))}
         </div>
       </div>

@@ -1,14 +1,13 @@
 "use client";
 
-import { CircleAlert, CircleCheck, Copy, LoaderCircle, Mail, Send } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import { useRef, useState } from "react";
 import { site } from "@/lib/data";
 import { copyEmail } from "./toast";
 
 type Status = "idle" | "sending" | "sent" | "error" | "rate_limited" | "unavailable";
 
-const field =
-  "mt-2 w-full rounded-xl border border-line-strong bg-bg px-4 text-[16px] text-ink placeholder:text-muted transition-colors focus:border-accent focus:outline-none";
+const label = "mono block text-ink";
 
 /** Name, email and message, sent through /api/contact. Without a mail key it offers email instead. */
 export function ContactForm({ enabled }: { enabled: boolean }) {
@@ -41,16 +40,15 @@ export function ContactForm({ enabled }: { enabled: boolean }) {
 
   if (status === "sent") {
     return (
-      <div role="status" className="grid min-h-[320px] place-items-center rounded-[24px] border border-line bg-surface p-8 text-center">
+      <div role="status" className="grid min-h-[320px] place-items-center border-y border-line p-8 text-center">
         <div>
-          <CircleCheck size={32} className="mx-auto text-accent" aria-hidden="true" />
-          <p className="display mt-4 text-[22px] font-semibold text-ink">Message sent.</p>
+          <p className="mono inline-flex items-center gap-2 text-ink-2">
+            <span className="status-dot" aria-hidden="true" />
+            Sent
+          </p>
+          <p className="display mt-4 text-[24px] text-ink">Message sent.</p>
           <p className="mt-2 text-[15px] text-ink-2">Thanks for writing. I&rsquo;ll reply to the email you gave.</p>
-          <button
-            type="button"
-            onClick={() => setStatus("idle")}
-            className="mt-6 inline-flex h-11 items-center rounded-full border border-line-strong px-5 text-[15px] text-ink transition-colors hover:border-white/30"
-          >
+          <button type="button" onClick={() => setStatus("idle")} className="btn btn-secondary mt-6">
             Send another
           </button>
         </div>
@@ -59,32 +57,20 @@ export function ContactForm({ enabled }: { enabled: boolean }) {
   }
 
   return (
-    <form
-      onSubmit={onSubmit}
-      onFocus={() => (started.current ||= Date.now())}
-      className="relative grid grid-cols-1 gap-5 rounded-[24px] border border-line bg-surface p-6 sm:p-8"
-    >
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-        <label className="block text-[14px] font-medium text-ink-2">
+    <form onSubmit={onSubmit} onFocus={() => (started.current ||= Date.now())} className="relative grid grid-cols-1 gap-8">
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+        <label className={label}>
           Name
-          <input name="name" required maxLength={100} autoComplete="name" className={`${field} h-12`} />
+          <input name="name" required maxLength={100} autoComplete="name" className="field h-12" />
         </label>
-        <label className="block text-[14px] font-medium text-ink-2">
+        <label className={label}>
           Email
-          <input
-            name="email"
-            type="email"
-            required
-            maxLength={200}
-            autoComplete="email"
-            spellCheck={false}
-            className={`${field} h-12`}
-          />
+          <input name="email" type="email" required maxLength={200} autoComplete="email" spellCheck={false} className="field h-12" />
         </label>
       </div>
-      <label className="block text-[14px] font-medium text-ink-2">
+      <label className={label}>
         Message
-        <textarea name="message" required minLength={2} maxLength={5000} rows={5} className={`${field} resize-y py-3 leading-relaxed`} />
+        <textarea name="message" required minLength={2} maxLength={5000} rows={5} className="field resize-y leading-relaxed" />
       </label>
       {/* Hidden from people and screen readers; bots that fill every field give themselves away. */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
@@ -95,31 +81,23 @@ export function ContactForm({ enabled }: { enabled: boolean }) {
       </div>
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p aria-live="polite" className="min-h-[22px] text-[14px]">
+        <p aria-live="polite" className="min-h-[22px] text-[14px] text-ink">
           {status === "error" && (
-            <span className="inline-flex items-start gap-2 text-[#f87171]">
-              <CircleAlert size={16} className="mt-0.5 shrink-0" aria-hidden="true" />
+            <span className="inline-flex items-baseline gap-3">
+              <span className="mono shrink-0">Error</span>
               Couldn&rsquo;t send that. Try again, or email me directly.
             </span>
           )}
           {status === "rate_limited" && (
-            <span className="inline-flex items-start gap-2 text-[#fbbf24]">
-              <CircleAlert size={16} className="mt-0.5 shrink-0" aria-hidden="true" />
+            <span className="inline-flex items-baseline gap-3">
+              <span className="mono shrink-0">Wait</span>
               That&rsquo;s a few messages in a row. Try again in a few minutes, or email me directly.
             </span>
           )}
         </p>
-        <button
-          type="submit"
-          disabled={status === "sending"}
-          className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-accent-strong px-6 text-[15px] font-medium text-white transition-[transform,background-color] duration-300 hover:bg-accent-hover active:scale-[0.97] disabled:opacity-70"
-        >
-          {status === "sending" ? (
-            <LoaderCircle size={16} className="animate-spin" aria-hidden="true" />
-          ) : (
-            <Send size={16} aria-hidden="true" />
-          )}
-          {status === "sending" ? "Sending…" : "Send message"}
+        <button type="submit" disabled={status === "sending"} className="btn btn-primary h-12 shrink-0 px-6">
+          {status === "sending" && <LoaderCircle size={14} className="animate-spin" aria-hidden="true" />}
+          {status === "sending" ? "Sending…" : "Send message →"}
         </button>
       </div>
     </form>
@@ -128,25 +106,15 @@ export function ContactForm({ enabled }: { enabled: boolean }) {
 
 function EmailDirectly() {
   return (
-    <div className="grid min-h-[320px] place-items-center rounded-[24px] border border-line bg-surface p-8 text-center">
+    <div className="grid min-h-[320px] place-items-center border-y border-line p-8 text-center">
       <div>
-        <Mail size={28} className="mx-auto text-accent" aria-hidden="true" />
-        <p className="display mt-4 text-[22px] font-semibold text-ink">Email me directly</p>
+        <p className="display text-[24px] text-ink">Email me directly</p>
         <p className="mt-2 text-[15px] text-ink-2">The form isn&rsquo;t switched on right now, so email is the way to reach me.</p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <a
-            href={`mailto:${site.email}`}
-            className="inline-flex h-12 items-center gap-2 rounded-full bg-accent-strong px-5 text-[15px] font-medium text-white transition-colors hover:bg-accent-hover"
-          >
-            <Mail size={16} aria-hidden="true" />
+          <a href={`mailto:${site.email}`} className="btn btn-primary">
             Write an email
           </a>
-          <button
-            type="button"
-            onClick={copyEmail}
-            className="inline-flex h-12 items-center gap-2 rounded-full border border-line-strong px-5 text-[15px] text-ink transition-colors hover:border-white/30"
-          >
-            <Copy size={16} aria-hidden="true" />
+          <button type="button" onClick={copyEmail} className="btn btn-secondary">
             Copy address
           </button>
         </div>

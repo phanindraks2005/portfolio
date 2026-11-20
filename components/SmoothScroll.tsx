@@ -34,18 +34,6 @@ export function scrollToHash(hash: string) {
 /** Lenis smooth scrolling, off for reduced motion and touch screens (native scrolling is better there). */
 export function SmoothScroll() {
   useEffect(() => {
-    // The floating phones start bobbing on the first interaction, so the animation never competes with loading.
-    const root = document.documentElement;
-    const events = ["pointermove", "pointerdown", "wheel", "scroll", "keydown", "touchstart"] as const;
-    const start = () => {
-      root.classList.add("ready");
-      events.forEach((e) => window.removeEventListener(e, start));
-    };
-    events.forEach((e) => window.addEventListener(e, start, { passive: true, once: true }));
-    return () => events.forEach((e) => window.removeEventListener(e, start));
-  }, []);
-
-  useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches || matchMedia("(pointer: coarse)").matches) return;
     const lenis = new Lenis({ autoRaf: true, anchors: { offset: OFFSET }, lerp: 0.12 });
     window.__lenis = lenis;

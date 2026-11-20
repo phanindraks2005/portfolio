@@ -39,7 +39,7 @@ export function CommandPalette() {
         label: p.name,
         group: "Projects",
         keywords: p.kind + " " + p.stack.join(" "),
-        icon: <span className="size-2.5 rounded-full" style={{ background: p.color }} />,
+        icon: <span className="size-2 rounded-full bg-current" />,
         run: () => go(`#${p.slug}`),
       })),
       {
@@ -219,10 +219,10 @@ export function CommandPalette() {
       onClose={hide}
       onClick={(e) => e.target === dialog.current && hide()}
       aria-label="Command menu"
-      className="palette m-auto mt-[12vh] w-[min(560px,calc(100vw-32px))] overflow-hidden rounded-2xl border border-line-strong bg-surface p-0 text-ink shadow-[0_30px_100px_-20px_rgb(0_0_0/0.8)] backdrop:bg-black/70"
+      className="palette m-auto mt-[12vh] w-[min(560px,calc(100vw-32px))] overflow-hidden rounded-[6px] border border-ink bg-surface p-0 text-ink backdrop:bg-[#111]/25"
     >
       <div className="flex items-center gap-3 border-b border-line px-4">
-        <Search size={18} className="shrink-0 text-muted" aria-hidden="true" />
+        <Search size={16} className="shrink-0 text-ink-3" aria-hidden="true" />
         <input
           ref={input}
           value={query}
@@ -239,9 +239,9 @@ export function CommandPalette() {
           aria-activedescendant={filtered[active] ? `cmd-${filtered[active].id}` : undefined}
           autoComplete="off"
           spellCheck={false}
-          className="h-14 w-full bg-transparent text-[16px] text-ink placeholder:text-muted focus:outline-none"
+          className="h-14 w-full bg-transparent text-[16px] text-ink placeholder:text-ink-3 focus:outline-none"
         />
-        <kbd className="hidden font-mono text-[12px] text-muted sm:block">Esc</kbd>
+        <kbd className="mono hidden text-ink-3 sm:block">Esc</kbd>
       </div>
       <ul
         id="palette-list"
@@ -251,13 +251,13 @@ export function CommandPalette() {
         data-lenis-prevent
         className="max-h-[min(380px,60vh)] overflow-y-auto overscroll-contain p-2"
       >
-        {filtered.length === 0 && <li className="px-3 py-8 text-center text-[14px] text-muted">Nothing matches “{query}”.</li>}
+        {filtered.length === 0 && <li className="px-3 py-8 text-center text-[14px] text-ink-3">Nothing matches “{query}”.</li>}
         {filtered.map((item, index) => {
           const heading = index === 0 || filtered[index - 1].group !== item.group ? item.group : null;
           return (
             <li key={item.id} role="presentation">
               {heading && (
-                <div className="px-3 pt-3 pb-1.5 text-[12px] font-medium text-muted" role="presentation">
+                <div className="mono px-3 pt-3 pb-1.5 text-ink-3" role="presentation">
                   {heading}
                 </div>
               )}
@@ -268,15 +268,15 @@ export function CommandPalette() {
                 data-index={index}
                 onMouseMove={() => setActive(index)}
                 onClick={() => choose(item)}
-                className={`flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-[15px] ${
-                  index === active ? "bg-surface-2 text-ink shadow-[inset_0_0_0_1px_rgb(79_124_255/0.45)]" : "text-ink-2"
+                className={`flex cursor-pointer items-center gap-3 rounded-[4px] px-3 py-2.5 text-[15px] ${
+                  index === active ? "bg-ink text-white" : "text-ink-2"
                 }`}
               >
-                <span className="grid size-5 place-items-center text-muted" aria-hidden="true">
+                <span className="grid size-5 place-items-center opacity-70" aria-hidden="true">
                   {item.icon}
                 </span>
                 <span className="flex-1">{item.label}</span>
-                {index === active && <ArrowRight size={15} className="text-muted" aria-hidden="true" />}
+                {index === active && <ArrowRight size={15} aria-hidden="true" />}
               </div>
             </li>
           );

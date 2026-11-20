@@ -1,21 +1,19 @@
 @import "tailwindcss";
 
+/* Light only: warm grey paper, black ink, hairlines and one electric blue. */
 :root {
-  --bg: #07080a;
-  --surface: #0d0f13;
-  --surface-2: #13161c;
-  --line: rgb(255 255 255 / 0.08);
-  --line-strong: rgb(255 255 255 / 0.14);
-  --ink: #f5f6f8;
-  --ink-2: #b4bac5;
-  --muted: #8a919e;
-  --accent: #4f7cff;
-  --accent-strong: #3563e9;
-  --accent-hover: #3d6bf5;
-  --accent-text: #7b9cff;
-  --accent-soft: rgb(79 124 255 / 0.16);
+  --bg: #e9e7e1;
+  --surface: #f2f0eb;
+  --surface-2: #e2dfd8;
+  --line: #d3d0c8;
+  --line-strong: #111111;
+  --ink: #111111;
+  --ink-2: #444444;
+  --ink-3: #5f5f5f;
+  --muted: var(--ink-3);
+  --accent: #2f3bff;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 @theme inline {
@@ -26,14 +24,13 @@
   --color-line-strong: var(--line-strong);
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
-  --color-accent-strong: var(--accent-strong);
-  --color-accent-hover: var(--accent-hover);
-  --color-accent-text: var(--accent-text);
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-geist);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-schibsted);
+  --font-display: var(--font-schibsted);
+  --font-serif: var(--font-instrument);
+  --font-mono: var(--font-jetbrains);
 }
 
 html {
@@ -45,119 +42,206 @@ html {
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-schibsted), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
 }
 
 ::selection {
-  background: var(--accent);
-  color: #fff;
+  background: var(--ink);
+  color: var(--bg);
 }
 
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 6px;
 }
 
+/* Headings: Schibsted Grotesk 500, tight. */
 .display {
-  font-family: var(--font-geist), var(--font-inter), system-ui, sans-serif;
-  letter-spacing: -0.035em;
+  font-family: var(--font-schibsted), system-ui, sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* The one emphasised word in a heading. */
+.serif {
+  font-family: var(--font-instrument), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Mono labels: nav, eyebrows, buttons, tags, stats, dates. */
+.mono {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 /* Status dot. */
 .status-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   flex-shrink: 0;
   border-radius: 50%;
-  background: #34d399;
+  background: var(--accent);
 }
 
-/* Plain card surface. --glow is the project colour used by a few card details. */
+/* "Open to SWE roles" chip: the accent's main use. */
+.chip-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 5px 12px;
+  color: var(--accent);
+}
+
+/* Cards: paper surface, hairline, no shadow. */
 .surface-card {
-  --glow: var(--accent);
   position: relative;
   background: var(--surface);
   border: 1px solid var(--line);
-  transition: border-color 0.4s var(--ease);
+  border-radius: 6px;
+  transition:
+    border-color 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .card-hover:hover {
+    border-color: var(--ink);
+    transform: translateY(-2px);
+  }
 }
 
-/* Skills map: the projects that use the active skill light up in their own colour, the rest dim. */
+/* Buttons: mono pills. Primary is solid ink, secondary is an outline; both invert on hover. */
+.btn {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  padding: 0 20px;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s var(--ease),
+    color 0.2s var(--ease);
+}
+.btn-primary {
+  background: var(--ink);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: transparent;
+  color: var(--ink);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+}
+.btn-secondary:hover {
+  background: var(--ink);
+  color: #fff;
+}
+.btn:disabled {
+  opacity: 0.6;
+}
+
+/* Tags and chips: mono, hairline, no fill. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 11px;
+  color: var(--ink-2);
+}
+
+/* Links: ink, blue underline on hover. */
+.link {
+  color: var(--ink);
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.2s var(--ease);
+}
+.link:hover {
+  text-decoration-color: var(--accent);
+}
+
+/* Skills map: the active chip goes solid; the projects that use it get a blue underline. */
 .skill-project {
   transition:
-    opacity 0.3s var(--ease),
-    border-color 0.3s var(--ease),
-    box-shadow 0.3s var(--ease);
+    opacity 0.25s var(--ease),
+    border-color 0.25s var(--ease);
 }
 .skill-project[data-lit] {
-  border-color: color-mix(in srgb, var(--c) 55%, transparent);
-  box-shadow: 0 0 32px -10px color-mix(in srgb, var(--c) 60%, transparent);
+  border-color: var(--ink);
+}
+.skill-project[data-lit] .skill-project-name {
+  text-decoration: underline 1px var(--accent);
+  text-underline-offset: 5px;
 }
 .skill-project[data-dim] {
-  opacity: 0.4;
+  opacity: 0.45;
 }
 .skill-chip {
   transition:
     border-color 0.2s var(--ease),
-    background-color 0.2s var(--ease);
+    background-color 0.2s var(--ease),
+    color 0.2s var(--ease);
 }
 .skill-chip:hover,
-.skill-chip[data-active] {
-  border-color: rgb(79 124 255 / 0.55);
-  background: var(--accent-soft);
-}
+.skill-chip[data-active],
 .skill-chip[aria-pressed="true"] {
-  border-color: var(--accent);
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #fff;
 }
 
-/* Project card: brand glow, lift and a slight tilt of the devices. */
-.project {
-  --c: var(--accent);
-  --glow: var(--c);
-  transition:
-    transform 0.6s var(--ease),
-    border-color 0.4s var(--ease),
-    box-shadow 0.6s var(--ease);
+/* Text fields: transparent, a single ink rule underneath that turns blue on focus. */
+.field {
+  margin-top: 6px;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--ink);
+  border-radius: 0;
+  background: transparent;
+  padding: 10px 0;
+  font-size: 16px;
+  color: var(--ink);
+  transition: border-color 0.2s var(--ease);
 }
-.project .stage {
-  isolation: isolate;
-  background: color-mix(in srgb, var(--c) 4%, #0a0c10);
-  border-bottom: 1px solid var(--line);
+.field:focus {
+  outline: none;
+  border-bottom-color: var(--accent);
+  box-shadow: 0 1px 0 0 var(--accent);
 }
-.project .halo {
-  position: absolute;
-  pointer-events: none;
-  inset: 12% 8% -35% 8%;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--c) 26%, transparent), transparent);
-  opacity: 0.75;
-  transition:
-    opacity 0.6s var(--ease),
-    transform 0.8s var(--ease);
-  z-index: -1;
+
+/* Hero marquee: the stack, scrolling; paused on hover and for reduced motion. */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
 }
-.project .devices {
-  transform: perspective(1400px) rotateX(0) rotateY(0);
-  transition: transform 0.8s var(--ease);
-  transform-style: preserve-3d;
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
 }
-@media (hover: hover) and (pointer: fine) {
-  .project:hover {
-    transform: translateY(-6px);
-    border-color: color-mix(in srgb, var(--c) 35%, transparent);
-    box-shadow: 0 40px 120px -40px color-mix(in srgb, var(--c) 45%, transparent);
-  }
-  .project:hover .halo {
-    opacity: 1;
-    transform: scale(1.08);
-  }
-  .project:hover .devices {
-    transform: perspective(1400px) rotateX(5deg) rotateY(-4deg) translateY(-6px);
-  }
-  .project.flip:hover .devices {
-    transform: perspective(1400px) rotateX(5deg) rotateY(4deg) translateY(-6px);
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
   }
 }
 
@@ -172,24 +256,29 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  .marquee-track {
+    animation: none;
+  }
+  .stage-layer {
+    transform: none;
+  }
 }
 
 /* Command palette and toast entrances. */
 .palette[open] {
-  border-color: rgb(79 124 255 / 0.4);
-  animation: palette-in 0.22s var(--ease);
+  animation: palette-in 0.2s var(--ease);
 }
-/* The open panel's border shows focus and the active result has its own ring, so the input needs no outline. */
+/* The open panel's border shows focus and the active result has its own marker, so the input needs no outline. */
 .palette input:focus-visible {
   outline: none;
 }
 .palette[open]::backdrop {
-  animation: fade-in 0.22s var(--ease);
+  animation: fade-in 0.2s var(--ease);
 }
 @keyframes palette-in {
   from {
     opacity: 0;
-    transform: translateY(-8px) scale(0.98);
+    transform: translateY(-6px);
   }
 }
 @keyframes fade-in {
@@ -198,26 +287,12 @@ body {
   }
 }
 .toast {
-  animation: toast-in 0.35s var(--ease);
+  animation: toast-in 0.3s var(--ease);
 }
 @keyframes toast-in {
   from {
     opacity: 0;
-    transform: translateY(12px) scale(0.96);
-  }
-}
-
-/* Hero phones: a gentle bob, once motion is allowed. */
-.phone-bob {
-  animation: float 7s ease-in-out infinite alternate;
-  animation-delay: calc(var(--d, 0) * -2s);
-}
-@keyframes float {
-  from {
-    translate: 0 0;
-  }
-  to {
-    translate: 0 -12px;
+    transform: translateY(10px);
   }
 }
 
@@ -232,10 +307,9 @@ body {
     --surface: #fff;
     --ink: #111;
     --ink-2: #222;
-    --muted: #444;
+    --ink-3: #444;
     --line: #bbb;
     --line-strong: #888;
-    --accent-text: #1d4ed8;
   }
   html,
   body {
@@ -272,35 +346,13 @@ body {
   }
 }
 
-body {
-  background: var(--bg);
-}
-html {
-  background: var(--bg);
-}
-
 /* ---------- Project stories ---------- */
-.story .stage-panel {
-  isolation: isolate;
-  background: color-mix(in srgb, var(--c) 5%, #0a0c10);
-  --glow: var(--c);
-}
-.story .stage-panel .halo {
-  position: absolute;
-  inset: 15% 5% -30% 5%;
-  z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--c) 24%, transparent), transparent);
-}
-.story .story-head {
-  --glow: var(--c);
-}
 .stage-layer {
   opacity: 0;
-  transform: scale(1.015);
+  transform: scale(1.01);
   transition:
-    opacity 0.6s var(--ease),
-    transform 0.8s var(--ease);
+    opacity 0.5s var(--ease),
+    transform 0.6s var(--ease);
 }
 .stage-layer[data-on] {
   opacity: 1;
@@ -315,11 +367,11 @@ html {
 @media (min-width: 1024px) {
   .story .step h4,
   .story .step p {
-    transition: color 0.5s var(--ease);
+    transition: color 0.4s var(--ease);
   }
   .story .step:not([data-active]) h4,
   .story .step:not([data-active]) p:last-child {
-    color: var(--muted);
+    color: var(--ink-3);
   }
 }
 
@@ -345,7 +397,7 @@ html {
 .rs-stage[data-step="0"] .rs-chip,
 .rs-stage[data-step="1"] .rs-chip-2,
 .rs-stage[data-step="1"] .rs-chip-3 {
-  opacity: 0.12;
+  opacity: 0.15;
 }
 .rs-stage:not([data-step="3"]) .rs-phone .rs-banner {
   opacity: 0;
@@ -363,32 +415,14 @@ html {
   transition: opacity 0.4s;
 }
 
-/* ---------- Hero ---------- */
-.hero-phones {
-  perspective: 1200px;
-}
-.hero-phones .phone-parallax {
-  transform: translate3d(calc(var(--px, 0) * var(--depth) * 1px), calc(var(--py, 0) * var(--depth) * 1px), 0)
-    rotateY(calc(var(--px, 0) * 7deg)) rotateX(calc(var(--py, 0) * -7deg));
-}
-
 /* ---------- Bugs ---------- */
-.bug button:hover .bug-chevron {
-  color: var(--ink);
-}
-.bug[data-open] .bug-chevron {
-  transform: rotate(180deg);
-}
-.bug[data-open] {
-  border-color: color-mix(in srgb, var(--glow) 30%, transparent);
-}
 .bug-body:not([hidden]) {
-  animation: bug-open 0.45s var(--ease);
+  animation: bug-open 0.35s var(--ease);
 }
 @keyframes bug-open {
   from {
     opacity: 0;
-    transform: translateY(-6px);
+    transform: translateY(-4px);
   }
 }
 
@@ -404,32 +438,17 @@ html.lenis body {
   scroll-behavior: auto !important;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .stage-layer {
-    transform: none;
-  }
-  .phone-parallax {
-    transform: none !important;
-  }
-}
-
-/* The phone bob starts on the first interaction (html.ready). */
-html:not(.ready) .phone-bob {
-  animation-play-state: paused;
-}
-
-
-/* Phone menu: slides down, items follow. */
+/* Phone menu: fades in, items follow. */
 .mobile-menu[open] {
-  animation: menu-in 0.32s var(--ease);
+  animation: fade-in 0.25s var(--ease);
 }
 .mobile-menu[open] .menu-item {
-  animation: menu-item-in 0.45s var(--ease) both;
-  animation-delay: calc(60ms + var(--i, 0) * 45ms);
-}
-@keyframes menu-in {
-  from { opacity: 0; transform: translateY(-12px); }
+  animation: menu-item-in 0.35s var(--ease) both;
+  animation-delay: calc(40ms + var(--i, 0) * 35ms);
 }
 @keyframes menu-item-in {
-  from { opacity: 0; transform: translateY(10px); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
 }

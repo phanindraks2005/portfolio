@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowLeft, Download } from "lucide-react";
+
 import Link from "next/link";
 import { GitHubIcon, LinkedInIcon } from "@/components/icons";
 import { PrintButton } from "@/components/PrintButton";
@@ -18,42 +18,36 @@ const host = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "");
 
 export default function ResumePage() {
   return (
-    <main className="resume-page px-5 pt-28 pb-24 sm:px-8 sm:pt-32">
+    <main className="resume-page px-4 pt-24 pb-24 sm:px-8 sm:pt-28">
       <div className="mx-auto max-w-[860px]">
         <div className="no-print mb-8 flex flex-wrap items-center justify-between gap-3">
-          <Link href="/" className="inline-flex min-h-11 items-center gap-2 text-[14px] text-ink-2 transition-colors hover:text-ink">
-            <ArrowLeft size={16} aria-hidden="true" />
-            Back to portfolio
+          <Link href="/" className="mono link inline-flex min-h-11 items-center">
+            ← Back to portfolio
           </Link>
           <div className="flex flex-wrap gap-2">
-            <a
-              href={site.resume}
-              download="KS_Phanindra_Resume.pdf"
-              className="inline-flex h-11 items-center gap-2 rounded-full bg-accent-strong px-4 text-[14px] font-medium text-white transition-[transform,background-color] duration-300 hover:bg-accent-hover active:scale-[0.97]"
-            >
-              <Download size={15} aria-hidden="true" />
-              Download PDF
+            <a href={site.resume} download="KS_Phanindra_Resume.pdf" className="btn btn-primary">
+              Download PDF ↓
             </a>
             <PrintButton />
           </div>
         </div>
 
-        <article className="sheet rounded-[24px] border border-line bg-surface p-6 sm:p-12">
+        <article className="sheet rounded-[6px] border border-line bg-surface p-6 sm:p-12">
           <header className="text-center">
-            <h1 className="display text-[clamp(2rem,5vw,2.75rem)] leading-none font-semibold tracking-[-0.03em] text-ink">{resume.name}</h1>
+            <h1 className="display text-[clamp(2rem,5vw,2.75rem)] leading-none tracking-[-0.02em] text-ink">{resume.name}</h1>
             <p className="mt-4 flex flex-wrap justify-center gap-x-3 gap-y-1 text-[14px] text-ink-2">
               <span>{resume.location}</span>
               <span aria-hidden="true">·</span>
-              <a href={`mailto:${site.email}`} className="inline-flex min-h-11 items-center underline-offset-4 hover:text-ink hover:underline sm:min-h-0">
+              <a href={`mailto:${site.email}`} className="inline-flex min-h-11 items-center underline-offset-4 hover:text-ink hover:underline hover:decoration-accent sm:min-h-0">
                 {site.email}
               </a>
               <span aria-hidden="true">·</span>
-              <a href={site.linkedin} className="inline-flex min-h-11 items-center gap-1.5 underline-offset-4 hover:text-ink hover:underline sm:min-h-0">
+              <a href={site.linkedin} className="inline-flex min-h-11 items-center gap-1.5 underline-offset-4 hover:text-ink hover:underline hover:decoration-accent sm:min-h-0">
                 <LinkedInIcon size={13} />
                 {host(site.linkedin)}
               </a>
               <span aria-hidden="true">·</span>
-              <a href={site.github} className="inline-flex min-h-11 items-center gap-1.5 underline-offset-4 hover:text-ink hover:underline sm:min-h-0">
+              <a href={site.github} className="inline-flex min-h-11 items-center gap-1.5 underline-offset-4 hover:text-ink hover:underline hover:decoration-accent sm:min-h-0">
                 <GitHubIcon size={13} />
                 {host(site.github)}
               </a>
@@ -89,7 +83,7 @@ export default function ResumePage() {
             <dl className="grid gap-2.5">
               {resume.skills.map((s) => (
                 <div key={s.label} className="grid gap-x-4 sm:grid-cols-[190px_1fr]">
-                  <dt className="text-[15px] font-semibold text-ink">{s.label}</dt>
+                  <dt className="text-[15px] font-medium text-ink">{s.label}</dt>
                   <dd className="text-[15px] text-ink-2">{s.items}</dd>
                 </div>
               ))}
@@ -101,21 +95,21 @@ export default function ResumePage() {
               {resume.projects.map((p) => (
                 <div key={p.name}>
                   <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                    <h3 className="text-[16px] font-semibold text-ink">
+                    <h3 className="text-[16px] font-medium text-ink">
                       {p.name} <span className="font-normal text-ink-2">— {p.tagline}</span>
                     </h3>
                     <p className="flex gap-3 text-[14px]">
-                      <a href={p.github} className="inline-flex min-h-11 min-w-11 items-center text-accent-text underline-offset-4 hover:underline sm:min-h-0 sm:min-w-0">
+                      <a href={p.github} className="inline-flex min-h-11 min-w-11 items-center text-ink underline underline-offset-4 decoration-line hover:decoration-accent sm:min-h-0 sm:min-w-0">
                         GitHub
                       </a>
                       {p.live && (
-                        <a href={p.live} className="inline-flex min-h-11 min-w-11 items-center text-accent-text underline-offset-4 hover:underline sm:min-h-0 sm:min-w-0">
+                        <a href={p.live} className="inline-flex min-h-11 min-w-11 items-center text-ink underline underline-offset-4 decoration-line hover:decoration-accent sm:min-h-0 sm:min-w-0">
                           Live
                         </a>
                       )}
                     </p>
                   </div>
-                  <p className="mt-0.5 text-[14px] text-muted italic">{p.stack}</p>
+                  <p className="mt-0.5 text-[14px] text-ink-3 italic">{p.stack}</p>
                   <Bullets items={p.points} />
                 </div>
               ))}
@@ -130,7 +124,7 @@ export default function ResumePage() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="mt-10">
-      <h2 className="border-b border-line-strong pb-2 text-[13px] font-semibold tracking-[0.08em] text-ink uppercase">{title}</h2>
+      <h2 className="mono border-b border-ink pb-2 text-ink">{title}</h2>
       <div className="mt-4">{children}</div>
     </section>
   );
@@ -139,15 +133,15 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 function Row({ left, right }: { left: string; right: string }) {
   return (
     <div className="flex flex-wrap items-baseline justify-between gap-x-4">
-      <h3 className="text-[16px] font-semibold text-ink">{left}</h3>
-      <span className="text-[14px] text-muted">{right}</span>
+      <h3 className="text-[16px] font-medium text-ink">{left}</h3>
+      <span className="text-[14px] text-ink-3">{right}</span>
     </div>
   );
 }
 
 function Bullets({ items }: { items: string[] }) {
   return (
-    <ul className="mt-2 grid list-disc gap-1.5 pl-5 text-[15px] leading-relaxed text-ink-2 marker:text-muted">
+    <ul className="mt-2 grid list-disc gap-1.5 pl-5 text-[15px] leading-relaxed text-ink-2 marker:text-ink-3">
       {items.map((i) => (
         <li key={i}>{i}</li>
       ))}

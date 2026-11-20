@@ -1,30 +1,22 @@
-import { Medal, Trophy, Users } from "lucide-react";
 import { achievements } from "@/lib/data";
 import { Reveal, RevealItem } from "./motion";
-import { SplitHeading } from "./SplitHeading";
-
-const icons = { trophy: Trophy, medal: Medal, users: Users };
+import { SectionHeader } from "./SectionHeader";
 
 export function Achievements() {
   return (
-    <section id="achievements" className="pb-24 sm:pb-32">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <SplitHeading text="Achievements" className="display text-[clamp(1.75rem,3.5vw,2.5rem)] leading-[1] font-semibold text-ink" />
-        <Reveal as="ul" className="mt-8 grid gap-3 sm:grid-cols-3">
-          {achievements.map((a) => {
-            const Icon = icons[a.icon];
-            return (
-              <RevealItem as="li" key={a.title} className="surface-card flex items-start gap-4 rounded-[20px] p-5 sm:p-6">
-                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent">
-                  <Icon size={18} aria-hidden="true" />
-                </span>
-                <div>
-                  <p className="text-[16px] leading-snug font-medium text-ink">{a.title}</p>
-                  {"detail" in a && <p className="mt-1 text-[14px] text-ink-2">{a.detail}</p>}
-                </div>
-              </RevealItem>
-            );
-          })}
+    <section id="achievements" aria-labelledby="achievements-title" className="border-t border-line py-20 sm:py-28">
+      <div className="mx-auto max-w-[1320px] px-4 sm:px-8">
+        <SectionHeader index="08" label="Achievements" id="achievements-title" title="Achievements" />
+        <Reveal as="ol" className="grid">
+          {achievements.map((a, i) => (
+            <RevealItem as="li" key={a.title} className="grid gap-2 border-b border-line py-6 sm:grid-cols-[200px_minmax(0,1fr)] sm:gap-8">
+              <span className="mono pt-1 text-ink-3 tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+              <div>
+                <p className="display text-[20px] leading-snug text-ink">{a.title}</p>
+                {"detail" in a && <p className="mt-1.5 text-[15px] text-ink-2">{a.detail}</p>}
+              </div>
+            </RevealItem>
+          ))}
         </Reveal>
       </div>
     </section>

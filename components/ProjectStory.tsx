@@ -1,11 +1,9 @@
 "use client";
 
-import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { Project } from "@/lib/data";
 import type { Step } from "@/lib/stories";
-import { BrandIcon, GitHubIcon } from "./icons";
 import { LoopVideo } from "./LoopVideo";
 import { Reveal, RevealItem } from "./motion";
 import { LaptopFrame, PhoneFrame } from "./Frames";
@@ -15,7 +13,7 @@ import { RoadSenseStage } from "./RoadSenseStage";
  * One project as a scroll story. On wide screens the device stays pinned while the steps scroll past,
  * and its screen follows the step in the middle of the viewport.
  */
-export function ProjectStory({ project: p, steps, flip }: { project: Project; steps: Step[]; flip: boolean }) {
+export function ProjectStory({ project: p, steps, flip, index }: { project: Project; steps: Step[]; flip: boolean; index: number }) {
   const root = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
   const [near, setNear] = useState(false);
@@ -50,57 +48,37 @@ export function ProjectStory({ project: p, steps, flip }: { project: Project; st
   const activePhone = phoneFor(active);
 
   return (
-    <article ref={root} id={p.slug} className="story" style={{ ["--c" as string]: p.color }}>
-      <Reveal className="surface-card story-head grid gap-8 rounded-[28px] p-6 sm:p-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-14">
+    <article ref={root} id={p.slug} className="story">
+      <Reveal className="grid gap-8 border-b border-line pb-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-14">
         <RevealItem>
-          <div className="flex items-center gap-3">
-            <span className="size-2.5 rounded-full" style={{ background: p.color, boxShadow: `0 0 16px ${p.color}` }} aria-hidden="true" />
-            <span className="text-[14px] text-ink-2">{p.kind}</span>
-          </div>
-          <h3 className="display mt-4 text-[clamp(2.5rem,5vw,3.75rem)] leading-[0.98] font-semibold text-ink">{p.name}</h3>
+          <p className="mono flex items-center gap-3 text-ink-3">
+            <span className="text-ink">{String(index + 1).padStart(2, "0")}</span>
+            <span aria-hidden="true">·</span>
+            {p.kind}
+          </p>
+          <h3 className="display mt-4 text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[0.98] tracking-[-0.03em] text-ink">{p.name}</h3>
           <p className="mt-4 max-w-[46ch] text-[18px] leading-relaxed text-ink">{p.pitch}</p>
-          {p.team && <p className="mt-3 max-w-[46ch] text-[15px] leading-relaxed text-ink-2">{p.team}</p>}
+          {p.team && <p className="mt-3 max-w-[52ch] text-[15px] leading-relaxed text-ink-2">{p.team}</p>}
         </RevealItem>
         <RevealItem>
           <ul className="flex flex-wrap gap-2" aria-label={`${p.name} tech stack`}>
             {p.stack.map((s) => (
-              <li
-                key={s}
-                className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white/[0.03] px-3 py-1 text-[13px] text-ink-2"
-              >
-                <BrandIcon name={s.replace(/ \d+$/, "")} size={13} />
+              <li key={s} className="mono tag">
                 {s}
               </li>
             ))}
           </ul>
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-1">
             {p.live && (
-              <a
-                href={p.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-11 items-center gap-1.5 rounded-full px-4 text-[14px] font-medium text-black transition-transform duration-300 hover:-translate-y-0.5 active:scale-[0.97]"
-                style={{ background: p.color }}
-              >
-                Live demo
-                <ArrowUpRight size={15} aria-hidden="true" />
+              <a href={p.live} target="_blank" rel="noopener noreferrer" className="mono link inline-flex min-h-11 items-center">
+                Live demo ↗
               </a>
             )}
-            <a
-              href={p.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-11 items-center gap-2 rounded-full border border-line-strong px-4 text-[14px] font-medium text-ink transition-colors duration-300 hover:border-white/30 hover:bg-white/[0.04] active:scale-[0.97]"
-            >
-              <GitHubIcon size={15} />
-              GitHub
+            <a href={p.github} target="_blank" rel="noopener noreferrer" className="mono link inline-flex min-h-11 items-center">
+              Code ↗
             </a>
-            <Link
-              href={`/projects/${p.slug}`}
-              className="inline-flex h-11 items-center gap-1 rounded-full px-3 text-[14px] font-medium text-ink-2 transition-colors duration-300 hover:text-ink"
-            >
-              Case study
-              <ArrowUpRight size={15} aria-hidden="true" />
+            <Link href={`/projects/${p.slug}`} className="mono link inline-flex min-h-11 items-center">
+              Case study →
             </Link>
           </div>
         </RevealItem>
@@ -110,16 +88,15 @@ export function ProjectStory({ project: p, steps, flip }: { project: Project; st
         className={`mt-6 grid gap-2 lg:mt-0 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] lg:gap-14 ${flip ? "lg:[direction:rtl]" : ""}`}
       >
         {/* The stage stays pinned while the steps scroll: beside them on wide screens, above them on phones. */}
-        <div className="sticky top-16 z-10 -mx-5 bg-bg px-5 pt-3 pb-4 [direction:ltr] sm:-mx-8 sm:px-8 lg:static lg:mx-0 lg:bg-transparent lg:p-0">
-          <div className="lg:sticky lg:top-[max(88px,calc(50vh-250px))] lg:py-10">
-            <div className="surface-card stage-panel relative overflow-hidden rounded-[22px] px-4 pt-6 pb-4 lg:rounded-[28px] lg:px-8 lg:pt-10 lg:pb-8">
-              <div className="halo" aria-hidden="true" />
+        <div className="sticky top-14 z-10 -mx-4 bg-bg px-4 pt-3 pb-4 [direction:ltr] sm:-mx-8 sm:px-8 lg:static lg:mx-0 lg:bg-transparent lg:p-0">
+          <div className="lg:sticky lg:top-[max(80px,calc(50vh-250px))] lg:py-10">
+            <div className="surface-card relative overflow-hidden px-3 pt-4 pb-3 sm:px-5 sm:pt-6 lg:px-8 lg:pt-8 lg:pb-6">
               {p.slug === "roadsense" ? (
                 <RoadSenseStage step={active} />
               ) : (
                 <Stage steps={steps} active={active} activePhone={activePhone} load={near} play={inView} />
               )}
-              <StepDots count={steps.length} active={active} color={p.color} />
+              <StepDots count={steps.length} active={active} />
             </div>
           </div>
         </div>
@@ -132,10 +109,10 @@ export function ProjectStory({ project: p, steps, flip }: { project: Project; st
               className="step flex min-h-[48vh] flex-col justify-center py-8 lg:min-h-[78vh] lg:py-0"
               data-active={i === active || undefined}
             >
-              <p className="text-[13px] font-medium tabular-nums" style={{ color: p.color }}>
-                {i + 1} / {steps.length}
+              <p className="mono text-ink-3 tabular-nums">
+                {String(i + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}
               </p>
-              <h4 className="display mt-2 text-[clamp(1.5rem,2.6vw,2rem)] leading-[1.1] font-semibold text-ink">{s.title}</h4>
+              <h4 className="display mt-3 text-[clamp(1.5rem,2.6vw,2rem)] leading-[1.1] text-ink">{s.title}</h4>
               <p className="mt-3 max-w-[44ch] text-[16px] leading-relaxed text-ink-2">{s.text}</p>
             </li>
           ))}
@@ -200,14 +177,13 @@ function Layer({ on, children }: { on: boolean; children: React.ReactNode }) {
   );
 }
 
-function StepDots({ count, active, color }: { count: number; active: number; color: string }) {
+function StepDots({ count, active }: { count: number; active: number }) {
   return (
-    <div className="mt-7 flex justify-center gap-2" aria-hidden="true">
+    <div className="mt-5 flex justify-center gap-1.5" aria-hidden="true">
       {Array.from({ length: count }, (_, i) => (
         <span
           key={i}
-          className="h-1.5 rounded-full transition-all duration-500"
-          style={{ width: i === active ? 28 : 6, background: i === active ? color : "rgb(255 255 255 / 0.18)" }}
+          className={`h-1 rounded-full transition-all duration-500 ${i === active ? "w-6 bg-ink" : "w-1.5 bg-line"}`}
         />
       ))}
     </div>

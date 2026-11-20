@@ -1,34 +1,30 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
 import { useEffect, useId, useState, useSyncExternalStore } from "react";
 import { bugs, type Bug } from "@/lib/bugs";
 import { Reveal, RevealItem } from "./motion";
 import { scrollToHash } from "./SmoothScroll";
-import { SplitHeading } from "./SplitHeading";
+import { Em, SectionHeader } from "./SectionHeader";
 
 export function Bugs() {
   return (
-    <section id="bugs" aria-labelledby="bugs-title" className="pt-12 pb-20 sm:pt-16 sm:pb-28">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="max-w-2xl">
-          <SplitHeading
-            id="bugs-title"
-            text="Bugs I’ve killed"
-            className="display text-[clamp(2.25rem,5vw,3.5rem)] leading-[1] font-semibold text-ink"
-          />
-          <Reveal>
-            <RevealItem>
-              <p className="mt-5 text-[17px] leading-relaxed text-ink-2">
-                Four real bugs from my own projects, how I tracked each one down, and the code that fixed it. Open one for the full story.
-              </p>
-            </RevealItem>
-          </Reveal>
-        </div>
+    <section id="bugs" aria-labelledby="bugs-title" className="border-t border-line pt-20 pb-20 sm:pt-28 sm:pb-28">
+      <div className="mx-auto max-w-[1320px] px-4 sm:px-8">
+        <SectionHeader
+          index="02"
+          label="Bugs I’ve killed"
+          id="bugs-title"
+          title={
+            <>
+              Bugs I&rsquo;ve <Em>killed</Em>
+            </>
+          }
+          intro="Four real bugs from my own projects, how I tracked each one down, and the code that fixed it. Open one for the full story."
+        />
 
-        <Reveal className="mt-12 grid items-start gap-4 md:grid-cols-2">
+        <Reveal as="ul" className="grid">
           {bugs.map((b) => (
-            <RevealItem key={b.title} className="min-w-0">
+            <RevealItem as="li" key={b.title} className="min-w-0 border-b border-line">
               <BugCard bug={b} />
             </RevealItem>
           ))}
@@ -66,41 +62,39 @@ function BugCard({ bug: b }: { bug: Bug }) {
     };
   }, [hash]);
   return (
-    <article
-      id={b.id}
-      className="surface-card bug min-w-0 rounded-[22px]"
-      style={{ ["--glow" as string]: b.color }}
-      data-open={open || undefined}
-    >
+    <article id={b.id} className="bug min-w-0" data-open={open || undefined}>
       <h3>
         <button
           type="button"
           aria-expanded={open}
           aria-controls={id}
           onClick={() => setToggled(!open)}
-          className="flex w-full items-start gap-4 rounded-[22px] p-6 text-left sm:p-7"
+          className="group grid w-full grid-cols-1 gap-x-8 gap-y-2 py-6 text-left sm:py-8 md:grid-cols-[160px_minmax(0,1fr)_auto] md:items-baseline"
         >
-          <span className="min-w-0 flex-1">
-            <span className="flex items-center gap-2 text-[13px] font-medium" style={{ color: b.color }}>
-              <span className="size-1.5 rounded-full" style={{ background: b.color }} aria-hidden="true" />
-              {b.project}
-            </span>
-            <span className="display mt-2.5 block text-[20px] leading-snug font-semibold text-ink">{b.title}</span>
-            <span className="mt-2.5 block text-[15px] leading-relaxed font-normal text-ink-2">{b.symptom}</span>
+          <span className="mono text-ink-3">{b.project}</span>
+          <span className="min-w-0">
+            <span className="display block text-[clamp(1.25rem,2.2vw,1.6rem)] leading-snug text-ink">{b.title}</span>
+            <span className="mt-2 block max-w-[70ch] text-[15px] leading-relaxed font-normal text-ink-2">{b.symptom}</span>
           </span>
-          <span className="mt-1 grid size-8 shrink-0 place-items-center rounded-full border border-line-strong text-ink-2">
-            <ChevronDown size={16} className="bug-chevron transition-transform duration-300" aria-hidden="true" />
+          <span className="mono mt-2 inline-flex min-h-11 items-center self-start text-ink underline-offset-4 group-hover:underline group-hover:decoration-accent md:mt-0 md:min-h-0">
+            {open ? "Close ↑" : "Read →"}
           </span>
         </button>
       </h3>
       <div id={id} className="bug-body" hidden={!open}>
-        <div className="min-w-0">
-          <div className="grid grid-cols-1 gap-5 px-6 pb-7 sm:px-7">
-            <Part label="Root cause" text={b.cause} />
-            <Part label="Fix" text={b.fix} />
+        <div className="grid min-w-0 grid-cols-1 gap-6 pb-8 md:grid-cols-[160px_minmax(0,1fr)] md:gap-x-8">
+          <div className="hidden md:block" aria-hidden="true" />
+          <div className="grid min-w-0 gap-5">
+            <div className="grid gap-5 lg:grid-cols-2 lg:gap-10">
+              <Part label="Root cause" text={b.cause} />
+              <Part label="Fix" text={b.fix} />
+            </div>
             <figure className="min-w-0">
-              <figcaption className="mb-2 font-mono text-[12px] text-muted">{b.file}</figcaption>
-              <pre data-lenis-prevent-horizontal className="overflow-x-auto rounded-[14px] border border-line bg-[#0a0b0e] p-4 font-mono text-[12.5px] leading-[1.65] text-ink-2">
+              <figcaption className="mb-2 font-mono text-[12px] text-ink-3">{b.file}</figcaption>
+              <pre
+                data-lenis-prevent-horizontal
+                className="overflow-x-auto rounded-[6px] bg-ink p-4 font-mono text-[13px] leading-[1.65] text-bg sm:p-5"
+              >
                 <code>{b.code}</code>
               </pre>
             </figure>
@@ -114,8 +108,8 @@ function BugCard({ bug: b }: { bug: Bug }) {
 function Part({ label, text }: { label: string; text: string }) {
   return (
     <div>
-      <p className="text-[13px] font-medium text-ink">{label}</p>
-      <p className="mt-1 text-[15px] leading-relaxed text-ink-2">{text}</p>
+      <p className="mono text-ink">{label}</p>
+      <p className="mt-2 text-[15px] leading-relaxed text-ink-2">{text}</p>
     </div>
   );
 }

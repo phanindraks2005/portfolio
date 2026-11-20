@@ -1,17 +1,10 @@
 "use client";
 
-import { ArrowUpRight, FileText, Menu, X } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/lib/data";
-import { GitHubIcon, LinkedInIcon } from "./icons";
-
-const links = [
-  { href: "/#projects", label: "Projects" },
-  { href: "/#bugs", label: "Engineering" },
-  { href: "/#about", label: "About" },
-  { href: "/#contact", label: "Contact" },
-];
+import { openPalette } from "./CommandPalette";
+import { NavClock } from "./NavClock";
+import { NavLink, navLinks } from "./NavLink";
 
 /**
  * The phone menu: a full-screen modal <dialog>, so focus stays inside it and Escape closes it natively.
@@ -39,7 +32,7 @@ export function MobileMenu() {
 
   // Close if the screen grows past the phone layout while open.
   useEffect(() => {
-    const mq = matchMedia("(min-width: 768px)");
+    const mq = matchMedia("(min-width: 1024px)");
     const onChange = () => mq.matches && setOpen(false);
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
@@ -68,17 +61,18 @@ export function MobileMenu() {
     }
   };
 
+  const ext = "mono inline-flex min-h-11 items-center text-ink-2 underline-offset-4 hover:text-ink hover:underline hover:decoration-accent";
+
   return (
     <>
       <button
         type="button"
         onClick={() => setOpen(true)}
-        aria-label="Open menu"
         aria-haspopup="dialog"
         aria-expanded={open}
-        className="grid size-11 place-items-center md:size-9 rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:border-line-strong hover:text-ink md:hidden"
+        className="mono inline-flex h-11 items-center px-1 text-ink underline-offset-4 hover:underline hover:decoration-accent lg:hidden"
       >
-        <Menu size={17} aria-hidden="true" />
+        Menu
       </button>
 
       <dialog
@@ -89,74 +83,62 @@ export function MobileMenu() {
         data-lenis-prevent
         className="mobile-menu m-0 h-dvh max-h-none w-full max-w-none bg-bg p-0 text-ink backdrop:bg-transparent"
       >
-        <div className="flex h-full flex-col px-5">
-          <div className="flex h-16 shrink-0 items-center justify-between">
-            <Link href="/" onClick={close} className="display inline-flex h-11 items-center text-[17px] font-semibold text-ink">
-              K S Phanindra
-            </Link>
-            <button
-              type="button"
-              onClick={close}
-              aria-label="Close menu"
-              className="grid size-11 place-items-center md:size-9 rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:text-ink"
-            >
-              <X size={17} aria-hidden="true" />
-            </button>
+        <div className="flex h-full flex-col px-4 sm:px-8">
+          <div className="flex h-14 shrink-0 items-center justify-between gap-4 border-b border-line">
+            <NavLink href="/" onClick={close} className="inline-flex h-11 items-center gap-2.5 text-[15px] font-medium text-ink">
+              <span className="status-dot" aria-hidden="true" />K S Phanindra
+            </NavLink>
+            <div className="flex items-center gap-3">
+              <NavClock className="whitespace-nowrap" />
+              <button
+                type="button"
+                onClick={close}
+                className="mono inline-flex h-11 items-center px-1 text-ink underline-offset-4 hover:underline hover:decoration-accent"
+              >
+                Close
+              </button>
+            </div>
           </div>
 
-          <nav aria-label="Menu" className="mt-6 flex-1">
+          <nav aria-label="Menu" className="flex-1 overflow-y-auto pt-4">
             <ul className="grid">
-              {links.map((l, i) => (
+              {navLinks.map((l, i) => (
                 <li key={l.href} className="menu-item" style={{ ["--i" as string]: i }}>
-                  <a
+                  <NavLink
                     href={l.href}
                     onClick={close}
-                    className="display flex items-center justify-between border-b border-line py-4 text-[32px] leading-tight font-semibold tracking-[-0.03em] text-ink active:text-accent-text"
+                    className="flex items-baseline gap-4 border-b border-line py-4 font-mono text-[28px] leading-none tracking-[0.02em] text-ink uppercase active:text-accent"
                   >
+                    <span className="mono text-ink-3">{String(i + 1).padStart(2, "0")}</span>
                     {l.label}
-                    <ArrowUpRight size={22} className="text-muted" aria-hidden="true" />
-                  </a>
+                  </NavLink>
                 </li>
               ))}
             </ul>
-
-            <div className="menu-item mt-8 grid gap-3" style={{ ["--i" as string]: links.length }}>
-              <Link
-                href="/resume"
-                onClick={close}
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-accent-strong px-5 text-[16px] font-medium text-white active:scale-[0.98]"
+            <div className="menu-item mt-6 flex flex-wrap gap-x-6" style={{ ["--i" as string]: navLinks.length }}>
+              <button
+                type="button"
+                onClick={() => {
+                  close();
+                  requestAnimationFrame(openPalette);
+                }}
+                className={ext}
               >
-                <FileText size={17} aria-hidden="true" />
-                View resume
-              </Link>
-              <div className="flex gap-3">
-                <a
-                  href={site.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={close}
-                  aria-label="GitHub profile"
-                  className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full border border-line-strong text-[15px] text-ink"
-                >
-                  <GitHubIcon size={18} />
-                  GitHub
-                </a>
-                <a
-                  href={site.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={close}
-                  aria-label="LinkedIn profile"
-                  className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full border border-line-strong text-[15px] text-ink"
-                >
-                  <LinkedInIcon size={18} />
-                  LinkedIn
-                </a>
-              </div>
+                Search
+              </button>
+              <a href={site.github} target="_blank" rel="noopener noreferrer" onClick={close} className={ext}>
+                GitHub ↗
+              </a>
+              <a href={site.linkedin} target="_blank" rel="noopener noreferrer" onClick={close} className={ext}>
+                LinkedIn ↗
+              </a>
             </div>
           </nav>
 
-          <p className="menu-item shrink-0 pb-[max(20px,env(safe-area-inset-bottom))] text-[13px] text-muted" style={{ ["--i" as string]: links.length + 1 }}>
+          <p
+            className="menu-item shrink-0 border-t border-line pt-4 pb-[max(20px,env(safe-area-inset-bottom))] font-mono text-[13px] text-ink-2"
+            style={{ ["--i" as string]: navLinks.length + 1 }}
+          >
             {site.email}
           </p>
         </div>

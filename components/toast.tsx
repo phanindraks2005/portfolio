@@ -43,11 +43,9 @@ export function Toaster() {
       {message && (
         <div
           key={key}
-          className="toast flex items-center gap-2.5 rounded-full border border-line-strong bg-surface-2 py-2.5 pr-5 pl-3.5 text-[14px] text-ink shadow-[0_20px_60px_-20px_rgb(0_0_0/0.9)]"
+          className="toast mono flex items-center gap-2.5 rounded-full bg-ink py-3 pr-5 pl-4 text-bg"
         >
-          <span className="grid size-5 place-items-center rounded-full bg-accent text-white">
-            <Check size={13} strokeWidth={3} aria-hidden="true" />
-          </span>
+          <Check size={14} aria-hidden="true" />
           {message}
         </div>
       )}

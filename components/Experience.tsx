@@ -1,31 +1,28 @@
 import { experience } from "@/lib/data";
 import { Reveal, RevealItem } from "./motion";
-import { SplitHeading } from "./SplitHeading";
+import { SectionHeader } from "./SectionHeader";
 
 export function Experience() {
   return (
-    <section id="experience" className="py-24 sm:py-32">
-      <div className="mx-auto grid max-w-6xl gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
-        <Reveal>
-          <RevealItem>
-            <SplitHeading text="Experience" className="display text-[clamp(2.25rem,5vw,3.5rem)] leading-[1] font-semibold text-ink" />
-          </RevealItem>
-          <RevealItem>
-            <p className="mt-5 max-w-[40ch] text-[17px] leading-relaxed text-ink-2">
-              I&rsquo;ve also helped run events at BMSCE, from leading a volunteer team to handling the technical setup.
-            </p>
-          </RevealItem>
-        </Reveal>
+    <section id="experience" aria-labelledby="experience-title" className="border-t border-line py-20 sm:py-28">
+      <div className="mx-auto max-w-[1320px] px-4 sm:px-8">
+        <SectionHeader
+          index="06"
+          label="Experience"
+          id="experience-title"
+          title="Experience"
+          intro={<>I&rsquo;ve also helped run events at BMSCE, from leading a volunteer team to handling the technical setup.</>}
+        />
 
-        <Reveal as="ol" className="relative grid gap-3">
+        <Reveal as="ol" className="grid">
           {experience.map((e) => (
-            <RevealItem as="li" key={e.org} className="surface-card relative rounded-[20px] p-6 sm:p-7">
-              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                <h3 className="text-[17px] font-semibold text-ink">{e.title}</h3>
-                <span className="text-[14px] tabular-nums text-muted">{e.year}</span>
+            <RevealItem as="li" key={e.org} className="grid gap-2 border-b border-line py-7 sm:grid-cols-[200px_minmax(0,1fr)] sm:gap-8">
+              <p className="mono pt-1 text-ink-3 tabular-nums">{e.year}</p>
+              <div>
+                <h3 className="display text-[20px] leading-snug text-ink">{e.title}</h3>
+                <p className="mono mt-2 text-ink-2">{e.org}</p>
+                <p className="mt-3 max-w-[62ch] text-[15px] leading-relaxed text-ink-2">{e.text}</p>
               </div>
-              <p className="mt-1 text-[15px] text-accent">{e.org}</p>
-              <p className="mt-3 text-[15px] leading-relaxed text-ink-2">{e.text}</p>
             </RevealItem>
           ))}
         </Reveal>

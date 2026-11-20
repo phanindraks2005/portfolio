@@ -1,18 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
 import { CommandPalette } from "@/components/CommandPalette";
 import { Footer } from "@/components/Footer";
-import { BrandSprite } from "@/components/icons";
 import { MotionProvider } from "@/components/motion";
 import { Nav } from "@/components/Nav";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Toaster } from "@/components/toast";
 import { site } from "@/lib/data";
+import { doto, instrument, jetbrains, schibsted } from "@/lib/fonts";
 import "./globals.css";
-
-const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 
 const base = process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : site.url;
 
@@ -40,22 +35,21 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#07080a",
-  colorScheme: "dark",
+  themeColor: "#e9e7e1",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${geist.variable} ${geistMono.variable} ${inter.variable}`}>
+    <html lang="en" className={`${schibsted.variable} ${instrument.variable} ${jetbrains.variable} ${doto.variable}`}>
       <body>
         <MotionProvider>
           <a
             href="#main"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-lg focus:bg-accent-strong focus:px-4 focus:py-2 focus:text-white"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-white"
           >
             Skip to content
           </a>
-          <BrandSprite />
           <Nav />
           <div id="main">{children}</div>
           <Footer />

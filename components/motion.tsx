@@ -15,19 +15,19 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 const group: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
+  show: { transition: { staggerChildren: 0.06 } },
 };
 
 const item: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease } },
+  hidden: { opacity: 0, y: 12 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease } },
 };
 
-/** Staggers its direct <RevealItem> children in once, as the block scrolls into view. */
+/** Fades its direct <RevealItem> children up once, as the block scrolls into view. */
 export function Reveal({ children, className, as = "div" }: { children: ReactNode; className?: string; as?: "div" | "ul" | "ol" }) {
   const Tag = m[as];
   return (
-    <Tag className={className} variants={group} initial="hidden" whileInView="show" viewport={{ once: true, margin: "0px 0px -12% 0px" }}>
+    <Tag className={className} variants={group} initial="hidden" whileInView="show" viewport={{ once: true, margin: "0px 0px -10% 0px" }}>
       {children}
     </Tag>
   );
