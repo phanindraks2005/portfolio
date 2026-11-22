@@ -58,7 +58,7 @@ export function BackendStatus() {
       ) : state.kind === "waking" ? (
         <>
           <span className="live-dot" aria-hidden="true" />
-          Waking up the server, about 30s on first load
+          Waking up the server, up to a minute on first load
         </>
       ) : state.kind === "down" ? (
         <>Backend not reachable right now. The app&rsquo;s code is on GitHub.</>
