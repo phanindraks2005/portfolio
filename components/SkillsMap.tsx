@@ -5,6 +5,7 @@ import { projects, skills } from "@/lib/data";
 import { Reveal, RevealItem } from "./motion";
 
 const used = new Map(skills.flatMap((g) => g.items.map((s) => [s.name, s.used] as const)));
+const notes = new Map(skills.flatMap((g) => g.items.map((s) => [s.name, s.note] as const)));
 
 /**
  * Skill chips grouped by area. Hovering, focusing or tapping a chip lights up the projects that use it.
@@ -37,7 +38,11 @@ export function SkillsMap() {
           })}
         </ul>
         <p aria-live="polite" className="mono mt-3 min-h-[20px] text-ink-2 sm:mt-4">
-          {active ? (
+          {active && !slugs.length ? (
+            <>
+              <span className="text-ink">{active}</span> · {notes.get(active)}
+            </>
+          ) : active ? (
             <>
               <span className="text-ink">{active}</span> · used in {slugs.length} {slugs.length === 1 ? "project" : "projects"}:{" "}
               {names.join(", ")}

@@ -227,7 +227,7 @@ export const cases: Record<string, Case> = {
       {
         name: "scikit-learn, pandas",
         icon: "scikit-learn",
-        why: "Features per event (speed before, minimum, drop, drop %, deceleration, recovery time, jerk) into a Random Forest.",
+        why: "7 features per event (speed before, minimum, drop, drop %, deceleration, recovery time, jerk) into a Random Forest.",
       },
       { name: "SQLite on Render", icon: "SQLite", why: "Simple storage for readings and bumps on the free tier." },
     ],

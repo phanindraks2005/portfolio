@@ -58,7 +58,7 @@ export function CommandPalette() {
         icon: <Hash size={16} />,
         run: () => go("#verified"),
       },
-      { id: "about", label: "About", group: "Sections", icon: <Hash size={16} />, run: () => go("#about") },
+      { id: "about", label: "About", group: "Sections", keywords: "who i am chess interests", icon: <Hash size={16} />, run: () => go("#about") },
       {
         id: "now",
         label: "Now",
@@ -83,14 +83,6 @@ export function CommandPalette() {
         keywords: "college bmsce school coursework",
         icon: <Hash size={16} />,
         run: () => go("#education"),
-      },
-      {
-        id: "achievements",
-        label: "Achievements",
-        group: "Sections",
-        keywords: "chess football athletics utsav awards",
-        icon: <Hash size={16} />,
-        run: () => go("#achievements"),
       },
       { id: "contact", label: "Contact", group: "Sections", icon: <Hash size={16} />, run: () => go("#contact") },
       {

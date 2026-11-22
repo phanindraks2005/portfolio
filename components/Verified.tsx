@@ -10,7 +10,7 @@ export function Verified() {
     <section id="verified" aria-labelledby="verified-title" className="border-t border-line py-20 sm:py-28">
       <div className="mx-auto max-w-[1320px] px-4 sm:px-8">
         <SectionHeader
-          index="05"
+          index="03"
           label="How I tested it"
           id="verified-title"
           title={

@@ -69,7 +69,7 @@ export const stories: Record<string, Step[]> = {
     },
     {
       title: "Scoring each event",
-      text: "A scikit-learn Random Forest scores each event on speed before, minimum speed, drop, deceleration, recovery time and jerk, keeping those above 0.70. A bump is confirmed once it's detected twice within 20 m. The current model is trained on synthetic data.",
+      text: "A scikit-learn Random Forest scores each event on 7 features (speed before, minimum speed, drop, drop %, deceleration, recovery time, jerk), keeping those above 0.70. A bump is confirmed once it's detected twice within 20 m. The current model is trained on synthetic data.",
     },
     {
       title: "Warning the driver",

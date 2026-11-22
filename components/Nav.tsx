@@ -11,7 +11,7 @@ import { NavLink, navLinks } from "./NavLink";
 
 const noop = () => () => {};
 // Every home section is watched, so the ones without a nav link (Verified, Experience…) clear the highlight.
-const spied = ["projects", "bugs", "about", "skills", "verified", "experience", "education", "achievements", "contact"];
+const spied = ["projects", "bugs", "verified", "about", "skills", "experience", "education", "contact"];
 
 export function Nav() {
   const pathname = usePathname();

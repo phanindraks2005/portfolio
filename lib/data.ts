@@ -19,6 +19,12 @@ export type Project = {
   github: string;
   /** Who built it with me, for team projects. */
   team?: string;
+  /** Role and years, shown as a mono meta line ("Solo · 2026"). */
+  meta: string;
+  /** 4–6 words for the hero's Selected work row. */
+  short: string;
+  /** Search and link-preview description for the case study. */
+  description: string;
   laptop?: { src: string; alt: string };
   phone?: { src: string; alt: string };
 };
@@ -28,6 +34,10 @@ export const projects: Project[] = [
     slug: "stride",
     name: "Stride",
     kind: "Habit and fitness tracker",
+    meta: "Solo · 2026",
+    short: "Habit tracker with an AI coach",
+    description:
+      "Stride, a habit and fitness tracker built with Next.js, Supabase and the Gemini API. Its AI copilot logs entries and plans workouts; row-level security on all 9 tables; live demo without an account.",
     pitch: "Tracking my habits was messy, with different things in different places. Now all my activities are tracked in one place.",
     highlights: [
       "Libra, a Gemini copilot with function calling: it logs entries, creates trackers and writes meal and workout plans, streaming its replies.",
@@ -49,6 +59,10 @@ export const projects: Project[] = [
     slug: "medivault",
     name: "MediVault",
     kind: "Family health records",
+    meta: "Solo · 2024–2026",
+    short: "Family medical records with AI",
+    description:
+      "MediVault, a family health records app built with Next.js, TypeScript, Supabase and Gemini. Reads prescriptions, has a QR emergency card and RLS on every table; mobile Lighthouse 52 → 95+.",
     pitch:
       "Keeping track of prescriptions used to annoy me. Now all my medical records are in one place, and I can ask the AI about anything I don’t understand.",
     highlights: [
@@ -74,10 +88,14 @@ export const projects: Project[] = [
     slug: "roadsense",
     name: "RoadSense",
     kind: "Speed-bump detection, Android",
+    meta: "Team lead · 2026",
+    short: "Speed-bump warnings for drivers",
+    description:
+      "RoadSense, an Android app in Flutter that detects speed bumps from GPS speed and warns drivers at 400 m and 60 m. FastAPI backend with a scikit-learn Random Forest on 7 features.",
     pitch: "An Android app that detects speed bumps from GPS speed data and warns drivers before they reach one.",
     highlights: [
       "Finds candidate events in the speed trace: a drop of 20% or more that recovers within 5 seconds.",
-      "A scikit-learn Random Forest scores each event on drop, deceleration, recovery time and jerk; only those above 0.70 confidence are kept.",
+      "A scikit-learn Random Forest scores each event on 7 features (speed before, minimum speed, drop, drop %, deceleration, recovery time, jerk); only those above 0.70 confidence are kept.",
       "Crowd validation: a bump is confirmed once it has been detected twice within 20 m.",
       "A “Speed Bump Ahead” banner and voice alert at 400 m and again at 60 m, on an OpenStreetMap map.",
     ],
@@ -88,25 +106,40 @@ export const projects: Project[] = [
   },
 ];
 
-export type Skill = { name: string; used: string[] };
+export type Skill = { name: string; used: string[]; note?: string };
 
-// `used` lists the project slugs whose stack has the skill, from each repo's README and CLAUDE.md:
-// Stride is plain JavaScript (Tailwind installed but unused), MediVault is TypeScript + Tailwind,
-// RoadSense is Flutter with a Python/FastAPI backend. Both web apps run a GitHub Actions keep-alive.
+// `used` lists the project slugs whose code uses the skill (checked against each repo's package.json,
+// pubspec.yaml and requirements.txt): Stride is plain JavaScript, MediVault TypeScript + Tailwind,
+// RoadSense Flutter with a Python/FastAPI backend. Both web apps run a GitHub Actions keep-alive.
+// The same skills are on the resume (lib/resume.ts and the PDF).
 const S = "stride";
 const M = "medivault";
 const R = "roadsense";
+const DSA = "DSA and coursework";
 
 export const skills: { group: string; items: Skill[] }[] = [
   {
-    group: "Frontend",
+    group: "Languages",
+    items: [
+      { name: "TypeScript", used: [M] },
+      { name: "JavaScript", used: [S] },
+      { name: "Python", used: [R] },
+      { name: "Dart", used: [R] },
+      { name: "SQL", used: [S, M] },
+      { name: "HTML & CSS", used: [S, M] },
+      { name: "C", used: [], note: DSA },
+      { name: "C++", used: [], note: DSA },
+      { name: "Java", used: [], note: DSA },
+    ],
+  },
+  {
+    group: "Frontend & mobile",
     items: [
       { name: "Next.js", used: [S, M] },
       { name: "React", used: [S, M] },
-      { name: "TypeScript", used: [M] },
-      { name: "JavaScript", used: [S] },
+      { name: "Flutter", used: [R] },
       { name: "Tailwind CSS", used: [M] },
-      { name: "Framer Motion", used: [S] },
+      { name: "Framer Motion", used: [S, M] },
       { name: "Recharts", used: [S] },
     ],
   },
@@ -114,9 +147,8 @@ export const skills: { group: string; items: Skill[] }[] = [
     group: "Backend",
     items: [
       { name: "Node.js", used: [S, M] },
-      { name: "REST APIs", used: [S, M, R] },
       { name: "FastAPI", used: [R] },
-      { name: "Python", used: [R] },
+      { name: "REST APIs", used: [S, M, R] },
     ],
   },
   {
@@ -128,24 +160,19 @@ export const skills: { group: string; items: Skill[] }[] = [
     ],
   },
   {
-    group: "AI",
+    group: "AI & data",
     items: [
       { name: "Gemini API", used: [S, M] },
       { name: "scikit-learn", used: [R] },
       { name: "pandas", used: [R] },
-    ],
-  },
-  {
-    group: "Mobile",
-    items: [
-      { name: "Flutter", used: [R] },
-      { name: "Dart", used: [R] },
+      { name: "NumPy", used: [R] },
     ],
   },
   {
     group: "Tools",
     items: [
       { name: "Git", used: [S, M, R] },
+      { name: "GitHub", used: [S, M, R] },
       { name: "GitHub Actions", used: [S, M] },
       { name: "Vercel", used: [S, M] },
       { name: "Render", used: [R] },
@@ -177,7 +204,7 @@ export const experience = [
 export const education = [
   {
     school: "BMS College of Engineering",
-    detail: "B.Tech, Computer Science and Engineering",
+    detail: "B.E., Computer Science and Engineering",
     years: "2023–2027",
     coursework: ["Data Structures & Algorithms", "DBMS", "Operating Systems", "Computer Networks", "Soft Computing"],
   },
@@ -192,8 +219,4 @@ export const education = [
   },
 ];
 
-export const achievements = [
-  { icon: "trophy", title: "3rd place, state-level chess competition" },
-  { icon: "medal", title: "School football team and athletics" },
-  { icon: "users", title: "Junior Coordinator, Utsav (BMSCE cultural fest)", detail: "Led a team of 12 volunteers" },
-] as const;
+export const chess = "3rd place in a state-level chess competition";

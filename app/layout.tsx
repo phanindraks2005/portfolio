@@ -11,26 +11,27 @@ import "./globals.css";
 
 const base = process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : site.url;
 
+const title = "K S Phanindra — Software Engineer (Full-stack) | Portfolio";
 const description =
-  "Full-stack developer in Bengaluru building AI-integrated web apps with Next.js, Supabase and Gemini. Projects: Stride, MediVault and RoadSense.";
+  "K S Phanindra, full-stack software engineer and B.E. CSE student at BMS College of Engineering, Bengaluru (2027). Live demos of Stride, MediVault and RoadSense.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(base),
   title: {
-    default: "K S Phanindra · Full-stack developer",
+    default: title,
     template: "%s · K S Phanindra",
   },
   description,
   authors: [{ name: site.name, url: site.github }],
   openGraph: {
     type: "website",
-    title: "K S Phanindra · Full-stack developer",
+    title,
     description,
     url: "/",
     siteName: site.name,
     locale: "en_IN",
   },
-  twitter: { card: "summary_large_image", title: "K S Phanindra · Full-stack developer", description },
+  twitter: { card: "summary_large_image", title, description },
   alternates: { canonical: "/" },
 };
 

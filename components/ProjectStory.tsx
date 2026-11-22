@@ -51,10 +51,12 @@ export function ProjectStory({ project: p, steps, flip, index }: { project: Proj
     <article ref={root} id={p.slug} className="story">
       <Reveal className="grid gap-8 border-b border-line pb-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-14">
         <RevealItem>
-          <p className="mono flex items-center gap-3 text-ink-3">
+          <p className="mono flex flex-wrap items-center gap-x-3 gap-y-1 text-ink-3">
             <span className="text-ink">{String(index + 1).padStart(2, "0")}</span>
             <span aria-hidden="true">·</span>
             {p.kind}
+            <span aria-hidden="true">·</span>
+            <span className="text-ink-2">{p.meta}</span>
           </p>
           <h3 className="display mt-4 text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[0.98] tracking-[-0.03em] text-ink">{p.name}</h3>
           <p className="mt-4 max-w-[46ch] text-[18px] leading-relaxed text-ink">{p.pitch}</p>
@@ -94,7 +96,7 @@ export function ProjectStory({ project: p, steps, flip, index }: { project: Proj
             <li
               key={s.title}
               data-step={i}
-              className="step flex min-h-[48vh] flex-col justify-center py-8 lg:min-h-[78vh] lg:py-0"
+              className="step flex min-h-[36vh] flex-col justify-center py-6 lg:min-h-[52vh] lg:py-0"
               data-active={i === active || undefined}
             >
               <p className="mono text-ink-3 tabular-nums">

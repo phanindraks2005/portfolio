@@ -1,16 +1,17 @@
 import Image from "next/image";
 import { Reveal, RevealItem } from "./motion";
+import { chess } from "@/lib/data";
 import { SectionHeader } from "./SectionHeader";
 
 const interests = ["Gym", "Travel", "Sports", "Music", "Chess"];
 
-const now = ["Preparing for campus placements", "Practising DSA every day", "Writing a research paper on RoadSense"];
+const now = ["Preparing for campus placements", "Practising DSA every day"];
 
 export function About() {
   return (
     <section id="about" aria-labelledby="about-title" className="border-t border-line py-20 sm:py-28">
       <div className="mx-auto max-w-[1320px] px-4 sm:px-8">
-        <SectionHeader index="03" label="About" id="about-title" title="About" />
+        <SectionHeader index="04" label="About" id="about-title" title="About" />
 
         <Reveal className="grid grid-cols-1 gap-10 pt-10 sm:pt-14 md:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] md:gap-14">
           <RevealItem className="w-full max-w-[300px]">
@@ -43,6 +44,7 @@ export function About() {
                 </li>
               ))}
             </ul>
+            <p className="mt-4 text-[15px] text-ink-2">{chess}.</p>
 
             <div id="now" className="mt-12 max-w-[62ch]">
               <div className="surface-card p-6 sm:p-8">

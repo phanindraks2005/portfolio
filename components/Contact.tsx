@@ -15,7 +15,7 @@ export function Contact() {
     <section id="contact" aria-labelledby="contact-title" className="border-t border-line py-20 sm:py-28">
       <div className="mx-auto max-w-[1320px] px-4 sm:px-8">
         <SectionHeader
-          index="09"
+          index="08"
           label="Contact"
           id="contact-title"
           title={
