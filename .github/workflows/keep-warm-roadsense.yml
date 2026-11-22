@@ -1,0 +1,37 @@
+# Keeps the RoadSense backend (Render free tier, sleeps after 15 idle minutes) awake during the day,
+# so the first request from the app or the case study doesn't wait for a cold start.
+# 08:00–23:00 IST is 02:30–17:30 UTC. GitHub may run scheduled jobs a few minutes late.
+name: Keep RoadSense backend warm
+
+on:
+  schedule:
+    - cron: "30-59/10 2 * * *" # 08:00–08:29 IST
+    - cron: "*/10 3-16 * * *" # 08:30–22:29 IST
+    - cron: "0-30/10 17 * * *" # 22:30–23:00 IST
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Ping the health endpoint
+        env:
+          URL: https://roadsense-backend-t98l.onrender.com/
+        run: |
+          result=$(curl -sS -o body.txt -w "%{http_code} %{time_total}" --max-time 120 "$URL") || true
+          code=${result%% *}
+          seconds=${result##* }
+          echo "HTTP ${code:-000} in ${seconds:-?} s"
+          cat body.txt 2>/dev/null; echo
+          {
+            echo "| Time (UTC) | Status | Response time |"
+            echo "|---|---|---|"
+            echo "| $(date -u +%H:%M) | ${code:-000} | ${seconds:-?} s |"
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$code" != "200" ]; then
+            echo "::error::Health check returned ${code:-no response}"
+            exit 1
+          fi

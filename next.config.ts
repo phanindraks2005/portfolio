@@ -8,7 +8,8 @@ const csp = [
   "img-src 'self' data: blob:",
   "media-src 'self'",
   "font-src 'self'",
-  "connect-src 'self'",
+  // The RoadSense case study checks its live backend.
+  "connect-src 'self' https://roadsense-backend-t98l.onrender.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

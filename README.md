@@ -11,6 +11,7 @@ Personal site of K S Phanindra, full-stack developer (CSE, BMS College of Engine
 - **Bugs I've killed:** four real bugs with symptom, root cause, fix and the code.
 - **How I tested it:** numbers from the projects' own audits.
 - **Resume** at `/resume` (HTML, printable) and `/resume.pdf`.
+- **Live backend check** on the RoadSense case study, and a GitHub Actions workflow (`.github/workflows/keep-warm-roadsense.yml`) that pings the Render backend every 10 minutes from 08:00 to 23:00 IST so it isn't asleep.
 - Ctrl+K command menu, smooth scrolling on desktop, `prefers-reduced-motion` respected throughout.
 
 ## Stack

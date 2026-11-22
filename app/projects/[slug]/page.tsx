@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArchDiagram } from "@/components/ArchDiagram";
+import { BackendStatus } from "@/components/BackendStatus";
 import { FeatureMedia } from "@/components/FeatureMedia";
 import { LaptopFrame, PhoneFrame } from "@/components/Frames";
 import { ProjectLinks } from "@/components/ProjectLinks";
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: PageProps<"/projects/[slug]">
   const { slug } = await params;
   const p = projects.find((x) => x.slug === slug);
   if (!p) return {};
-  return pageMetadata({ title: `${p.name} case study`, description: `${p.name}, ${p.kind.toLowerCase()}. ${p.pitch}`, path: `/projects/${p.slug}` });
+  return pageMetadata({ title: `${p.name} case study`, description: p.description, path: `/projects/${p.slug}` });
 }
 
 const h2 = "display mt-4 text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.05] text-ink";
@@ -48,12 +49,17 @@ export default async function CaseStudy({ params }: PageProps<"/projects/[slug]"
               ← All projects
             </Link>
             <p className="mono mt-8 text-ink-3">
-              {pad(index + 1)} / Case study · {p.kind}
+              {pad(index + 1)} / Case study · {p.kind} · <span className="text-ink-2">{p.meta}</span>
             </p>
             <h1 className="display mt-4 text-[clamp(3rem,7vw,5rem)] leading-[0.95] tracking-[-0.03em] text-ink">{p.name}</h1>
             <p className="mt-5 max-w-[48ch] text-[clamp(1.05rem,1.6vw,1.25rem)] leading-relaxed text-ink">{p.pitch}</p>
             {p.team && <p className="mt-3 max-w-[48ch] text-[15px] leading-relaxed text-ink-2">{p.team}</p>}
             <ProjectLinks project={p} caseStudy={false} className="mt-8" />
+            {slug === "roadsense" && (
+              <div className="mt-4">
+                <BackendStatus />
+              </div>
+            )}
           </div>
 
           <div className="relative">
