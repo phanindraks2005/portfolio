@@ -1,17 +1,17 @@
-// Same content as public/resume.pdf, minus the phone number.
+// Same content as public/resume.pdf, minus the phone number and the CGPA (the CGPA is only in the PDF).
 
 export const resume = {
   name: "K S Phanindra",
-  location: "Bangalore, KA",
+  location: "Bengaluru, Karnataka",
+  portfolio: "https://phanindra-ks.vercel.app",
   education: {
     school: "BMS College of Engineering",
     place: "Bengaluru",
-    degree: "B.Tech in Computer Science Engineering",
-    cgpa: "6.88",
+    degree: "B.E. in Computer Science and Engineering",
     years: "2023 – 2027",
     interests: "Full-Stack Web Development, AI-Integrated Applications, Database Management Systems, Software Development",
   },
-  experience: [
+  leadership: [
     {
       org: "Utsav — Cultural Fest, BMSCE",
       role: "Junior Coordinator, Volunteering Committee",
@@ -38,12 +38,12 @@ export const resume = {
     },
   ],
   skills: [
-    { label: "Languages & Core", items: "C, C++, Java, Python, JavaScript, TypeScript, Dart, HTML, CSS, SQL" },
+    { label: "Languages", items: "TypeScript, JavaScript, Python, Dart, SQL, HTML, CSS, C, C++, Java" },
     {
       label: "Frameworks & Libraries",
-      items: "React.js, Next.js, Node.js, Express.js, FastAPI, Flutter, Tailwind CSS, Three.js, Framer Motion, NumPy, Pandas, Scikit-learn",
+      items: "Next.js, React, Node.js, FastAPI, Flutter, Tailwind CSS, Framer Motion, Recharts, scikit-learn, pandas, NumPy",
     },
-    { label: "Databases & Tools", items: "PostgreSQL (Supabase), MySQL, MongoDB, SQLite, REST APIs, Git, GitHub, Vercel, Render" },
+    { label: "Databases & Tools", items: "PostgreSQL (Supabase), SQLite, Gemini API, REST APIs, Git, GitHub, GitHub Actions, Vercel, Render" },
     { label: "CS Fundamentals", items: "DSA, DBMS, Operating Systems, Computer Networks, OOP, AI" },
     { label: "Soft Skills", items: "Problem-solving, Communication, Teamwork, Time Management, Adaptability" },
   ],
@@ -53,7 +53,7 @@ export const resume = {
       tagline: "Family Health Records & AI Assistant",
       stack: "Next.js, TypeScript, Supabase (PostgreSQL), Gemini API, Tailwind CSS, Vercel",
       github: "https://github.com/phanindraks2005/medivault",
-      live: "https://medivault-ks.vercel.app",
+      live: "https://medivault-ks.vercel.app/demo",
       points: [
         "Built and deployed a family health records app that reads prescription photos with Gemini OCR and organises each member’s medicines, records and vaccinations on one calendar.",
         "Secured medical data with PostgreSQL Row-Level Security, a private per-user storage bucket, token-verified API routes and per-user AI rate limits; found and fixed a cross-account file-access vulnerability during a QA audit.",
@@ -66,9 +66,9 @@ export const resume = {
       tagline: "Full-Stack Fitness & Habit Tracking Platform",
       stack: "Next.js, JavaScript, Supabase (PostgreSQL), Gemini API, Framer Motion, Recharts, Vercel",
       github: "https://github.com/phanindraks2005/stride",
-      live: "https://stride-ks.vercel.app",
+      live: "https://stride-ks.vercel.app/demo",
       points: [
-        "Built and deployed a full-stack fitness and habit tracking web app with workout logging, custom trackers, streaks, notes, and visual progress charts.",
+        "Built and deployed a fitness and habit tracker with workout logging, custom trackers, streaks, notes and progress charts.",
         "Integrated Libra, an in-app AI copilot on the Gemini API with tool-calling that logs activity, creates trackers, and generates meal and workout plans from natural conversation.",
         "Secured multi-user data with Supabase Auth and PostgreSQL Row-Level Security, isolating each user’s data on every table.",
         "Fixed multi-step AI requests so every tool call runs and failures are reported, and paged past Supabase’s 1,000-row limit that was silently dropping older history from streaks and charts.",
@@ -77,12 +77,12 @@ export const resume = {
     {
       name: "RoadSense",
       tagline: "Road Safety & Speed-Bump Detection App",
-      stack: "Flutter, Dart, FastAPI, Python, Scikit-learn, Pandas, SQLite, OpenStreetMap, Render",
+      stack: "Flutter, Dart, FastAPI, Python, scikit-learn, pandas, SQLite, OpenStreetMap, Render",
       github: "https://github.com/phanindraks2005/roadsense-app",
       points: [
         "Built a Flutter Android app that streams GPS speed readings every second, shows detected bumps on an OpenStreetMap map, and gives a banner and voice alert at 400 m and again at 60 m.",
         "Built a FastAPI backend on Render with SQLite that flags candidate bumps where speed drops 20%+ and recovers within 5 s.",
-        "Classified each event with a Scikit-learn Random Forest on 7 features (speed drop, deceleration, recovery time, jerk and more), keeping detections above 0.70 confidence.",
+        "Classified each event with a scikit-learn Random Forest on 7 features (speed before, minimum speed, drop, drop %, deceleration, recovery time, jerk), keeping detections above 0.70 confidence.",
         "Added crowd validation that confirms a bump after 2 detections within 20 m, plus nearby places and CSV export.",
       ],
     },

@@ -372,6 +372,16 @@ body {
 }
 
 /* Resume print sheet: plain black on white, A4, nothing but the resume. */
+/* Resume header: stacked on phones; one row with dot separators from sm up, so no dot is left at a line end. */
+@media (min-width: 768px) {
+  .resume-contact p > * + *::before {
+    content: "·";
+    display: inline-block;
+    margin-right: 0.75rem;
+    color: var(--ink-3);
+  }
+}
+
 @media print {
   @page {
     size: A4;

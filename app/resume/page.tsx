@@ -10,7 +10,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Resume",
   description:
-    "Resume of K S Phanindra: B.Tech CSE at BMS College of Engineering (2023–2027), full-stack projects MediVault, Stride and RoadSense.",
+    "Resume of K S Phanindra, software engineer: B.E. in Computer Science and Engineering at BMS College of Engineering, Bengaluru (2023–2027). Projects: MediVault, Stride and RoadSense.",
   path: "/resume",
 });
 
@@ -35,59 +35,37 @@ export default function ResumePage() {
         <article className="sheet rounded-[6px] border border-line bg-surface p-6 sm:p-12">
           <header className="text-center">
             <h1 className="display text-[clamp(2rem,5vw,2.75rem)] leading-none tracking-[-0.02em] text-ink">{resume.name}</h1>
-            <p className="mt-4 flex flex-wrap justify-center gap-x-3 gap-y-1 text-[14px] text-ink-2">
-              <span>{resume.location}</span>
-              <span aria-hidden="true">·</span>
-              <a href={`mailto:${site.email}`} className="inline-flex min-h-11 items-center underline-offset-4 hover:text-ink hover:underline hover:decoration-accent sm:min-h-0">
-                {site.email}
-              </a>
-              <span aria-hidden="true">·</span>
-              <a href={site.linkedin} className="inline-flex min-h-11 items-center gap-1.5 underline-offset-4 hover:text-ink hover:underline hover:decoration-accent sm:min-h-0">
-                <LinkedInIcon size={13} />
-                {host(site.linkedin)}
-              </a>
-              <span aria-hidden="true">·</span>
-              <a href={site.github} className="inline-flex min-h-11 items-center gap-1.5 underline-offset-4 hover:text-ink hover:underline hover:decoration-accent sm:min-h-0">
-                <GitHubIcon size={13} />
-                {host(site.github)}
-              </a>
-            </p>
+            {/* Two rows as in the PDF; stacked on phones so no separator dot is left at a line end. */}
+            <div className="resume-contact mt-4 grid justify-items-center gap-y-1 text-[14px] text-ink-2">
+              <p className="flex flex-col items-center gap-y-1 md:flex-row md:gap-x-3">
+                <span>{resume.location}</span>
+                <a href={`mailto:${site.email}`} className="inline-flex min-h-11 items-center gap-1.5 underline-offset-4 hover:text-ink hover:underline hover:decoration-accent md:min-h-0">
+                  {site.email}
+                </a>
+                <a href={resume.portfolio} className="inline-flex min-h-11 items-center gap-1.5 underline-offset-4 hover:text-ink hover:underline hover:decoration-accent md:min-h-0">
+                  {host(resume.portfolio)}
+                </a>
+              </p>
+              <p className="flex flex-col items-center gap-y-1 md:flex-row md:gap-x-3">
+                <a href={site.linkedin} className="inline-flex min-h-11 items-center gap-1.5 underline-offset-4 hover:text-ink hover:underline hover:decoration-accent md:min-h-0">
+                  <LinkedInIcon size={13} />
+                  {host(site.linkedin)}
+                </a>
+                <a href={site.github} className="inline-flex min-h-11 items-center gap-1.5 underline-offset-4 hover:text-ink hover:underline hover:decoration-accent md:min-h-0">
+                  <GitHubIcon size={13} />
+                  {host(site.github)}
+                </a>
+              </p>
+            </div>
           </header>
 
           <Section title="Education">
             <Row left={resume.education.school} right={resume.education.place} />
-            <p className="text-[15px] text-ink">
-              {resume.education.degree} · CGPA {resume.education.cgpa}
-            </p>
+            <p className="text-[15px] text-ink">{resume.education.degree}</p>
             <p className="text-[15px] text-ink-2">{resume.education.years}</p>
             <p className="mt-3 text-[15px] text-ink-2">
               <span className="text-ink">Areas of interest:</span> {resume.education.interests}
             </p>
-          </Section>
-
-          <Section title="Work experience">
-            <div className="grid gap-6">
-              {resume.experience.map((e) => (
-                <div key={e.org}>
-                  <Row left={e.org} right={e.place} />
-                  <p className="text-[15px] text-ink-2">
-                    {e.role} · {e.year}
-                  </p>
-                  <Bullets items={e.points} />
-                </div>
-              ))}
-            </div>
-          </Section>
-
-          <Section title="Skills">
-            <dl className="grid gap-2.5">
-              {resume.skills.map((s) => (
-                <div key={s.label} className="grid gap-x-4 sm:grid-cols-[190px_1fr]">
-                  <dt className="text-[15px] font-medium text-ink">{s.label}</dt>
-                  <dd className="text-[15px] text-ink-2">{s.items}</dd>
-                </div>
-              ))}
-            </dl>
           </Section>
 
           <Section title="Projects">
@@ -115,6 +93,31 @@ export default function ResumePage() {
               ))}
             </div>
           </Section>
+          <Section title="Skills">
+            <dl className="grid gap-2.5">
+              {resume.skills.map((s) => (
+                <div key={s.label} className="grid gap-x-4 sm:grid-cols-[190px_1fr]">
+                  <dt className="text-[15px] font-medium text-ink">{s.label}</dt>
+                  <dd className="text-[15px] text-ink-2">{s.items}</dd>
+                </div>
+              ))}
+            </dl>
+          </Section>
+
+          <Section title="Leadership & activities">
+            <div className="grid gap-6">
+              {resume.leadership.map((e) => (
+                <div key={e.org}>
+                  <Row left={e.org} right={e.place} />
+                  <p className="text-[15px] text-ink-2">
+                    {e.role} · {e.year}
+                  </p>
+                  <Bullets items={e.points} />
+                </div>
+              ))}
+            </div>
+          </Section>
+
         </article>
       </div>
     </main>
