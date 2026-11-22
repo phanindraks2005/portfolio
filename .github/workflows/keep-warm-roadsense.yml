@@ -1,6 +1,7 @@
 # Keeps the RoadSense backend (Render free tier, sleeps after 15 idle minutes) awake during the day,
 # so the first request from the app or the case study doesn't wait for a cold start.
 # 08:00–23:00 IST is 02:30–17:30 UTC. GitHub may run scheduled jobs a few minutes late.
+# It also re-enables itself through the API, so GitHub's 60-day inactivity rule never turns it off.
 name: Keep RoadSense backend warm
 
 on:
@@ -16,6 +17,8 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      actions: write
     steps:
       - name: Ping the health endpoint
         env:
@@ -35,3 +38,11 @@ jobs:
             echo "::error::Health check returned ${code:-no response}"
             exit 1
           fi
+
+      # GitHub disables scheduled workflows after 60 days without a commit.
+      # Enabling it again resets that timer, with no commit needed.
+      - name: Keep this workflow enabled
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/keep-warm-roadsense.yml/enable"
